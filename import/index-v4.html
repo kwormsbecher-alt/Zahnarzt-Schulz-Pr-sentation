@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zahnarztpraxis Michael Schulz – Pforzheim</title>
+  <meta name="description" content="Zahnarztpraxis Michael Schulz in Pforzheim — moderne Zahnmedizin, persoenliche Betreuung. Dillsteiner Str. 7, 75173 Pforzheim. Tel: 07231 21641" />
+  <link rel="canonical" href="https://zahnarzt-schulz-pforzheim.de" />
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FFFFFF;
+      --bg2:       #F2EDE4;
+      --bg3:       #EDF3F5;
+      --white:     #FFFFFF;
+      --text:      #1F1F1F;
+      --mid:       #5C5C5C;
+      --soft:      #9A9898;
+      --petrol:    #2C5F6F;
+      --petrol2:   #1E4757;
+      --petrol-bg: #EDF3F5;
+      --petrol-mid:#C2D5DB;
+      --border:    rgba(31,31,31,0.09);
+      --border2:   rgba(44,95,111,0.15);
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+
+    /* ── IMAGE SLOTS ── */
+    .image-slot { position: relative; overflow: hidden; }
+    .image-slot img { width: 100%; height: 100%; object-fit: cover; }
+    .image-slot-note {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.3rem; padding: 1rem; text-align: center;
+      background: var(--bg2);
+      color: var(--soft);
+      border: 1.5px dashed var(--petrol-mid);
+      font-size: 0.8rem; font-family: 'Inter', sans-serif; line-height: 1.5;
+    }
+    .image-slot-note small { font-size: 0.68rem; color: var(--soft); opacity: 0.7; }
+    .image-slot.has-image .image-slot-note { display: none; }
+
+    /* ── NAV ── */
+    #main-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem;
+      background: rgba(250,248,244,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    #main-nav.scrolled { box-shadow: 0 2px 24px rgba(31,31,31,0.06); }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--text); cursor: pointer;
+      line-height: 1.25; letter-spacing: 0.01em;
+      flex-shrink: 0;
+    }
+    .nav-logo small {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem; font-weight: 400;
+      color: var(--petrol); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-top: 0.1rem;
+    }
+    .nav-links {
+      display: flex; gap: 0.2rem; align-items: center;
+      margin-left: auto;
+    }
+    .nav-links a {
+      display: block; padding: 0.55rem 1rem;
+      font-size: 0.85rem; font-weight: 400;
+      color: var(--mid); text-decoration: none; cursor: pointer;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: rgba(255,255,255,0);
+      box-shadow: 0 0 0 0 rgba(0,0,0,0);
+      transition: color 0.18s, background 0.22s, border-color 0.22s, box-shadow 0.22s, transform 0.18s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+      background: rgba(255,255,255,0.96);
+      border-color: rgba(51,91,103,0.14);
+      box-shadow: 0 10px 24px rgba(27,39,44,0.08), inset 0 1px 0 rgba(255,255,255,0.7);
+      transform: translateY(-1px);
+    }
+    .nav-cta {
+      margin-left: 0.2rem;
+      padding: 0.6rem 1.4rem;
+      background: var(--petrol);
+      color: var(--white);
+      border: none; border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.84rem; font-weight: 500;
+      cursor: pointer; flex-shrink: 0;
+      transition: background 0.18s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--petrol2); transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); transition: all 0.25s; border-radius: 2px; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: var(--bg); flex-direction: column;
+      padding: 5.5rem 2.5rem 2.5rem; overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a, .mobile-menu .mob-sub {
+      display: block; padding: 1rem 0;
+      font-size: 1.1rem; font-weight: 400; color: var(--mid);
+      text-decoration: none; border-bottom: 1px solid var(--border); cursor: pointer;
+      transition: color 0.15s;
+    }
+    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu .mob-sub { font-size: 0.88rem; color: var(--petrol); padding-left: 1rem; }
+    .mobile-menu .mob-cta {
+      display: block; margin-top: 2rem; text-align: center;
+      background: var(--petrol); color: white;
+      padding: 1rem; border-radius: 6px;
+      font-weight: 500; font-size: 0.95rem; border-bottom: none;
+    }
+    .mob-close {
+      position: absolute; top: 1.3rem; right: 1.8rem;
+      background: none; border: none; color: var(--soft);
+      font-size: 1.8rem; cursor: pointer; line-height: 1;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section-wrap {
+      padding: 7rem 4rem;
+    }
+    .section-wrap.bg2 { background: var(--bg2); }
+    .section-wrap.bg3 { background: var(--bg3); }
+    .section-wrap.bgwhite { background: var(--white); }
+
+    .eyebrow-v4 {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--petrol); margin-bottom: 1rem;
+    }
+    .h2-serif {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400; color: var(--text);
+      line-height: 1.2; letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .h2-serif em { font-style: italic; color: var(--petrol); }
+    .lead-text {
+      font-size: 1rem; color: var(--mid);
+      line-height: 1.75; max-width: 520px; font-weight: 300;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: 72px;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--bg);
+    }
+    .hero-text-col {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 5rem 6rem 4rem;
+    }
+    .hero-h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-h1 em { font-style: italic; color: var(--petrol); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--mid);
+      line-height: 1.75; font-weight: 300;
+      max-width: 400px; margin-bottom: 3rem;
+    }
+    .hero-mobile-visual {
+      display: none;
+      background: transparent;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.95rem 2.2rem;
+      background: var(--petrol); color: var(--white);
+      border: none; border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem; font-weight: 500;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.18s, transform 0.15s;
+      width: fit-content;
+    }
+    .hero-cta:hover { background: var(--petrol2); transform: translateY(-2px); }
+    .hero-cta svg { flex-shrink: 0; }
+    .hero-trust {
+      display: flex; align-items: center; gap: 1.5rem;
+      margin-top: 2.5rem; flex-wrap: wrap;
+    }
+    .hero-trust-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: var(--soft); font-weight: 400;
+    }
+    .hero-trust-dot {
+      width: 5px; height: 5px; border-radius: 50%; background: var(--petrol-mid); flex-shrink: 0;
+    }
+    .hero-img-col {
+      position: relative; overflow: hidden;
+      background: transparent;
+    }
+    .hero-img-col .image-slot { height: 100%; }
+    .hero-img-col .image-slot img { height: 100%; object-fit: cover; object-position: center top; }
+    .hero-img-desktop { display: block; }
+    .hero-img-mobile { display: none; }
+
+    /* ── LEISTUNGEN ── */
+    #leistungen {}
+    .leistungen-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .leistung-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem 1.75rem;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .leistung-card:hover {
+      box-shadow: 0 12px 40px rgba(44,95,111,0.1);
+      transform: translateY(-3px);
+    }
+    .leistung-icon {
+      width: 44px; height: 44px;
+      background: var(--petrol-bg);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      color: var(--petrol);
+      font-size: 1.25rem;
+    }
+    .leistung-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem; font-weight: 400;
+      color: var(--text); margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .leistung-card p { font-size: 0.875rem; color: var(--mid); line-height: 1.7; font-weight: 300; }
+    .leistung-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      margin-top: 1.25rem; font-size: 0.8rem; font-weight: 500;
+      color: var(--petrol); text-decoration: none; cursor: default;
+      transition: gap 0.15s;
+    }
+    .leistung-link:hover { gap: 0.55rem; }
+
+    /* ── UEBER DIE PRAXIS ── */
+    #ueber {}
+    .ueber-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 3.5rem;
+      align-items: start;
+      margin-top: 2.5rem;
+    }
+    .ueber-text { max-width: 680px; }
+    .ueber-lead {
+      font-size: 1rem; color: var(--mid);
+      line-height: 1.85; font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .ueber-compact-copy {
+      font-size: 0.92rem; color: var(--mid);
+      line-height: 1.8; font-weight: 300;
+      max-width: 620px;
+    }
+    .ueber-text > p:not(.ueber-lead):not(.ueber-compact-copy) {
+      font-size: 0.95rem; color: var(--mid);
+      line-height: 1.85; font-weight: 300; margin-bottom: 1rem;
+    }
+    .ueber-text p em { font-style: italic; color: var(--text); font-weight: 400; }
+    .ueber-values {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 1.75rem;
+    }
+    .ueber-value {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 1rem 1rem 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.72);
+    }
+    .ueber-value-num {
+      font-family: 'Fraunces', serif;
+      font-size: 0.8rem; color: var(--petrol);
+      opacity: 0.75; flex-shrink: 0; width: 1.1rem;
+      margin-top: 0.08rem;
+    }
+    .ueber-value-text h4 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; line-height: 1.3; }
+    .ueber-value-text p { font-size: 0.8rem; color: var(--mid); line-height: 1.55; margin: 0; }
+    .ueber-img-wrap {
+      border-radius: 16px; overflow: hidden;
+      aspect-ratio: 5 / 4.4; background: var(--bg2);
+      position: relative;
+    }
+    .ueber-img-wrap img { object-position: center 16%; }
+
+    /* ── TEAM ── */
+    #team {}
+    .team-grid-v4 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .team-card-v4 { text-align: center; }
+    .team-photo-v4 {
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg2);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .team-card-v4.featured .team-photo-v4 {
+      border: 2px solid var(--petrol-mid);
+    }
+    .team-photo-v4 img { width: 100%; height: 100%; object-fit: cover; }
+    .team-name-v4 {
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem; font-weight: 400; color: var(--text);
+      margin-bottom: 0.2rem; line-height: 1.3;
+    }
+    .team-role-v4 {
+      font-size: 0.72rem; font-weight: 500;
+      color: var(--petrol); letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .team-karriere-cta {
+      text-align: center; margin-top: 4rem; padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .team-karriere-cta p { font-size: 0.92rem; color: var(--mid); margin-bottom: 1rem; font-weight: 300; }
+    .btn-outline-petrol {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border: 1.5px solid var(--petrol);
+      border-radius: 6px; background: transparent;
+      color: var(--petrol);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.18s;
+    }
+    .btn-outline-petrol:hover { background: var(--petrol); color: white; }
+
+    /* ── PATIENTENSTIMMEN ── */
+    #stimmen {}
+    .stimmen-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+    .stimme-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2.25rem;
+      border: 1px solid var(--border);
+    }
+    .stimme-quote-mark {
+      font-family: 'Fraunces', serif;
+      font-size: 3.5rem; line-height: 1;
+      color: var(--petrol); opacity: 0.25;
+      margin-bottom: 0.75rem;
+    }
+    .stimme-text {
+      font-size: 0.92rem; color: var(--text);
+      line-height: 1.8; font-weight: 300;
+      font-style: italic; margin-bottom: 1.75rem;
+    }
+    .stimme-author {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding-top: 1.25rem; border-top: 1px solid var(--border);
+    }
+    .stimme-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; font-size: 0.88rem; color: white; flex-shrink: 0;
+    }
+    .stimme-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .stimme-stars { color: #c8963c; font-size: 0.72rem; letter-spacing: 0.05em; margin-top: 0.1rem; }
+    .stimmen-cta { text-align: center; margin-top: 2.5rem; }
+    .btn-google-v4 {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.7rem 1.5rem; border: 1.5px solid var(--border);
+      border-radius: 6px; background: var(--white);
+      font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 500;
+      color: var(--text); text-decoration: none;
+      transition: all 0.18s;
+    }
+    .btn-google-v4:hover { border-color: var(--petrol); color: var(--petrol); }
+
+    /* ── KONTAKT & TERMIN ── */
+    #kontakt {}
+    .kontakt-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3.5rem;
+    }
+    .kontakt-col-title {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--petrol); margin-bottom: 1.25rem;
+      padding-bottom: 1rem; border-bottom: 1px solid var(--border2);
+    }
+    .hours-list-v4 { display: flex; flex-direction: column; gap: 0.55rem; }
+    .hours-row-v4 { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+    .hours-day-v4 { font-size: 0.88rem; color: var(--mid); font-weight: 400; }
+    .hours-time-v4 { font-size: 0.84rem; color: var(--text); font-weight: 500; text-align: right; }
+    .hours-closed-v4 { font-size: 0.84rem; color: var(--soft); }
+    .contact-row-v4 {
+      display: flex; align-items: center; gap: 0.85rem;
+      font-size: 0.9rem; font-weight: 500; color: var(--text);
+      text-decoration: none; margin-bottom: 0.9rem;
+      transition: color 0.15s;
+    }
+    .contact-row-v4:hover { color: var(--petrol); }
+    .contact-icon-v4 {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--petrol-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.88rem; flex-shrink: 0; color: var(--petrol);
+    }
+    .contact-note { font-size: 0.8rem; color: var(--soft); line-height: 1.6; margin-top: 1rem; font-weight: 300; }
+    .termin-box {
+      background: var(--petrol);
+      border-radius: 12px;
+      padding: 2.25rem;
+      display: flex; flex-direction: column;
+    }
+    .termin-box h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem; font-weight: 400;
+      color: white; line-height: 1.25; margin-bottom: 0.75rem;
+    }
+    .termin-box p { font-size: 0.88rem; color: rgba(255,255,255,0.72); line-height: 1.7; font-weight: 300; margin-bottom: 1.75rem; flex: 1; }
+    .btn-white-petrol {
+      display: block; text-align: center;
+      padding: 0.85rem; background: white; color: var(--petrol);
+      border-radius: 6px; font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 600;
+      border: none; cursor: pointer; transition: background 0.15s;
+    }
+    .btn-white-petrol:hover { background: var(--bg); }
+
+    /* ── GALERIE ── */
+    #galerie {}
+    .galerie-mosaic-v4 {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1rem;
+      margin-top: 3.5rem;
+    }
+    .gal-v4 {
+      border-radius: 10px; overflow: hidden;
+      background: var(--bg2); position: relative;
+    }
+    .gal-v4 img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gal-v4:hover img { transform: scale(1.04); }
+    .gal-v4.g7 { grid-column: span 7; min-height: 320px; }
+    .gal-v4.g5 { grid-column: span 5; min-height: 320px; }
+    .gal-v4.g4 { grid-column: span 4; min-height: 230px; }
+    .gal-v4.g4b { grid-column: span 4; min-height: 230px; }
+    .gal-v4.g4c { grid-column: span 4; min-height: 230px; }
+    .gal-v4.g12 { grid-column: 1 / -1; min-height: 180px; }
+    .gal-label-v4 {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.85rem 1.1rem;
+      background: linear-gradient(0deg, rgba(31,31,31,0.65) 0%, transparent 100%);
+    }
+    .gal-label-v4 span { color: white; font-size: 0.82rem; font-weight: 500; }
+    .gal-label-v4 small { display: block; color: rgba(255,255,255,0.65); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.1rem; }
+
+    /* ── KARRIERE ── (als eigene View) */
+    #karriere-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
+    #karriere-view.visible { display: block; }
+
+    .karriere-v4 { padding: 6rem 4rem; }
+    .karriere-layout-v4 {
+      display: grid; grid-template-columns: 1fr 320px;
+      gap: 4rem; align-items: start; margin-top: 3rem;
+    }
+    .stellen-v4 { display: flex; flex-direction: column; gap: 0.75rem; }
+    .stelle-v4 {
+      border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden; background: var(--white);
+    }
+    .stelle-v4-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; cursor: pointer; gap: 1rem;
+      transition: background 0.15s;
+    }
+    .stelle-v4-header:hover { background: var(--bg); }
+    .stelle-v4-title { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+    .stelle-v4-meta { font-size: 0.78rem; color: var(--soft); margin-top: 0.18rem; }
+    .stelle-v4-right { display: flex; align-items: center; gap: 0.7rem; flex-shrink: 0; }
+    .stelle-v4-tag {
+      background: var(--petrol-bg); color: var(--petrol);
+      font-size: 0.68rem; font-weight: 600;
+      padding: 0.22rem 0.65rem; border-radius: 4px; letter-spacing: 0.04em;
+    }
+    .stelle-v4-arrow { color: var(--soft); font-size: 0.75rem; transition: transform 0.22s; }
+    .stelle-v4.open .stelle-v4-arrow { transform: rotate(180deg); }
+    .stelle-v4-body {
+      display: none; padding: 0 1.5rem 1.5rem;
+      border-top: 1px solid var(--border); background: var(--bg);
+    }
+    .stelle-v4.open .stelle-v4-body { display: block; }
+    .stelle-v4-body p { font-size: 0.88rem; color: var(--mid); line-height: 1.75; margin: 1rem 0 0.75rem; }
+    .anf-label-v4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--petrol); margin-bottom: 0.6rem; }
+    .anf-list-v4 { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .anf-list-v4 li { font-size: 0.85rem; color: var(--mid); display: flex; align-items: baseline; gap: 0.6rem; }
+    .anf-list-v4 li::before { content: ''; display: block; width: 14px; height: 1px; background: var(--petrol); flex-shrink: 0; margin-top: 0.55rem; opacity: 0.6; }
+    .btn-apply-v4 {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--petrol); color: white;
+      padding: 0.6rem 1.2rem; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 500;
+      border: none; cursor: pointer; transition: background 0.18s;
+    }
+    .btn-apply-v4:hover { background: var(--petrol2); }
+    .karriere-side-v4 { display: flex; flex-direction: column; gap: 1.25rem; }
+    .benefits-v4 {
+      background: var(--petrol-bg); border-radius: 10px; padding: 1.5rem;
+      border: 1px solid var(--border2);
+    }
+    .benefits-v4 h4 { font-size: 0.82rem; font-weight: 600; color: var(--petrol); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+    .benefits-v4 ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .benefits-v4 li { font-size: 0.85rem; color: var(--mid); display: flex; align-items: baseline; gap: 0.6rem; }
+    .benefits-v4 li::before { content: ''; display: block; width: 14px; height: 1px; background: var(--petrol); flex-shrink: 0; margin-top: 0.55rem; opacity: 0.5; }
+    .cta-petrol-box {
+      background: var(--petrol); border-radius: 10px; padding: 1.75rem; color: white;
+    }
+    .cta-petrol-box h4 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .cta-petrol-box p { font-size: 0.84rem; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 1.25rem; font-weight: 300; }
+    .btn-white-sm {
+      display: block; text-align: center; width: 100%;
+      padding: 0.75rem; background: white; color: var(--petrol);
+      border: none; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn-white-sm:hover { background: var(--bg); }
+
+    /* ── BEWERBUNG / TERMIN FORMS ── */
+    #bewerbung-view, #termin-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg2); }
+    #bewerbung-view.visible, #termin-view.visible { display: block; }
+    .form-page-v4 { padding: 5rem 4rem; }
+    .form-wrap-v4 { max-width: 680px; margin: 2rem auto 0; }
+    .back-btn-v4 {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; border: 1px solid var(--border); border-radius: 6px;
+      color: var(--mid); font-family: 'Inter', sans-serif;
+      font-size: 0.8rem; font-weight: 500; padding: 0.5rem 1rem;
+      cursor: pointer; transition: all 0.15s; margin-bottom: 2rem;
+    }
+    .back-btn-v4:hover { border-color: var(--petrol); color: var(--petrol); }
+    .form-card-v4 {
+      background: var(--white); border-radius: 16px;
+      padding: 2.5rem; border: 1px solid var(--border);
+      box-shadow: 0 4px 40px rgba(31,31,31,0.05);
+    }
+    .form-card-v4 h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem; font-weight: 400; color: var(--text);
+      margin-bottom: 0.4rem; letter-spacing: -0.01em;
+    }
+    .form-card-v4 > p { font-size: 0.88rem; color: var(--mid); margin-bottom: 1.75rem; font-weight: 300; }
+    .form-note-v4 {
+      background: var(--petrol-bg); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1.5rem;
+      font-size: 0.83rem; color: var(--petrol); line-height: 1.65;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-row-v4 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label { display: block; font-size: 0.72rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    input, select, textarea {
+      width: 100%; padding: 0.72rem 1rem;
+      border: 1.5px solid var(--border); border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      color: var(--text); background: var(--bg);
+      outline: none; transition: border-color 0.18s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--petrol); }
+    textarea { resize: vertical; min-height: 100px; }
+    .file-upload-v4 {
+      border: 1.5px dashed var(--petrol-mid); border-radius: 8px;
+      background: var(--petrol-bg); padding: 1.5rem;
+      text-align: center; cursor: pointer; transition: all 0.18s;
+    }
+    .file-upload-v4:hover { border-color: var(--petrol); }
+    .file-upload-v4 input { display: none; }
+    .file-upload-v4 .upload-icon { font-size: 1.4rem; display: block; margin-bottom: 0.35rem; }
+    .file-upload-v4 p { font-size: 0.82rem; color: var(--mid); }
+    .form-or-v4 { text-align: center; color: var(--soft); font-size: 0.78rem; margin: 1rem 0 0; }
+    .btn-mail-v4 {
+      display: block; text-align: center; margin-top: 0.75rem;
+      background: transparent; border: 1.5px solid var(--border);
+      color: var(--petrol); padding: 0.75rem; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.88rem;
+      cursor: pointer; text-decoration: none; transition: all 0.18s;
+    }
+    .btn-mail-v4:hover { border-color: var(--petrol); background: var(--petrol-bg); }
+    .form-submit-v4 {
+      width: 100%; padding: 0.9rem; background: var(--petrol); color: white;
+      border: none; border-radius: 6px; font-family: 'Inter', sans-serif;
+      font-size: 0.92rem; font-weight: 500; cursor: pointer; margin-top: 1.25rem;
+      transition: background 0.18s;
+    }
+    .form-submit-v4:hover { background: var(--petrol2); }
+    .success-msg {
+      display: none; background: var(--petrol-bg); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 1rem 1.25rem; color: var(--petrol);
+      font-size: 0.88rem; margin-top: 1rem; text-align: center;
+    }
+    .success-msg.test-msg { background: #fff8e8; border-color: #e8d8a0; color: #8b6a14; }
+
+    /* ── IMPRESSUM VIEW ── */
+    #impressum-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
+    #impressum-view.visible { display: block; }
+    .impressum-v4 { padding: 6rem 4rem; }
+    .impressum-grid-v4 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    .impressum-box-v4 { background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid var(--border); }
+    .impressum-box-v4.full-v4 { grid-column: 1 / -1; }
+    .impressum-box-v4 h3 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--petrol); margin-bottom: 1rem; }
+    .impressum-box-v4 p { font-size: 0.88rem; color: var(--mid); line-height: 1.85; font-weight: 300; }
+    .impressum-box-v4 a { color: var(--petrol); text-decoration: none; }
+    .impressum-box-v4 a:hover { text-decoration: underline; }
+
+    /* ── MAIN PAGE wrapper ── */
+    #main-page { display: block; }
+    #main-page.hidden { display: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text);
+      padding: 3.5rem 4rem;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: start;
+      gap: 4rem;
+    }
+    .footer-brand {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 400; color: rgba(255,255,255,0.88); line-height: 1.3;
+    }
+    .footer-brand small {
+      display: block; font-family: 'Inter', sans-serif;
+      font-size: 0.72rem; font-weight: 300;
+      color: rgba(255,255,255,0.4); margin-top: 0.3rem; letter-spacing: 0.04em;
+    }
+    .footer-brand .footer-address {
+      display: block; font-family: 'Inter', sans-serif;
+      font-size: 0.82rem; font-weight: 300;
+      color: rgba(255,255,255,0.5); margin-top: 0.75rem; line-height: 1.6;
+    }
+    .footer-col-title { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1rem; }
+    .footer-nav { display: flex; flex-direction: column; gap: 0.1rem; }
+    .footer-nav a {
+      display: block; padding: 0.35rem 0;
+      font-size: 0.84rem; color: rgba(255,255,255,0.52);
+      text-decoration: none; cursor: pointer; transition: color 0.15s;
+    }
+    .footer-nav a:hover { color: rgba(255,255,255,0.88); }
+    .footer-social { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .footer-soc-btn {
+      width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: all 0.15s;
+    }
+    .footer-soc-btn:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
+    .footer-copy {
+      font-size: 0.75rem; color: rgba(255,255,255,0.25);
+      margin-top: 2.5rem; padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .leistungen-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid-v4 { grid-template-columns: repeat(3, 1fr); }
+      .kontakt-layout { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      #main-nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .section-wrap { padding: 4rem 1.5rem; }
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-text-col { padding: 4rem 1.5rem 3rem; }
+      .hero-mobile-visual {
+        display: block;
+        min-height: 320px;
+        margin: 2.25rem 0 1.75rem;
+        background: transparent;
+      }
+      .hero-mobile-visual img { object-position: center top; }
+      .hero-img-col { display: none; }
+      .hero-img-desktop { display: none; }
+      .ueber-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .ueber-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stimmen-grid { grid-template-columns: 1fr; }
+      .kontakt-layout { grid-template-columns: 1fr; }
+      .galerie-mosaic-v4 { grid-template-columns: 1fr; }
+      .gal-v4.g7, .gal-v4.g5, .gal-v4.g4, .gal-v4.g4b, .gal-v4.g4c, .gal-v4.g12 { grid-column: span 1; min-height: 220px; }
+      .team-grid-v4 { grid-template-columns: repeat(2, 1fr); }
+      .karriere-layout-v4 { grid-template-columns: 1fr; }
+      .impressum-grid-v4 { grid-template-columns: 1fr; }
+      .impressum-box-v4.full-v4 { grid-column: span 1; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .karriere-v4, .form-page-v4, .impressum-v4 { padding: 4rem 1.5rem; }
+      .footer-brand .footer-address { display: none; }
+    }
+    @media (max-width: 600px) {
+      .leistungen-grid { grid-template-columns: 1fr; }
+      .team-grid-v4 { grid-template-columns: 1fr 1fr; }
+      .hero-trust { flex-direction: column; gap: 0.6rem; }
+      .hero-cta { width: 100%; justify-content: center; }
+      .form-row-v4 { grid-template-columns: 1fr; }
+      .ueber-values { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav id="main-nav">
+  <div class="nav-logo" onclick="scrollToSection('hero')">
+    Zahnarztpraxis Michael Schulz
+    <small>Pforzheim &middot; Sedansplatz</small>
+  </div>
+  <div class="nav-links" id="nav-links">
+    <a href="#leistungen" onclick="scrollToSection('leistungen'); return false;">Leistungen</a>
+    <a href="#ueber" onclick="scrollToSection('ueber'); return false;">Ueber uns</a>
+    <a href="#team" onclick="scrollToSection('team'); return false;">Team</a>
+    <a href="#stimmen" onclick="scrollToSection('stimmen'); return false;">Bewertungen</a>
+    <a href="#galerie" onclick="scrollToSection('galerie'); return false;">Galerie</a>
+    <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
+    <a href="#impressum" onclick="showImpressum(); return false;">Impressum</a>
+  </div>
+  <button class="nav-cta" onclick="showTermin()">Termin anfragen</button>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menue">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mob-close" onclick="toggleMenu()">&#x2715;</button>
+  <a href="#leistungen" onclick="scrollToSection('leistungen'); closeMenu(); return false;">Leistungen</a>
+  <a href="#ueber" onclick="scrollToSection('ueber'); closeMenu(); return false;">Ueber uns</a>
+  <a href="#team" onclick="scrollToSection('team'); closeMenu(); return false;">Team</a>
+  <a href="#stimmen" onclick="scrollToSection('stimmen'); closeMenu(); return false;">Bewertungen</a>
+  <a href="#galerie" onclick="scrollToSection('galerie'); closeMenu(); return false;">Galerie</a>
+  <a href="#karriere" onclick="showKarriere(); closeMenu(); return false;">Karriere</a>
+  <span class="mob-sub" onclick="showKarriere('s1'); closeMenu()">&rarr; ZFA Stelle</span>
+  <span class="mob-sub" onclick="showKarriere('s2'); closeMenu()">&rarr; Azubi Stelle</span>
+  <span class="mob-sub" onclick="showKarriere('s3'); closeMenu()">&rarr; Empfang Stelle</span>
+  <a href="#impressum" onclick="showImpressum(); closeMenu(); return false;">Impressum</a>
+  <a class="mob-cta" href="#terminformular" onclick="showTermin(); closeMenu(); return false;">Termin anfragen</a>
+</div>
+
+<!-- ════ MAIN PAGE ════ -->
+<div id="main-page">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-text-col">
+      <p class="eyebrow-v4">Zahnarztpraxis in Pforzheim</p>
+      <h1 class="hero-h1">Ihr Laecheln ist<br><em>unsere Leidenschaft</em></h1>
+      <p class="hero-sub">Moderne Zahnmedizin mit persoenlicher Betreuung &mdash; direkt am Sedansplatz. Wir nehmen uns Zeit fuer Sie.</p>
+      <div class="hero-mobile-visual image-slot">
+        <!-- HERO-BILD MOBILE VERSION: Hier deinen eigenen mobilen Bildpfad einsetzen -->
+        <img src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim mobile" loading="eager" decoding="async">
+        <div class="image-slot-note">
+          <span>Mobiles Hero-Bild hier einsetzen</span>
+          <small>Nur src im img-Tag aendern</small>
+        </div>
+      </div>
+      <button class="hero-cta" onclick="showTermin()">
+        Termin anfragen
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <div class="hero-trust">
+        <span class="hero-trust-item"><span class="hero-trust-dot"></span>4,7 bei Google</span>
+        <span class="hero-trust-item"><span class="hero-trust-dot"></span>Kassen- &amp; Privatpatienten</span>
+        <span class="hero-trust-item"><span class="hero-trust-dot"></span>Fuer Angstpatienten geeignet</span>
+      </div>
+    </div>
+    <div class="hero-img-col image-slot">
+      <!-- HERO-BILD WEBVERSION: Diesen src-Pfad fuer das Desktop-Bild verwenden -->
+      <img class="hero-img-desktop" src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim" loading="eager" decoding="async">
+      <div class="image-slot-note">
+        <span>Praxisbild oder Portraetfoto hier einsetzen</span>
+        <small>Nur src im img-Tag aendern</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEISTUNGEN -->
+  <section id="leistungen" class="section-wrap bgwhite">
+    <p class="eyebrow-v4">Was wir bieten</p>
+    <h2 class="h2-serif">Unsere Leistungen</h2>
+    <p class="lead-text">Von der Vorsorge bis zur aesthetischen Behandlung &mdash; immer mit Ruhe, Sorgfalt und einem persoenlichen Blick auf den Menschen.</p>
+    <div class="leistungen-grid">
+      <div class="leistung-card">
+        <div class="leistung-icon">&#129470;</div>
+        <h3>Vorsorge &amp; Prophylaxe</h3>
+        <p>Regelmaessige Untersuchungen und professionelle Zahnreinigung fuer langfristige Gesundheit.</p>
+        <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+      <div class="leistung-card">
+        <div class="leistung-icon">&#10024;</div>
+        <h3>Aesthetische Zahnheilkunde</h3>
+        <p>Bleaching, Veneers und individuelle Korrekturen fuer ein strahlendes, natuerliches Laecheln.</p>
+        <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+      <div class="leistung-card">
+        <div class="leistung-icon">&#129463;</div>
+        <h3>Zahnersatz &amp; Implantate</h3>
+        <p>Hochwertige, individuelle Loesungen &mdash; von der Krone bis zum Implantat, praezise und schonend.</p>
+        <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+      <div class="leistung-card">
+        <div class="leistung-icon">&#128118;</div>
+        <h3>Kinder &amp; Angstpatienten</h3>
+        <p>Ruhige Termine, klare Erklaerungen, viel Geduld &mdash; fuer alle, die besondere Begleitung brauchen.</p>
+        <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- UEBER DIE PRAXIS -->
+  <section id="ueber" class="section-wrap bg2">
+    <p class="eyebrow-v4">Wer wir sind</p>
+    <h2 class="h2-serif">Ueber die Praxis</h2>
+    <div class="ueber-layout">
+      <div class="ueber-text">
+        <p class="ueber-lead">Moderne Zahnmedizin am Sedansplatz in Pforzheim &mdash; persoenlich, ruhig und mit einem klaren Blick fuer das, was fuer Sie wirklich sinnvoll ist.</p>
+        <p class="ueber-compact-copy">Wir behandeln Patienten jeden Alters, erklaeren jeden Schritt verstaendlich und verbinden moderne Ausstattung mit einer ehrlichen, einfuehlsamen Betreuung.</p>
+        <div class="ueber-values">
+          <div class="ueber-value">
+            <span class="ueber-value-num">I</span>
+            <div class="ueber-value-text"><h4>Persoenlich</h4><p>Ruhige Betreuung mit Zeit fuer Fragen und individuelle Anliegen.</p></div>
+          </div>
+          <div class="ueber-value">
+            <span class="ueber-value-num">II</span>
+            <div class="ueber-value-text"><h4>Modern</h4><p>Aktuelle Technik fuer praezise Diagnostik und schonende Behandlung.</p></div>
+          </div>
+          <div class="ueber-value">
+            <span class="ueber-value-num">III</span>
+            <div class="ueber-value-text"><h4>Transparent</h4><p>Klare Erklaerungen statt unnoetiger Schritte oder Unsicherheit.</p></div>
+          </div>
+          <div class="ueber-value">
+            <span class="ueber-value-num">IV</span>
+            <div class="ueber-value-text"><h4>Zentral</h4><p>Dillsteiner Str. 7 am Sedansplatz &mdash; gut erreichbar in Pforzheim.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="ueber-img-wrap image-slot">
+        <img src="images/arzt_template.png" alt="Zahnarzt Michael Schulz Pforzheim" loading="lazy" decoding="async">
+        <div class="image-slot-note">
+          <span>Portraet- oder Praxisbild hier einsetzen</span>
+          <small>Nur src im img-Tag aendern</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="section-wrap bgwhite">
+    <p class="eyebrow-v4">Menschen hinter der Praxis</p>
+    <h2 class="h2-serif">Unser Team</h2>
+    <p class="lead-text">Ein eingespieltes Team, das jeden Tag fuer Ihre Zahngesundheit da ist &mdash; vom ersten Hallo am Empfang bis zur Behandlung.</p>
+    <div class="team-grid-v4">
+      <div class="team-card-v4 featured">
+        <div class="team-photo-v4 image-slot">
+          <img src="images/portraet_arzt_template.png" alt="Michael Schulz Zahnarzt" loading="lazy" decoding="async">
+          <div class="image-slot-note"><span>Portraetfoto einsetzen</span><small>src aendern</small></div>
+        </div>
+        <div class="team-name-v4">Michael Schulz</div>
+        <div class="team-role-v4">Zahnarzt &amp; Inhaber</div>
+      </div>
+      <div class="team-card-v4">
+        <div class="team-photo-v4 image-slot">
+          <img src="images/MFA_template.png" alt="ZFA" loading="lazy" decoding="async">
+          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src aendern</small></div>
+        </div>
+        <div class="team-name-v4">[Name]</div>
+        <div class="team-role-v4">Zahnmed. Fachangestellte</div>
+      </div>
+      <div class="team-card-v4">
+        <div class="team-photo-v4 image-slot">
+          <img src="images/empfangsdame_template.png" alt="Empfang" loading="lazy" decoding="async">
+          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src aendern</small></div>
+        </div>
+        <div class="team-name-v4">[Name]</div>
+        <div class="team-role-v4">Empfang &amp; Management</div>
+      </div>
+      <div class="team-card-v4">
+        <div class="team-photo-v4 image-slot">
+          <img src="images/prophylaxe_template.png" alt="Prophylaxe" loading="lazy" decoding="async">
+          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src aendern</small></div>
+        </div>
+        <div class="team-name-v4">[Name]</div>
+        <div class="team-role-v4">Prophylaxe</div>
+      </div>
+      <div class="team-card-v4">
+        <div class="team-photo-v4 image-slot">
+          <img src="images/assistenz_template.png" alt="Assistenz" loading="lazy" decoding="async">
+          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src aendern</small></div>
+        </div>
+        <div class="team-name-v4">[Name]</div>
+        <div class="team-role-v4">Assistenz &amp; Hygiene</div>
+      </div>
+    </div>
+    <div class="team-karriere-cta">
+      <p>Werden Sie Teil unseres Teams.</p>
+      <button class="btn-outline-petrol" onclick="showKarriere()">Offene Stellen ansehen &rarr;</button>
+    </div>
+  </section>
+
+  <!-- PATIENTENSTIMMEN -->
+  <section id="stimmen" class="section-wrap bg2">
+    <p class="eyebrow-v4">Was Patienten sagen</p>
+    <h2 class="h2-serif">Stimmen aus <em>der Praxis</em></h2>
+    <div class="stimmen-grid">
+      <div class="stimme-card">
+        <div class="stimme-quote-mark">&ldquo;</div>
+        <p class="stimme-text">Sehr freundliche und kompetente Praxis. Das Team nimmt sich Zeit, erklaert jeden Schritt und macht auch aengstlichen Patienten die Behandlung angenehm. Ich bin seit Jahren Patientin und kann die Praxis nur waermstens empfehlen!</p>
+        <div class="stimme-author">
+          <div class="stimme-avatar" style="background:linear-gradient(135deg,#2C5F6F,#1E4757)">S</div>
+          <div>
+            <div class="stimme-name">Sandra K.</div>
+            <div class="stimme-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+        </div>
+      </div>
+      <div class="stimme-card">
+        <div class="stimme-quote-mark">&ldquo;</div>
+        <p class="stimme-text">Herr Schulz ist ein sehr erfahrener und einfuehlsamer Zahnarzt. Die Behandlung war schmerzfrei und das Personal ausgesprochen nett. Ich fuehle mich hier in besten Haenden und komme gerne zur Kontrolle.</p>
+        <div class="stimme-author">
+          <div class="stimme-avatar" style="background:linear-gradient(135deg,#2d8e5a,#1a5c38)">M</div>
+          <div>
+            <div class="stimme-name">Markus T.</div>
+            <div class="stimme-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+        </div>
+      </div>
+      <div class="stimme-card">
+        <div class="stimme-quote-mark">&ldquo;</div>
+        <p class="stimme-text">Meine Kinder gehen hier seit Jahren hin und haben keinerlei Angst vorm Zahnarzt &mdash; das sagt alles! Tolle Atmosphaere, verstaendnisvolles Team und immer puenktliche Termine. Absolute Empfehlung!</p>
+        <div class="stimme-author">
+          <div class="stimme-avatar" style="background:linear-gradient(135deg,#8a6a3a,#5c4220)">A</div>
+          <div>
+            <div class="stimme-name">Anna W.</div>
+            <div class="stimme-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stimmen-cta">
+      <a class="btn-google-v4" href="https://maps.app.goo.gl/a6EErPNJfFF2p9xK6" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Alle 56 Bewertungen auf Google ansehen
+      </a>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section id="galerie" class="section-wrap bgwhite">
+    <p class="eyebrow-v4">Einblicke</p>
+    <h2 class="h2-serif">Unsere Praxis</h2>
+    <p class="lead-text">Ruhig, modern und einladend &mdash; ein Ort, an dem Sie sich von Anfang an wohl fuehlen sollen.</p>
+    <div class="galerie-mosaic-v4">
+      <div class="gal-v4 g7 image-slot">
+        <img src="images/empfang_template.png" alt="Empfangsbereich" loading="lazy" decoding="async">
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="gal-label-v4"><span>Empfangsbereich</span><small>hell &middot; einladend</small></div>
+      </div>
+      <div class="gal-v4 g5 image-slot">
+        <img src="images/zimmer_template.png" alt="Behandlungszimmer" loading="lazy" decoding="async">
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="gal-label-v4"><span>Behandlungszimmer</span><small>modern ausgestattet</small></div>
+      </div>
+      <div class="gal-v4 g4 image-slot">
+        <img src="images/gerate_template.png" alt="Geraete" loading="lazy" decoding="async">
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="gal-label-v4"><span>Moderne Geraete</span></div>
+      </div>
+      <div class="gal-v4 g4b image-slot">
+        <img src="images/behandlung_template.png" alt="Behandlung" loading="lazy" decoding="async">
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="gal-label-v4"><span>Im Alltag</span></div>
+      </div>
+      <div class="gal-v4 g4c image-slot">
+        <img src="images/team_template.png" alt="Team" loading="lazy" decoding="async">
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="gal-label-v4"><span>Unser Team</span></div>
+      </div>
+      <div class="gal-v4 g12 image-slot">
+        <img src="images/warte_template.png" alt="Wartezimmer" loading="lazy" decoding="async">
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="gal-label-v4"><span>Atmosphaere</span><small>angenehm &middot; entspannt</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT & TERMIN -->
+  <section id="kontakt" class="section-wrap bg3">
+    <p class="eyebrow-v4">Kontakt &amp; Termin</p>
+    <h2 class="h2-serif">Wir freuen uns auf Sie</h2>
+    <div class="kontakt-layout">
+      <div>
+        <div class="kontakt-col-title">Oeffnungszeiten</div>
+        <div class="hours-list-v4">
+          <div class="hours-row-v4"><span class="hours-day-v4">Montag</span><span class="hours-time-v4">08:00 – 12:00 &middot; 14:00 – 18:00</span></div>
+          <div class="hours-row-v4"><span class="hours-day-v4">Dienstag</span><span class="hours-time-v4">08:00 – 12:00 &middot; 14:00 – 18:00</span></div>
+          <div class="hours-row-v4"><span class="hours-day-v4">Mittwoch</span><span class="hours-time-v4">08:00 – 12:00</span></div>
+          <div class="hours-row-v4"><span class="hours-day-v4">Donnerstag</span><span class="hours-time-v4">08:00 – 12:00 &middot; 14:00 – 18:00</span></div>
+          <div class="hours-row-v4"><span class="hours-day-v4">Freitag</span><span class="hours-time-v4">08:00 – 12:00</span></div>
+          <div class="hours-row-v4"><span class="hours-day-v4">Samstag &amp; Sonntag</span><span class="hours-closed-v4">Geschlossen</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="kontakt-col-title">Anfahrt &amp; Kontakt</div>
+        <a class="contact-row-v4" href="tel:0723121641">
+          <span class="contact-icon-v4">&#128222;</span>
+          07231 21641
+        </a>
+        <a class="contact-row-v4" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
+          <span class="contact-icon-v4">&#128205;</span>
+          Dillsteiner Str. 7, 75173 Pforzheim
+        </a>
+        <a class="contact-row-v4" href="mailto:info@zahnarzt-schulz-pforzheim.de">
+          <span class="contact-icon-v4">&#9993;</span>
+          info@zahnarzt-schulz-pforzheim.de
+        </a>
+        <p class="contact-note">Gut erreichbar am Sedansplatz &mdash; Kassen- und Privatpatienten willkommen.</p>
+      </div>
+      <div class="termin-box">
+        <h3>Termin anfragen</h3>
+        <p>Teilen Sie uns Ihren Wunsch mit &mdash; wir melden uns schnellstmoeglich zurueck.</p>
+        <button class="btn-white-petrol" onclick="showTermin()">Zum Terminformular</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        Zahnarztpraxis Michael Schulz
+        <small>Pforzheim am Sedansplatz</small>
+        <span class="footer-address">Dillsteiner Str. 7 &middot; 75173 Pforzheim<br>Tel: 07231 21641</span>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <nav class="footer-nav">
+          <a href="#leistungen" onclick="scrollToSection('leistungen'); return false;">Leistungen</a>
+          <a href="#ueber" onclick="scrollToSection('ueber'); return false;">Ueber uns</a>
+          <a href="#team" onclick="scrollToSection('team'); return false;">Team</a>
+          <a href="#stimmen" onclick="scrollToSection('stimmen'); return false;">Bewertungen</a>
+          <a href="#galerie" onclick="scrollToSection('galerie'); return false;">Galerie</a>
+          <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
+          <a href="#impressum" onclick="showImpressum(); return false;">Impressum &amp; Datenschutz</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Folgen Sie uns</div>
+        <div class="footer-social">
+          <a class="footer-soc-btn" href="https://maps.app.goo.gl/a6EErPNJfFF2p9xK6" target="_blank" rel="noopener" aria-label="Google">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </a>
+          <a class="footer-soc-btn" href="https://www.instagram.com/zahnarztpraxis_dr.schulz" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy">&copy; 2025 Zahnarztpraxis Michael Schulz &middot; Pforzheim am Sedansplatz</div>
+  </footer>
+
+</div><!-- /main-page -->
+
+<!-- ════ KARRIERE VIEW ════ -->
+<div id="karriere-view">
+  <div class="karriere-v4">
+    <button class="back-btn-v4" onclick="showMain()">&larr; Zurueck zur Website</button>
+    <p class="eyebrow-v4">Werden Sie Teil unseres Teams</p>
+    <h2 class="h2-serif">Karriere bei uns</h2>
+    <p class="lead-text">Offene Stellen nach Aufgabenbereich. Bewerbung direkt ueber das Formular.</p>
+    <div class="karriere-layout-v4">
+      <div>
+        <div class="stellen-v4">
+          <div class="stelle-v4" id="s1">
+            <div class="stelle-v4-header" onclick="toggleStelleV4('s1')">
+              <div>
+                <div class="stelle-v4-title">Zahnmedizinische Fachangestellte (m/w/d)</div>
+                <div class="stelle-v4-meta">Vollzeit &middot; ab sofort &middot; Pforzheim</div>
+              </div>
+              <div class="stelle-v4-right">
+                <span class="stelle-v4-tag">ZFA</span>
+                <span class="stelle-v4-arrow">&#8964;</span>
+              </div>
+            </div>
+            <div class="stelle-v4-body">
+              <p>Zur Verstaerkung unseres Teams suchen wir eine engagierte ZFA mit Freude am Umgang mit Patienten.</p>
+              <div class="anf-label-v4">Anforderungen</div>
+              <ul class="anf-list-v4">
+                <li>Abgeschlossene Ausbildung als ZFA</li>
+                <li>Freundliches und einfuehlsames Auftreten</li>
+                <li>Teamfaehigkeit und Zuverlaessigkeit</li>
+                <li>Erfahrung im Praxisalltag von Vorteil</li>
+              </ul>
+              <button class="btn-apply-v4" onclick="showBewerbung('Zahnmedizinische Fachangestellte (m/w/d)')">Jetzt bewerben &rarr;</button>
+            </div>
+          </div>
+          <div class="stelle-v4" id="s2">
+            <div class="stelle-v4-header" onclick="toggleStelleV4('s2')">
+              <div>
+                <div class="stelle-v4-title">Azubi Zahnarzthelfer/in</div>
+                <div class="stelle-v4-meta">Ausbildung &middot; naechster Jahrgang</div>
+              </div>
+              <div class="stelle-v4-right">
+                <span class="stelle-v4-tag">Ausbildung</span>
+                <span class="stelle-v4-arrow">&#8964;</span>
+              </div>
+            </div>
+            <div class="stelle-v4-body">
+              <p>Wir bieten eine fundierte Ausbildung in einer modernen Zahnarztpraxis mit persoenlicher Betreuung.</p>
+              <div class="anf-label-v4">Anforderungen</div>
+              <ul class="anf-list-v4">
+                <li>Mittlere Reife oder hoeher</li>
+                <li>Interesse an Medizin und Zahnheilkunde</li>
+                <li>Gepflegtes Erscheinungsbild</li>
+                <li>Lernbereitschaft und Motivation</li>
+              </ul>
+              <button class="btn-apply-v4" onclick="showBewerbung('Azubi Zahnarzthelfer/in')">Jetzt bewerben &rarr;</button>
+            </div>
+          </div>
+          <div class="stelle-v4" id="s3">
+            <div class="stelle-v4-header" onclick="toggleStelleV4('s3')">
+              <div>
+                <div class="stelle-v4-title">Empfang / Praxismanagement</div>
+                <div class="stelle-v4-meta">Teilzeit oder Vollzeit</div>
+              </div>
+              <div class="stelle-v4-right">
+                <span class="stelle-v4-tag">Management</span>
+                <span class="stelle-v4-arrow">&#8964;</span>
+              </div>
+            </div>
+            <div class="stelle-v4-body">
+              <p>Sie sind das freundliche Gesicht unserer Praxis &mdash; der erste Kontakt fuer unsere Patienten.</p>
+              <div class="anf-label-v4">Anforderungen</div>
+              <ul class="anf-list-v4">
+                <li>Erfahrung im Empfang oder Buero</li>
+                <li>Sicherer Umgang mit PC und Telefon</li>
+                <li>Freundliches, souveraenes Auftreten</li>
+                <li>Kenntnisse in Praxissoftware von Vorteil</li>
+              </ul>
+              <button class="btn-apply-v4" onclick="showBewerbung('Empfang / Praxismanagement')">Jetzt bewerben &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="karriere-side-v4">
+        <div class="benefits-v4">
+          <h4>Was wir bieten</h4>
+          <ul>
+            <li>Angenehmes, familiaeres Arbeitsklima</li>
+            <li>Moderne, gut ausgestattete Praxis</li>
+            <li>Fort- und Weiterbildungsmoeglichkeiten</li>
+            <li>Faire Verguetung &amp; geregelte Arbeitszeiten</li>
+            <li>Langfristige Perspektive in Pforzheim</li>
+          </ul>
+        </div>
+        <div class="cta-petrol-box">
+          <h4>Klingt das nach Ihnen?</h4>
+          <p>Senden Sie uns Ihre Bewerbung direkt &mdash; wir melden uns schnellstmoeglich.</p>
+          <button class="btn-white-sm" onclick="showBewerbung()">Zum Bewerbungsformular</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ BEWERBUNG VIEW ════ -->
+<div id="bewerbung-view">
+  <div class="form-page-v4">
+    <button class="back-btn-v4" onclick="showKarriere()">&larr; Zur Stellenuebersicht</button>
+    <p class="eyebrow-v4">Karriere</p>
+    <h2 class="h2-serif">Bewerbung</h2>
+    <div class="form-wrap-v4">
+      <div class="form-card-v4" id="bewerbungsformular">
+        <h3>Jetzt bewerben</h3>
+        <p>Fuellen Sie das Formular aus &mdash; wir melden uns schnellstmoeglich bei Ihnen.</p>
+        <div class="form-row-v4">
+          <div class="form-group"><label>Vorname *</label><input type="text" placeholder="Max" id="f-vorname" /></div>
+          <div class="form-group"><label>Nachname *</label><input type="text" placeholder="Mustermann" id="f-nachname" /></div>
+        </div>
+        <div class="form-group"><label>E-Mail-Adresse *</label><input type="email" placeholder="max@beispiel.de" id="f-email" /></div>
+        <div class="form-group"><label>Telefonnummer</label><input type="tel" placeholder="+49 7231 ..." id="f-tel" /></div>
+        <div class="form-group">
+          <label>Stelle *</label>
+          <select id="f-stelle">
+            <option value="">Bitte waehlen...</option>
+            <option>Zahnmedizinische Fachangestellte (m/w/d)</option>
+            <option>Azubi Zahnarzthelfer/in</option>
+            <option>Empfang / Praxismanagement</option>
+            <option>Initiativbewerbung</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Anschreiben / Nachricht</label><textarea placeholder="Erzaehlen Sie uns kurz etwas ueber sich..." id="f-msg"></textarea></div>
+        <div class="form-group">
+          <div class="file-upload-v4" onclick="document.getElementById('f-file').click()">
+            <input type="file" id="f-file" accept=".pdf,.doc,.docx" />
+            <span class="upload-icon">&#128196;</span>
+            <p>Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB</p>
+          </div>
+        </div>
+        <button class="form-submit-v4" onclick="submitForm()">Bewerbung absenden &rarr;</button>
+        <p class="form-or-v4">&mdash; oder direkt per E-Mail &mdash;</p>
+        <a class="btn-mail-v4" href="mailto:bewerbung@zahnarzt-schulz-pforzheim.de?subject=Bewerbung">Per E-Mail bewerben</a>
+        <div class="success-msg" id="success-msg">Vielen Dank! Wir haben Ihre Bewerbung erhalten und melden uns bald.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ TERMIN VIEW ════ -->
+<div id="termin-view">
+  <div class="form-page-v4">
+    <button class="back-btn-v4" onclick="showMain();scrollToKontakt()">&larr; Zurueck</button>
+    <p class="eyebrow-v4">Kontakt</p>
+    <h2 class="h2-serif">Terminanfrage</h2>
+    <div class="form-wrap-v4">
+      <div class="form-card-v4" id="terminformular">
+        <h3>Termin anfragen</h3>
+        <p>Teilen Sie uns Ihren Terminwunsch mit. Wir melden uns schnellstmoeglich zurueck.</p>
+        <div class="form-note-v4">Hinweis: Diese Ansicht ist aktuell nur ein UI-Test. Es werden noch keine echten Terminanfragen an die Praxis uebermittelt.</div>
+        <div class="form-group"><label>Name *</label><input type="text" placeholder="Vor- und Nachname" id="t-name" /></div>
+        <div class="form-group"><label>Telefonnummer *</label><input type="tel" placeholder="+49 7231 ..." id="t-phone" /></div>
+        <div class="form-group"><label>Nachricht</label><textarea placeholder="Teilen Sie uns Ihren Wunsch oder Ihr Anliegen kurz mit..." id="t-message"></textarea></div>
+        <button class="form-submit-v4" onclick="submitTerminForm()">Terminanfrage absenden</button>
+        <div class="success-msg test-msg" id="termin-success-msg">Testhinweis: Diese Terminanfrage wurde noch nicht an die Praxis uebermittelt.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ IMPRESSUM VIEW ════ -->
+<div id="impressum-view">
+  <div class="impressum-v4">
+    <button class="back-btn-v4" onclick="showMain()">&larr; Zurueck zur Website</button>
+    <p class="eyebrow-v4">Rechtliches</p>
+    <h2 class="h2-serif">Impressum &amp; Datenschutz</h2>
+    <div class="impressum-grid-v4">
+      <div class="impressum-box-v4">
+        <h3>Angaben gemaess &sect; 5 TMG</h3>
+        <p><strong>Zahnarztpraxis Michael Schulz</strong><br>Dillsteiner Str. 7<br>75173 Pforzheim<br><br><strong>Telefon:</strong> 07231 21641<br><strong>E-Mail:</strong> <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a></p>
+      </div>
+      <div class="impressum-box-v4">
+        <h3>Berufsrechtliche Angaben</h3>
+        <p><strong>Berufsbezeichnung:</strong> Zahnarzt<br><strong>Kammer:</strong> Landeszahnaerztekammer Baden-Wuerttemberg<br><strong>Approbation:</strong> Deutschland<br><br><strong>Aufsicht:</strong> KZV Baden-Wuerttemberg</p>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>Datenschutzerklaerung</h3>
+        <p>Der Schutz Ihrer Daten ist uns wichtig. Wir verarbeiten Ihre Daten ausschliesslich auf Grundlage der DSGVO und des TMG.<br><br><strong>Bewerbungsformular:</strong> Angaben werden zwecks Bearbeitung gespeichert und nicht ohne Einwilligung weitergegeben. Bewerbungsdaten werden spaetestens nach 6 Monaten geloescht.<br><br><strong>Verantwortlicher:</strong> Michael Schulz &middot; Dillsteiner Str. 7 &middot; 75173 Pforzheim &middot; <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a></p>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>Haftungsausschluss</h3>
+        <p>Die Inhalte dieser Seite wurden mit groesster Sorgfalt erstellt. Fuer Richtigkeit, Vollstaendigkeit und Aktualitaet uebernehmen wir keine Gewaehr. Als Diensteanbieter sind wir gemaess &sect; 7 Abs. 1 TMG fuer eigene Inhalte verantwortlich.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── NAV SCROLL EFFECT ── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  /* ── MENU ── */
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function toggleMenu() {
+    const h = document.getElementById('hamburger');
+    const m = document.getElementById('mobile-menu');
+    h.classList.toggle('open');
+    m.classList.toggle('open');
+    document.body.style.overflow = m.classList.contains('open') ? 'hidden' : '';
+  }
+
+  /* ── VIEW SWITCHING ── */
+  const views = ['main-page','karriere-view','bewerbung-view','termin-view','impressum-view'];
+
+  function showOnly(id) {
+    views.forEach(v => {
+      const el = document.getElementById(v);
+      if (v === 'main-page') {
+        el.classList.toggle('hidden', v !== id);
+      } else {
+        el.classList.toggle('visible', v === id);
+      }
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showMain() { showOnly('main-page'); }
+  function showImpressum() { showOnly('impressum-view'); }
+
+  function showKarriere(stelleId) {
+    showOnly('karriere-view');
+    if (stelleId) {
+      setTimeout(() => {
+        closeAllStellen(stelleId);
+        const el = document.getElementById(stelleId);
+        if (el) { el.classList.add('open'); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }, 150);
+    }
+  }
+
+  function showBewerbung(stelle) {
+    showOnly('bewerbung-view');
+    stelle = stelle || '';
+    setTimeout(() => {
+      const f = document.getElementById('f-stelle');
+      if (f) f.value = stelle;
+      const s = document.getElementById('success-msg');
+      if (s) s.style.display = 'none';
+    }, 150);
+  }
+
+  function showTermin() {
+    showOnly('termin-view');
+    const s = document.getElementById('termin-success-msg');
+    if (s) s.style.display = 'none';
+  }
+
+  /* ── SCROLL HELPERS ── */
+  function scrollToSection(id) {
+    showMain();
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+  }
+
+  function scrollToKontakt() {
+    showMain();
+    setTimeout(() => {
+      const el = document.getElementById('kontakt');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+  }
+
+  /* ── STELLEN ACCORDION ── */
+  function closeAllStellen(exceptId) {
+    ['s1','s2','s3'].forEach(id => {
+      if (id !== exceptId) document.getElementById(id)?.classList.remove('open');
+    });
+  }
+
+  function toggleStelleV4(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const willOpen = !el.classList.contains('open');
+    closeAllStellen(id);
+    el.classList.toggle('open', willOpen);
+  }
+
+  /* ── FORMS ── */
+  function submitForm() {
+    const required = ['f-vorname','f-nachname','f-email','f-stelle'];
+    let ok = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = '#b84c2a'; ok = false; }
+      else el.style.borderColor = '';
+    });
+    if (!ok) return;
+    document.getElementById('success-msg').style.display = 'block';
+    ['f-vorname','f-nachname','f-email','f-tel','f-stelle','f-msg'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  function submitTerminForm() {
+    const required = ['t-name','t-phone'];
+    let ok = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = '#b84c2a'; ok = false; }
+      else el.style.borderColor = '';
+    });
+    if (!ok) return;
+    document.getElementById('termin-success-msg').style.display = 'block';
+    ['t-name','t-phone','t-message'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  document.getElementById('f-file').addEventListener('change', function() {
+    const p = this.closest('.file-upload-v4').querySelector('p');
+    p.innerHTML = this.files[0]
+      ? 'Datei: <strong>' + this.files[0].name + '</strong>'
+      : 'Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB';
+  });
+
+  /* ── IMAGE SLOTS ── */
+  const PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+  document.querySelectorAll('.image-slot').forEach(slot => {
+    const img = slot.querySelector('img');
+    if (!img) return;
+    const update = () => {
+      slot.classList.toggle('has-image', img.getAttribute('src') !== PLACEHOLDER && img.naturalWidth > 1);
+    };
+    img.addEventListener('load', update);
+    img.addEventListener('error', () => slot.classList.remove('has-image'));
+    if (img.complete) update();
+  });
+</script>
+</body>
+</html>
