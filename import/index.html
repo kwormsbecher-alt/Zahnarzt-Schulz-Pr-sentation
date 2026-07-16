@@ -1465,6 +1465,13 @@
   const views = ['main-page','karriere-view','bewerbung-view','termin-view','impressum-view'];
 
   function showOnly(id) {
+    /* Nur bei einem echten Ansichtswechsel nach oben springen.
+       Ist die Ansicht schon aktiv (z.B. Klick auf einen Menuepunkt
+       innerhalb der Startseite), bleibt die Scroll-Position erhalten,
+       damit sanft zum Ziel gescrollt werden kann. */
+    const alreadyActive = (id === 'main-page')
+      ? !document.getElementById('main-page').classList.contains('hidden')
+      : document.getElementById(id).classList.contains('visible');
     views.forEach(v => {
       const el = document.getElementById(v);
       if (v === 'main-page') {
@@ -1473,13 +1480,13 @@
         el.classList.toggle('visible', v === id);
       }
     });
-    /* Sofort ganz nach oben springen (ohne Animation), damit jede
-       Ansicht sauber am Seitenanfang startet */
-    const root = document.documentElement;
-    const prev = root.style.scrollBehavior;
-    root.style.scrollBehavior = 'auto';
-    window.scrollTo(0, 0);
-    root.style.scrollBehavior = prev;
+    if (!alreadyActive) {
+      const root = document.documentElement;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      root.style.scrollBehavior = prev;
+    }
   }
 
   function showMain() { showOnly('main-page'); }
