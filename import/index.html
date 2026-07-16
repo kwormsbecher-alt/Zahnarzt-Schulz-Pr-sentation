@@ -872,6 +872,16 @@
     .termin-box { display: none; }
     .kontakt-layout { grid-template-columns: 1fr 1fr; }
 
+    /* ── KARUSSELL-PUNKTE (nur Handy sichtbar) ── */
+    .karussell-dots { display: none; }
+    .karussell-dots button {
+      width: 8px; height: 8px; border-radius: 50%;
+      border: none; padding: 0; cursor: pointer;
+      background: var(--petrol-mid);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .karussell-dots button.active { background: var(--petrol2); transform: scale(1.3); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .leistungen-grid { grid-template-columns: repeat(2, 1fr); }
@@ -912,7 +922,30 @@
       .karriere-v4, .form-page-v4, .impressum-v4 { padding: 4rem 1.5rem; }
     }
     @media (max-width: 600px) {
-      .leistungen-grid { grid-template-columns: 1fr; }
+      /* ── KARUSSELLS (nur Handy): wischbar mit Einrasten ── */
+      .leistungen-grid, .stimmen-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 0.9rem;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .leistungen-grid::-webkit-scrollbar, .stimmen-grid::-webkit-scrollbar { display: none; }
+      .leistungen-grid { padding: 1.25rem 11% 1.5rem; perspective: 1200px; }
+      .stimmen-grid { padding: 1rem 9% 1.75rem; }
+      .leistung-card {
+        flex: 0 0 78%;
+        scroll-snap-align: center;
+        transition: none;
+        will-change: transform;
+      }
+      .stimme-card {
+        flex: 0 0 82%;
+        scroll-snap-align: center;
+        will-change: transform;
+      }
+      .karussell-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.25rem; }
       .team-grid-v4 { grid-template-columns: 1fr 1fr; }
       .hero-cta-row { flex-direction: column; gap: 0.6rem; width: 100%; }
       .hero-cta, .hero-cta-tel { width: 100%; justify-content: center; }
@@ -1071,6 +1104,7 @@
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
     </div>
+    <div class="karussell-dots" id="leistungen-dots" aria-label="Leistungen durchblättern"></div>
   </section>
 
   <!-- UEBER DIE PRAXIS -->
@@ -1195,6 +1229,7 @@
         </div>
       </div>
     </div>
+    <div class="karussell-dots" id="stimmen-dots" aria-label="Bewertungen durchblättern"></div>
     <div class="stimmen-cta">
       <a class="btn-google-v4" href="https://maps.app.goo.gl/a6EErPNJfFF2p9xK6" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
@@ -1772,6 +1807,61 @@
       ? 'Datei: <strong>' + this.files[0].name + '</strong>'
       : 'Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB';
   });
+
+  /* ── KARUSSELLS (nur Handy, <= 600px) ── */
+  function initKarussell(gridSelector, dotsId, effekt) {
+    const grid = document.querySelector(gridSelector);
+    const dotsWrap = document.getElementById(dotsId);
+    if (!grid || !dotsWrap) return;
+    const cards = [...grid.children];
+    const mq = window.matchMedia('(max-width: 600px)');
+    const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let raf = null;
+
+    cards.forEach((card, i) => {
+      const dot = document.createElement('button');
+      dot.setAttribute('aria-label', 'Karte ' + (i + 1) + ' anzeigen');
+      dot.addEventListener('click', () => {
+        grid.scrollTo({ left: card.offsetLeft - (grid.clientWidth - card.clientWidth) / 2, behavior: 'smooth' });
+      });
+      dotsWrap.appendChild(dot);
+    });
+    const dots = [...dotsWrap.children];
+
+    function update() {
+      raf = null;
+      const mitte = grid.scrollLeft + grid.clientWidth / 2;
+      let naechste = 0, naechsteDist = Infinity;
+      cards.forEach((card, i) => {
+        const dist = card.offsetLeft + card.clientWidth / 2 - mitte;
+        if (Math.abs(dist) < naechsteDist) { naechsteDist = Math.abs(dist); naechste = i; }
+        if (ruhig.matches) return;
+        const o = Math.max(-1.5, Math.min(1.5, dist / card.clientWidth));
+        const a = Math.abs(o);
+        if (effekt === 'coverflow') {
+          /* Kraeftiger 3D-Coverflow: seitliche Karten drehen sich zur Mitte */
+          card.style.transform = 'rotateY(' + (o * -18).toFixed(2) + 'deg) translateZ(' + (-a * 60).toFixed(1) + 'px) scale(' + (1 - a * 0.12).toFixed(3) + ')';
+          card.style.opacity = (1 - a * 0.25).toFixed(3);
+        } else {
+          /* Faecher-Effekt: flach, leicht gedreht und versetzt wie Spielkarten */
+          card.style.transform = 'rotate(' + (o * 3).toFixed(2) + 'deg) translateY(' + (a * 18).toFixed(1) + 'px) scale(' + (1 - a * 0.08).toFixed(3) + ')';
+          card.style.opacity = (1 - a * 0.35).toFixed(3);
+        }
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === naechste));
+    }
+    function anfordern() { if (!raf) raf = requestAnimationFrame(update); }
+    function toggle() {
+      if (mq.matches) { anfordern(); }
+      else { cards.forEach(c => { c.style.transform = ''; c.style.opacity = ''; }); }
+    }
+    grid.addEventListener('scroll', () => { if (mq.matches) anfordern(); }, { passive: true });
+    window.addEventListener('resize', toggle);
+    mq.addEventListener('change', toggle);
+    toggle();
+  }
+  initKarussell('.leistungen-grid', 'leistungen-dots', 'coverflow');
+  initKarussell('.stimmen-grid', 'stimmen-dots', 'faecher');
 
   /* ── IMAGE SLOTS ── */
   const PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
