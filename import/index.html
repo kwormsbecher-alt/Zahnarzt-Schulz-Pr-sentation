@@ -743,6 +743,27 @@
     .success-msg.error-msg { background: #fdf0ec; border-color: #e8c0ae; color: #a34d2a; }
     .form-submit-v4:disabled { opacity: 0.6; cursor: wait; }
 
+    /* ── DSGVO-CHECKBOX ── */
+    .dsgvo-check { margin-top: 1.25rem; }
+    .dsgvo-label {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      cursor: pointer;
+      /* globale label-Styles (uppercase, fett) hier zuruecksetzen */
+      font-size: 0.82rem; font-weight: 300; color: var(--mid);
+      line-height: 1.6; text-transform: none; letter-spacing: normal;
+      margin-bottom: 0;
+    }
+    .dsgvo-label input[type="checkbox"] {
+      /* globale input-Styles (volle Breite, Padding) zuruecksetzen */
+      width: 16px; height: 16px; padding: 0; margin-top: 0.25rem;
+      flex-shrink: 0; accent-color: var(--petrol2); cursor: pointer;
+    }
+    .dsgvo-label input[type="checkbox"]:disabled { opacity: 0.4; cursor: not-allowed; }
+    .dsgvo-label:has(input:disabled) { cursor: not-allowed; }
+    .dsgvo-link { color: var(--petrol2); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
+    .dsgvo-link:hover { color: var(--petrol); }
+    .dsgvo-hint { display: none; font-size: 0.78rem; color: #a34d2a; margin-top: 0.4rem; }
+
     /* ── IMPRESSUM VIEW ── */
     #impressum-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
     #impressum-view.visible { display: block; }
@@ -1383,6 +1404,13 @@
             <p>Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB</p>
           </div>
         </div>
+        <div class="dsgvo-check">
+          <label class="dsgvo-label">
+            <input type="checkbox" id="f-dsgvo" disabled />
+            <span>Ich habe die <a href="#impressum" class="dsgvo-link" onclick="unlockDsgvo('f'); showImpressum(); return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</span>
+          </label>
+          <div class="dsgvo-hint" id="f-dsgvo-hint">Bitte bestätigen Sie die Datenschutzerklärung.</div>
+        </div>
         <button class="form-submit-v4" id="f-submit" onclick="submitForm()">Bewerbung absenden &rarr;</button>
         <p class="form-or-v4">&mdash; oder direkt per E-Mail &mdash;</p>
         <a class="btn-mail-v4" href="mailto:bewerbung@zahnarzt-schulz-pforzheim.de?subject=Bewerbung">Per E-Mail bewerben</a>
@@ -1407,6 +1435,13 @@
         <div class="form-group"><label>Name *</label><input type="text" placeholder="Vor- und Nachname" id="t-name" /></div>
         <div class="form-group"><label>Telefonnummer *</label><input type="tel" placeholder="+49 7231 ..." id="t-phone" /></div>
         <div class="form-group"><label>Nachricht</label><textarea placeholder="Teilen Sie uns Ihren Wunsch oder Ihr Anliegen kurz mit..." id="t-message"></textarea></div>
+        <div class="dsgvo-check">
+          <label class="dsgvo-label">
+            <input type="checkbox" id="t-dsgvo" disabled />
+            <span>Ich habe die <a href="#impressum" class="dsgvo-link" onclick="unlockDsgvo('t'); showImpressum(); return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</span>
+          </label>
+          <div class="dsgvo-hint" id="t-dsgvo-hint">Bitte bestätigen Sie die Datenschutzerklärung.</div>
+        </div>
         <button class="form-submit-v4" onclick="submitTerminForm()">Terminanfrage absenden</button>
         <div class="success-msg test-msg" id="termin-success-msg">Testhinweis: Diese Terminanfrage wurde noch nicht an die Praxis übermittelt.</div>
       </div>
@@ -1561,6 +1596,27 @@
     el.classList.toggle('open', willOpen);
   }
 
+  /* ── DSGVO-CHECKBOX ── */
+  /* Checkbox wird erst anklickbar, nachdem der Link zur
+     Datenschutzerklaerung einmal geoeffnet wurde. */
+  function unlockDsgvo(prefix) {
+    const cb = document.getElementById(prefix + '-dsgvo');
+    if (cb) cb.disabled = false;
+  }
+  /* Pflicht-Pruefung: true = zugestimmt, sonst Hinweis anzeigen */
+  function checkDsgvo(prefix) {
+    const cb = document.getElementById(prefix + '-dsgvo');
+    const hint = document.getElementById(prefix + '-dsgvo-hint');
+    if (!cb.checked) { hint.style.display = 'block'; return false; }
+    hint.style.display = 'none';
+    return true;
+  }
+  ['f', 't'].forEach(p => {
+    document.getElementById(p + '-dsgvo')?.addEventListener('change', function () {
+      if (this.checked) document.getElementById(p + '-dsgvo-hint').style.display = 'none';
+    });
+  });
+
   /* ── FORMS ── */
   /* Empfaenger der Bewerbungen.
      TESTBETRIEB: aktuell Test-Adresse — fuer den Livegang hier
@@ -1576,6 +1632,7 @@
       else el.style.borderColor = '';
     });
     if (!ok) return;
+    if (!checkDsgvo('f')) return;
 
     const successMsg = document.getElementById('success-msg');
     const errorMsg = document.getElementById('error-msg');
@@ -1610,6 +1667,7 @@
       successMsg.style.display = 'block';
       ['f-vorname','f-nachname','f-email','f-tel','f-stelle','f-msg','f-file'].forEach(id => document.getElementById(id).value = '');
       document.querySelector('.file-upload-v4 p').innerHTML = 'Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB';
+      document.getElementById('f-dsgvo').checked = false;
     } catch (e) {
       errorMsg.style.display = 'block';
     } finally {
@@ -1627,8 +1685,10 @@
       else el.style.borderColor = '';
     });
     if (!ok) return;
+    if (!checkDsgvo('t')) return;
     document.getElementById('termin-success-msg').style.display = 'block';
     ['t-name','t-phone','t-message'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('t-dsgvo').checked = false;
   }
 
   document.getElementById('f-file').addEventListener('change', function() {
