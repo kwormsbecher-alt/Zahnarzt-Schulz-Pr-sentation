@@ -748,13 +748,14 @@
     /* ── FOOTER ── */
     footer {
       background: var(--text);
-      padding: 3.5rem 4rem;
+      padding: 2.5rem 4rem 2rem;
     }
     .footer-inner {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr auto;
-      align-items: start;
-      gap: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
     }
     .footer-brand {
       font-family: 'Fraunces', serif;
@@ -765,28 +766,15 @@
       font-size: 0.72rem; font-weight: 300;
       color: rgba(255,255,255,0.4); margin-top: 0.3rem; letter-spacing: 0.04em;
     }
-    .footer-col-title { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1rem; }
-    .footer-praxisname {
-      font-size: 0.9rem; font-weight: 500;
-      color: rgba(255,255,255,0.85); margin-bottom: 0.6rem;
-    }
-    .footer-contact-row {
-      display: flex; align-items: center; gap: 0.7rem;
-      padding: 0.32rem 0;
+    .footer-right { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
       font-size: 0.84rem; font-weight: 300;
-      color: rgba(255,255,255,0.6);
-      text-decoration: none; transition: color 0.15s;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none; cursor: pointer; transition: color 0.15s;
     }
-    a.footer-contact-row:hover { color: rgba(255,255,255,0.92); }
-    .footer-contact-row svg { flex-shrink: 0; color: var(--petrol-mid); opacity: 0.85; }
-    .footer-hours { display: flex; flex-direction: column; gap: 0.6rem; max-width: 320px; }
-    .footer-hours-row {
-      display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem;
-      font-size: 0.84rem;
-    }
-    .footer-hours-day { color: rgba(255,255,255,0.5); font-weight: 300; white-space: nowrap; }
-    .footer-hours-time { color: rgba(255,255,255,0.82); font-weight: 400; text-align: right; line-height: 1.6; }
-    .footer-social { display: flex; gap: 0.5rem; margin-top: 1.1rem; }
+    .footer-links a:hover { color: rgba(255,255,255,0.9); }
+    .footer-social { display: flex; gap: 0.5rem; }
     .footer-soc-btn {
       width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12);
       border-radius: 8px; display: flex; align-items: center; justify-content: center;
@@ -795,7 +783,7 @@
     .footer-soc-btn:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
     .footer-copy {
       font-size: 0.75rem; color: rgba(255,255,255,0.25);
-      margin-top: 2.5rem; padding-top: 2rem;
+      margin-top: 1.75rem; padding-top: 1.25rem;
       border-top: 1px solid rgba(255,255,255,0.06);
       text-align: center;
     }
@@ -835,7 +823,8 @@
       .karriere-layout-v4 { grid-template-columns: 1fr; }
       .impressum-grid-v4 { grid-template-columns: 1fr; }
       .impressum-box-v4.full-v4 { grid-column: span 1; }
-      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 2.5rem 1.5rem 1.75rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
       .karriere-v4, .form-page-v4, .impressum-v4 { padding: 4rem 1.5rem; }
     }
     @media (max-width: 600px) {
@@ -865,7 +854,7 @@
     <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
     <a href="#impressum" onclick="showImpressum(); return false;">Impressum</a>
   </div>
-  <button class="nav-cta" onclick="showTermin()">Termin anfragen</button>
+  <button class="nav-cta" onclick="showKarriere()">Jetzt bewerben</button>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
     <span></span><span></span><span></span>
   </button>
@@ -909,10 +898,10 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           07231 21641
         </a>
-        <button class="hero-cta" onclick="showTermin()">
-          Termin anfragen
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
+        <a class="hero-cta" id="route-btn" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Route zur Praxis
+        </a>
       </div>
       <div class="hero-trust">
         <a class="hero-trust-item" href="https://maps.app.goo.gl/a6EErPNJfFF2p9xK6" target="_blank" rel="noopener"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>4,7 bei Google</a>
@@ -1212,44 +1201,16 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div>
-        <div class="footer-col-title">Kontakt</div>
-        <div class="footer-praxisname">Zahnarztpraxis Michael Schulz</div>
-        <div class="footer-contact-row">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Dillsteiner Str. 7, 75173 Pforzheim
-        </div>
-        <a class="footer-contact-row" href="tel:0723121641">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          07231 21641
-        </a>
-        <a class="footer-contact-row" href="mailto:info@zahnarzt-schulz-pforzheim.de">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
-          info@zahnarzt-schulz-pforzheim.de
-        </a>
-        <a class="footer-contact-row" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-          In Google Maps anzeigen
-        </a>
+      <div class="footer-brand">
+        Zahnarztpraxis Michael Schulz
+        <small>Pforzheim am Sedansplatz</small>
       </div>
-      <div>
-        <div class="footer-col-title">Öffnungszeiten</div>
-        <div class="footer-hours">
-          <div class="footer-hours-row">
-            <span class="footer-hours-day">Mo &middot; Di &middot; Do</span>
-            <span class="footer-hours-time">08:00 – 12:00<br>14:00 – 18:00</span>
-          </div>
-          <div class="footer-hours-row">
-            <span class="footer-hours-day">Mi &middot; Fr</span>
-            <span class="footer-hours-time">08:00 – 12:00</span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="footer-brand">
-          Zahnarztpraxis Michael Schulz
-          <small>Pforzheim am Sedansplatz</small>
-        </div>
+      <div class="footer-right">
+        <nav class="footer-links">
+          <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
+          <a href="#impressum" onclick="showImpressum(); return false;">Impressum</a>
+          <a href="#impressum" onclick="showImpressum(); return false;">Datenschutz</a>
+        </nav>
         <div class="footer-social">
           <a class="footer-soc-btn" href="https://www.instagram.com/zahnarztpraxis_dr.schulz" target="_blank" rel="noopener" aria-label="Instagram">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -1260,7 +1221,7 @@
         </div>
       </div>
     </div>
-    <div class="footer-copy">&copy; 2025 Zahnarztpraxis Michael Schulz &middot; Pforzheim am Sedansplatz &middot; <a href="#impressum" onclick="showImpressum(); return false;" style="color: rgba(255,255,255,0.4); text-decoration: none;">Impressum &amp; Datenschutz</a></div>
+    <div class="footer-copy">&copy; 2025 Zahnarztpraxis Michael Schulz &middot; Pforzheim am Sedansplatz</div>
   </footer>
 
 </div><!-- /main-page -->
@@ -1529,6 +1490,13 @@
     const s = document.getElementById('termin-success-msg');
     if (s) s.style.display = 'none';
   }
+
+  /* ── ROUTE (Karten-App des Geraets verlinken) ── */
+  (function () {
+    const apple = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent);
+    const btn = document.getElementById('route-btn');
+    if (apple && btn) btn.href = 'https://maps.apple.com/?daddr=Dillsteiner%20Str.%207,%2075173%20Pforzheim';
+  })();
 
   /* ── SCROLL HELPERS ── */
   function scrollToSection(id) {
