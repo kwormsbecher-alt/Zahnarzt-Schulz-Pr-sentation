@@ -740,6 +740,8 @@
       font-size: 0.88rem; margin-top: 1rem; text-align: center;
     }
     .success-msg.test-msg { background: #fff8e8; border-color: #e8d8a0; color: #8b6a14; }
+    .success-msg.error-msg { background: #fdf0ec; border-color: #e8c0ae; color: #a34d2a; }
+    .form-submit-v4:disabled { opacity: 0.6; cursor: wait; }
 
     /* ── IMPRESSUM VIEW ── */
     #impressum-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
@@ -1381,10 +1383,11 @@
             <p>Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB</p>
           </div>
         </div>
-        <button class="form-submit-v4" onclick="submitForm()">Bewerbung absenden &rarr;</button>
+        <button class="form-submit-v4" id="f-submit" onclick="submitForm()">Bewerbung absenden &rarr;</button>
         <p class="form-or-v4">&mdash; oder direkt per E-Mail &mdash;</p>
         <a class="btn-mail-v4" href="mailto:bewerbung@zahnarzt-schulz-pforzheim.de?subject=Bewerbung">Per E-Mail bewerben</a>
         <div class="success-msg" id="success-msg">Vielen Dank! Wir haben Ihre Bewerbung erhalten und melden uns bald.</div>
+        <div class="success-msg error-msg" id="error-msg">Das hat leider nicht geklappt. Bitte versuchen Sie es erneut &mdash; oder nutzen Sie den Button &bdquo;Per E-Mail bewerben&ldquo;.</div>
       </div>
     </div>
   </div>
@@ -1501,6 +1504,8 @@
       if (f) f.value = stelle;
       const s = document.getElementById('success-msg');
       if (s) s.style.display = 'none';
+      const err = document.getElementById('error-msg');
+      if (err) err.style.display = 'none';
     }, 150);
   }
 
@@ -1550,7 +1555,12 @@
   }
 
   /* ── FORMS ── */
-  function submitForm() {
+  /* Empfaenger der Bewerbungen.
+     TESTBETRIEB: aktuell Test-Adresse — fuer den Livegang hier
+     einfach 'info@zahnarzt-schulz-pforzheim.de' eintragen. */
+  const BEWERBUNG_MAIL = 'kwormsbecher@icloud.com';
+
+  async function submitForm() {
     const required = ['f-vorname','f-nachname','f-email','f-stelle'];
     let ok = true;
     required.forEach(id => {
@@ -1559,8 +1569,46 @@
       else el.style.borderColor = '';
     });
     if (!ok) return;
-    document.getElementById('success-msg').style.display = 'block';
-    ['f-vorname','f-nachname','f-email','f-tel','f-stelle','f-msg'].forEach(id => document.getElementById(id).value = '');
+
+    const successMsg = document.getElementById('success-msg');
+    const errorMsg = document.getElementById('error-msg');
+    successMsg.style.display = 'none';
+    errorMsg.style.display = 'none';
+
+    const stelle = document.getElementById('f-stelle').value;
+    const data = new FormData();
+    data.append('Vorname', document.getElementById('f-vorname').value.trim());
+    data.append('Nachname', document.getElementById('f-nachname').value.trim());
+    data.append('E-Mail', document.getElementById('f-email').value.trim());
+    data.append('Telefon', document.getElementById('f-tel').value.trim());
+    data.append('Stelle', stelle);
+    data.append('Nachricht', document.getElementById('f-msg').value.trim());
+    data.append('_replyto', document.getElementById('f-email').value.trim());
+    data.append('_subject', 'Neue Bewerbung über die Website: ' + stelle);
+    data.append('_template', 'table');
+    data.append('_captcha', 'false');
+    const file = document.getElementById('f-file').files[0];
+    if (file) data.append('Lebenslauf', file);
+
+    const btn = document.getElementById('f-submit');
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet …';
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/' + BEWERBUNG_MAIL, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data
+      });
+      if (!res.ok) throw new Error('Senden fehlgeschlagen (' + res.status + ')');
+      successMsg.style.display = 'block';
+      ['f-vorname','f-nachname','f-email','f-tel','f-stelle','f-msg','f-file'].forEach(id => document.getElementById(id).value = '');
+      document.querySelector('.file-upload-v4 p').innerHTML = 'Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB';
+    } catch (e) {
+      errorMsg.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Bewerbung absenden &rarr;';
+    }
   }
 
   function submitTerminForm() {
