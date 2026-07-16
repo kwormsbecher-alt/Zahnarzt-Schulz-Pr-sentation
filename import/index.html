@@ -228,6 +228,19 @@
     }
     .hero-cta:hover { background: var(--petrol2); transform: translateY(-2px); }
     .hero-cta svg { flex-shrink: 0; }
+    .hero-cta-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+    .hero-cta-tel {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.95rem 1.8rem;
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--petrol-mid); border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem; font-weight: 500;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.18s, color 0.18s, transform 0.15s;
+    }
+    .hero-cta-tel:hover { border-color: var(--petrol2); color: var(--petrol2); transform: translateY(-2px); }
+    .hero-cta-tel svg { flex-shrink: 0; color: var(--petrol2); }
     .hero-trust {
       display: flex; flex-direction: column; align-items: flex-start; gap: 0.85rem;
       margin-top: 2.5rem;
@@ -243,6 +256,8 @@
       flex-shrink: 0;
     }
     .hero-trust-check svg { display: block; }
+    a.hero-trust-item { text-decoration: none; transition: color 0.15s; }
+    a.hero-trust-item:hover { color: var(--petrol2); text-decoration: underline; text-underline-offset: 3px; }
     .hero-img-col {
       position: relative; overflow: hidden;
       background: transparent;
@@ -780,7 +795,8 @@
     @media (max-width: 600px) {
       .leistungen-grid { grid-template-columns: 1fr; }
       .team-grid-v4 { grid-template-columns: 1fr 1fr; }
-      .hero-cta { width: 100%; justify-content: center; }
+      .hero-cta-row { flex-direction: column; gap: 0.6rem; width: 100%; }
+      .hero-cta, .hero-cta-tel { width: 100%; justify-content: center; }
       .form-row-v4 { grid-template-columns: 1fr; }
       .ueber-values { grid-template-columns: 1fr; }
     }
@@ -842,12 +858,18 @@
           <small>Nur src im img-Tag ändern</small>
         </div>
       </div>
-      <button class="hero-cta" onclick="showTermin()">
-        Termin anfragen
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
+      <div class="hero-cta-row">
+        <a class="hero-cta-tel" href="tel:0723121641">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          07231 21641
+        </a>
+        <button class="hero-cta" onclick="showTermin()">
+          Termin anfragen
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
       <div class="hero-trust">
-        <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>4,7 bei Google</span>
+        <a class="hero-trust-item" href="https://maps.app.goo.gl/a6EErPNJfFF2p9xK6" target="_blank" rel="noopener"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>4,7 bei Google</a>
         <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Kassen- &amp; Privatpatienten</span>
         <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Für Angstpatienten geeignet</span>
       </div>
