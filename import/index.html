@@ -191,12 +191,14 @@
     }
 
     /* ── HERO ── */
+    /* Hero in reinem Weiss, damit der weisse Foto-Hintergrund
+       unsichtbar mit der Flaeche verschmilzt */
     #hero {
       padding-top: 72px;
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background: var(--bg);
+      background: var(--white);
     }
     .hero-text-col {
       display: flex; flex-direction: column; justify-content: center;
@@ -267,6 +269,15 @@
     .hero-img-col {
       position: relative; overflow: hidden;
       background: transparent;
+    }
+    /* Foto laeuft unten sanft ins Weiss aus, statt hart am
+       Karriere-Band abgeschnitten zu werden */
+    .hero-img-col::after {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 110px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--white) 92%);
+      pointer-events: none;
     }
     .hero-img-col .image-slot { height: 100%; }
     .hero-img-col .image-slot img { height: 100%; object-fit: cover; object-position: center top; }
