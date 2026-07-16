@@ -763,6 +763,48 @@
     .dsgvo-link { color: var(--petrol2); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
     .dsgvo-link:hover { color: var(--petrol); }
     .dsgvo-hint { display: none; font-size: 0.78rem; color: #a34d2a; margin-top: 0.4rem; }
+    .form-fields-hint { display: none; font-size: 0.8rem; color: #a34d2a; margin-top: 0.75rem; }
+
+    /* ── DATENSCHUTZ-OVERLAY ── */
+    .dsgvo-modal { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: 1.25rem; }
+    .dsgvo-modal.open { display: flex; }
+    .dsgvo-modal-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(46,51,48,0.45);
+      backdrop-filter: blur(3px);
+    }
+    .dsgvo-modal-card {
+      position: relative;
+      background: var(--white); border-radius: 16px;
+      max-width: 640px; width: 100%; max-height: 80vh; overflow-y: auto;
+      padding: 2.5rem;
+      box-shadow: 0 24px 80px rgba(46,51,48,0.28);
+    }
+    .dsgvo-modal-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem; font-weight: 400; color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .dsgvo-modal-card p { font-size: 0.9rem; color: var(--mid); line-height: 1.75; font-weight: 300; margin-bottom: 1rem; }
+    .dsgvo-modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none; color: var(--soft);
+      cursor: pointer; padding: 0.5rem; line-height: 1;
+      transition: color 0.15s;
+    }
+    .dsgvo-modal-close:hover { color: var(--text); }
+    .dsgvo-modal-btn {
+      display: inline-block; margin-top: 0.5rem;
+      padding: 0.7rem 1.6rem;
+      background: var(--petrol); color: white;
+      border: none; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.86rem; font-weight: 500;
+      cursor: pointer; transition: background 0.18s;
+    }
+    .dsgvo-modal-btn:hover { background: var(--petrol2); }
+    @media (max-width: 600px) {
+      .dsgvo-modal-card { padding: 1.75rem 1.5rem; max-height: 85vh; }
+    }
 
     /* ── IMPRESSUM VIEW ── */
     #impressum-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
@@ -1407,9 +1449,10 @@
         <div class="dsgvo-check">
           <label class="dsgvo-label">
             <input type="checkbox" id="f-dsgvo" disabled />
-            <span>Ich habe die <a href="#impressum" class="dsgvo-link" onclick="unlockDsgvo('f'); showImpressum(); return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</span>
+            <span>Ich habe die <a href="#datenschutz" class="dsgvo-link" onclick="openDsgvoModal('f'); return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</span>
           </label>
-          <div class="dsgvo-hint" id="f-dsgvo-hint">Bitte bestätigen Sie die Datenschutzerklärung.</div>
+          <div class="dsgvo-hint" id="f-dsgvo-hint">Die Datenschutzerklärung muss bestätigt sein.</div>
+          <div class="form-fields-hint" id="f-fields-hint">Manche Angaben sind falsch oder nicht ausgefüllt.</div>
         </div>
         <button class="form-submit-v4" id="f-submit" onclick="submitForm()">Bewerbung absenden &rarr;</button>
         <p class="form-or-v4">&mdash; oder direkt per E-Mail &mdash;</p>
@@ -1438,9 +1481,10 @@
         <div class="dsgvo-check">
           <label class="dsgvo-label">
             <input type="checkbox" id="t-dsgvo" disabled />
-            <span>Ich habe die <a href="#impressum" class="dsgvo-link" onclick="unlockDsgvo('t'); showImpressum(); return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</span>
+            <span>Ich habe die <a href="#datenschutz" class="dsgvo-link" onclick="openDsgvoModal('t'); return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</span>
           </label>
-          <div class="dsgvo-hint" id="t-dsgvo-hint">Bitte bestätigen Sie die Datenschutzerklärung.</div>
+          <div class="dsgvo-hint" id="t-dsgvo-hint">Die Datenschutzerklärung muss bestätigt sein.</div>
+          <div class="form-fields-hint" id="t-fields-hint">Manche Angaben sind falsch oder nicht ausgefüllt.</div>
         </div>
         <button class="form-submit-v4" onclick="submitTerminForm()">Terminanfrage absenden</button>
         <div class="success-msg test-msg" id="termin-success-msg">Testhinweis: Diese Terminanfrage wurde noch nicht an die Praxis übermittelt.</div>
@@ -1473,6 +1517,18 @@
         <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Als Diensteanbieter sind wir gemäß &sect; 7 Abs. 1 TMG für eigene Inhalte verantwortlich.</p>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ════ DATENSCHUTZ-OVERLAY ════ -->
+<div class="dsgvo-modal" id="dsgvo-modal" role="dialog" aria-modal="true" aria-label="Datenschutzerklärung">
+  <div class="dsgvo-modal-backdrop" onclick="closeDsgvoModal()"></div>
+  <div class="dsgvo-modal-card">
+    <button class="dsgvo-modal-close" onclick="closeDsgvoModal()" aria-label="Schließen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
+    <h3>Datenschutzerklärung</h3>
+    <p><em>[Platzhalter &mdash; der vollständige Text der Datenschutzerklärung wird hier noch ergänzt.]</em></p>
+    <p>Ihre Angaben aus diesem Formular werden ausschließlich zur Bearbeitung Ihrer Anfrage verarbeitet und nicht ohne Ihre Einwilligung weitergegeben.</p>
+    <button class="dsgvo-modal-btn" onclick="closeDsgvoModal()">Schließen</button>
   </div>
 </div>
 
@@ -1596,13 +1652,25 @@
     el.classList.toggle('open', willOpen);
   }
 
-  /* ── DSGVO-CHECKBOX ── */
-  /* Checkbox wird erst anklickbar, nachdem der Link zur
-     Datenschutzerklaerung einmal geoeffnet wurde. */
+  /* ── DSGVO-CHECKBOX & OVERLAY ── */
+  /* Checkbox wird erst anklickbar, nachdem die Datenschutzerklaerung
+     einmal geoeffnet wurde. */
   function unlockDsgvo(prefix) {
     const cb = document.getElementById(prefix + '-dsgvo');
     if (cb) cb.disabled = false;
   }
+  function openDsgvoModal(prefix) {
+    unlockDsgvo(prefix);
+    document.getElementById('dsgvo-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDsgvoModal() {
+    document.getElementById('dsgvo-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeDsgvoModal();
+  });
   /* Pflicht-Pruefung: true = zugestimmt, sonst Hinweis anzeigen */
   function checkDsgvo(prefix) {
     const cb = document.getElementById(prefix + '-dsgvo');
@@ -1631,8 +1699,14 @@
       if (!el.value.trim()) { el.style.borderColor = '#b84c2a'; ok = false; }
       else el.style.borderColor = '';
     });
-    if (!ok) return;
-    if (!checkDsgvo('f')) return;
+    /* E-Mail zusaetzlich auf gueltiges Format pruefen */
+    const emailEl = document.getElementById('f-email');
+    if (emailEl.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())) {
+      emailEl.style.borderColor = '#b84c2a'; ok = false;
+    }
+    document.getElementById('f-fields-hint').style.display = ok ? 'none' : 'block';
+    const dsgvoOk = checkDsgvo('f');
+    if (!ok || !dsgvoOk) return;
 
     const successMsg = document.getElementById('success-msg');
     const errorMsg = document.getElementById('error-msg');
@@ -1684,8 +1758,9 @@
       if (!el.value.trim()) { el.style.borderColor = '#b84c2a'; ok = false; }
       else el.style.borderColor = '';
     });
-    if (!ok) return;
-    if (!checkDsgvo('t')) return;
+    document.getElementById('t-fields-hint').style.display = ok ? 'none' : 'block';
+    const dsgvoOk = checkDsgvo('t');
+    if (!ok || !dsgvoOk) return;
     document.getElementById('termin-success-msg').style.display = 'block';
     ['t-name','t-phone','t-message'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('t-dsgvo').checked = false;
