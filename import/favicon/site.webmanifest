@@ -1,6 +1,6 @@
 {
-  "name": "Dr. Michael Schulz",
-  "short_name": "Dr. M. S",
+  "name": "Zahnarztpraxis Michael Schulz",
+  "short_name": "Zahnarzt Schulz",
   "icons": [
     {
       "src": "web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#8DA290",
+  "background_color": "#FAFAF8",
   "display": "standalone"
 }
