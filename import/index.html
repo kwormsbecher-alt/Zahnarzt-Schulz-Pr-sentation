@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zahnarztpraxis Michael Schulz – Pforzheim</title>
-  <meta name="description" content="Zahnarztpraxis Michael Schulz in Pforzheim — moderne Zahnmedizin, persoenliche Betreuung. Dillsteiner Str. 7, 75173 Pforzheim. Tel: 07231 21641" />
+  <meta name="description" content="Zahnarztpraxis Michael Schulz in Pforzheim — moderne Zahnmedizin, persönliche Betreuung. Dillsteiner Str. 7, 75173 Pforzheim. Tel: 07231 21641" />
   <link rel="canonical" href="https://zahnarzt-schulz-pforzheim.de" />
   <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
@@ -17,19 +17,19 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #FFFFFF;
-      --bg2:       #F2EDE4;
-      --bg3:       #EDF3F5;
+      --bg:        #FAFAF8;
+      --bg2:       #EDE3D6;
+      --bg3:       #F2F5F4;
       --white:     #FFFFFF;
-      --text:      #1F1F1F;
-      --mid:       #5C5C5C;
-      --soft:      #9A9898;
-      --petrol:    #2C5F6F;
-      --petrol2:   #1E4757;
-      --petrol-bg: #EDF3F5;
-      --petrol-mid:#C2D5DB;
-      --border:    rgba(31,31,31,0.09);
-      --border2:   rgba(44,95,111,0.15);
+      --text:      #2E3330;
+      --mid:       #5A6A6A;
+      --soft:      #8A9691;
+      --petrol:    #8DA290;
+      --petrol2:   #6B7F68;
+      --petrol-bg: #E8F0EC;
+      --petrol-mid:#C2D2C8;
+      --border:    rgba(46,51,48,0.09);
+      --border2:   rgba(141,162,144,0.22);
     }
 
     html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -63,7 +63,7 @@
       height: 72px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 4rem;
-      background: rgba(250,248,244,0.96);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       transition: box-shadow 0.3s;
@@ -101,8 +101,8 @@
     .nav-links a:hover, .nav-links a.active {
       color: var(--text);
       background: rgba(255,255,255,0.96);
-      border-color: rgba(51,91,103,0.14);
-      box-shadow: 0 10px 24px rgba(27,39,44,0.08), inset 0 1px 0 rgba(255,255,255,0.7);
+      border-color: rgba(107,127,104,0.18);
+      box-shadow: 0 10px 24px rgba(46,51,48,0.08), inset 0 1px 0 rgba(255,255,255,0.7);
       transform: translateY(-1px);
     }
     .nav-cta {
@@ -136,13 +136,14 @@
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a, .mobile-menu .mob-sub {
-      display: block; padding: 1rem 0;
-      font-size: 1.1rem; font-weight: 400; color: var(--mid);
+      display: block; padding: 1.15rem 0;
+      text-align: left;
+      font-size: 1.25rem; font-weight: 400; color: var(--text);
       text-decoration: none; border-bottom: 1px solid var(--border); cursor: pointer;
       transition: color 0.15s;
     }
-    .mobile-menu a:hover { color: var(--text); }
-    .mobile-menu .mob-sub { font-size: 0.88rem; color: var(--petrol); padding-left: 1rem; }
+    .mobile-menu a:hover { color: var(--petrol2); }
+    .mobile-menu .mob-sub { font-size: 0.95rem; color: var(--petrol2); padding-left: 1.25rem; }
     .mobile-menu .mob-cta {
       display: block; margin-top: 2rem; text-align: center;
       background: var(--petrol); color: white;
@@ -150,10 +151,12 @@
       font-weight: 500; font-size: 0.95rem; border-bottom: none;
     }
     .mob-close {
-      position: absolute; top: 1.3rem; right: 1.8rem;
+      position: absolute; top: 1.1rem; right: 1.5rem;
       background: none; border: none; color: var(--soft);
-      font-size: 1.8rem; cursor: pointer; line-height: 1;
+      font-size: 1.5rem; font-weight: 200; cursor: pointer; line-height: 1;
+      padding: 0.5rem; transition: color 0.15s;
     }
+    .mob-close:hover { color: var(--text); }
 
     /* ── SECTION WRAPPER ── */
     .section-wrap {
@@ -226,16 +229,20 @@
     .hero-cta:hover { background: var(--petrol2); transform: translateY(-2px); }
     .hero-cta svg { flex-shrink: 0; }
     .hero-trust {
-      display: flex; align-items: center; gap: 1.5rem;
-      margin-top: 2.5rem; flex-wrap: wrap;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 0.85rem;
+      margin-top: 2.5rem;
     }
     .hero-trust-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.82rem; color: var(--soft); font-weight: 400;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.95rem; color: var(--text); font-weight: 400;
     }
-    .hero-trust-dot {
-      width: 5px; height: 5px; border-radius: 50%; background: var(--petrol-mid); flex-shrink: 0;
+    .hero-trust-check {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--petrol-bg); color: var(--petrol2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
+    .hero-trust-check svg { display: block; }
     .hero-img-col {
       position: relative; overflow: hidden;
       background: transparent;
@@ -261,7 +268,7 @@
       transition: box-shadow 0.25s, transform 0.25s;
     }
     .leistung-card:hover {
-      box-shadow: 0 12px 40px rgba(44,95,111,0.1);
+      box-shadow: 0 12px 40px rgba(107,127,104,0.12);
       transform: translateY(-3px);
     }
     .leistung-icon {
@@ -686,7 +693,7 @@
     }
     .footer-inner {
       display: grid;
-      grid-template-columns: 1fr auto auto;
+      grid-template-columns: 1.15fr 1fr auto;
       align-items: start;
       gap: 4rem;
     }
@@ -699,20 +706,28 @@
       font-size: 0.72rem; font-weight: 300;
       color: rgba(255,255,255,0.4); margin-top: 0.3rem; letter-spacing: 0.04em;
     }
-    .footer-brand .footer-address {
-      display: block; font-family: 'Inter', sans-serif;
-      font-size: 0.82rem; font-weight: 300;
-      color: rgba(255,255,255,0.5); margin-top: 0.75rem; line-height: 1.6;
-    }
     .footer-col-title { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1rem; }
-    .footer-nav { display: flex; flex-direction: column; gap: 0.1rem; }
-    .footer-nav a {
-      display: block; padding: 0.35rem 0;
-      font-size: 0.84rem; color: rgba(255,255,255,0.52);
-      text-decoration: none; cursor: pointer; transition: color 0.15s;
+    .footer-praxisname {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255,255,255,0.85); margin-bottom: 0.6rem;
     }
-    .footer-nav a:hover { color: rgba(255,255,255,0.88); }
-    .footer-social { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .footer-contact-row {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.32rem 0;
+      font-size: 0.84rem; font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none; transition: color 0.15s;
+    }
+    a.footer-contact-row:hover { color: rgba(255,255,255,0.92); }
+    .footer-contact-row svg { flex-shrink: 0; color: var(--petrol-mid); opacity: 0.85; }
+    .footer-hours { display: flex; flex-direction: column; gap: 0.6rem; max-width: 320px; }
+    .footer-hours-row {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem;
+      font-size: 0.84rem;
+    }
+    .footer-hours-day { color: rgba(255,255,255,0.5); font-weight: 300; white-space: nowrap; }
+    .footer-hours-time { color: rgba(255,255,255,0.82); font-weight: 400; text-align: right; line-height: 1.6; }
+    .footer-social { display: flex; gap: 0.5rem; margin-top: 1.1rem; }
     .footer-soc-btn {
       width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12);
       border-radius: 8px; display: flex; align-items: center; justify-content: center;
@@ -761,12 +776,10 @@
       .impressum-box-v4.full-v4 { grid-column: span 1; }
       .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
       .karriere-v4, .form-page-v4, .impressum-v4 { padding: 4rem 1.5rem; }
-      .footer-brand .footer-address { display: none; }
     }
     @media (max-width: 600px) {
       .leistungen-grid { grid-template-columns: 1fr; }
       .team-grid-v4 { grid-template-columns: 1fr 1fr; }
-      .hero-trust { flex-direction: column; gap: 0.6rem; }
       .hero-cta { width: 100%; justify-content: center; }
       .form-row-v4 { grid-template-columns: 1fr; }
       .ueber-values { grid-template-columns: 1fr; }
@@ -783,7 +796,7 @@
   </div>
   <div class="nav-links" id="nav-links">
     <a href="#leistungen" onclick="scrollToSection('leistungen'); return false;">Leistungen</a>
-    <a href="#ueber" onclick="scrollToSection('ueber'); return false;">Ueber uns</a>
+    <a href="#ueber" onclick="scrollToSection('ueber'); return false;">Über uns</a>
     <a href="#team" onclick="scrollToSection('team'); return false;">Team</a>
     <a href="#stimmen" onclick="scrollToSection('stimmen'); return false;">Bewertungen</a>
     <a href="#galerie" onclick="scrollToSection('galerie'); return false;">Galerie</a>
@@ -791,16 +804,16 @@
     <a href="#impressum" onclick="showImpressum(); return false;">Impressum</a>
   </div>
   <button class="nav-cta" onclick="showTermin()">Termin anfragen</button>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menue">
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
-  <button class="mob-close" onclick="toggleMenu()">&#x2715;</button>
+  <button class="mob-close" onclick="toggleMenu()" aria-label="Menü schließen"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
   <a href="#leistungen" onclick="scrollToSection('leistungen'); closeMenu(); return false;">Leistungen</a>
-  <a href="#ueber" onclick="scrollToSection('ueber'); closeMenu(); return false;">Ueber uns</a>
+  <a href="#ueber" onclick="scrollToSection('ueber'); closeMenu(); return false;">Über uns</a>
   <a href="#team" onclick="scrollToSection('team'); closeMenu(); return false;">Team</a>
   <a href="#stimmen" onclick="scrollToSection('stimmen'); closeMenu(); return false;">Bewertungen</a>
   <a href="#galerie" onclick="scrollToSection('galerie'); closeMenu(); return false;">Galerie</a>
@@ -819,14 +832,14 @@
   <section id="hero">
     <div class="hero-text-col">
       <p class="eyebrow-v4">Zahnarztpraxis in Pforzheim</p>
-      <h1 class="hero-h1">Ihr Laecheln ist<br><em>unsere Leidenschaft</em></h1>
-      <p class="hero-sub">Moderne Zahnmedizin mit persoenlicher Betreuung &mdash; direkt am Sedansplatz. Wir nehmen uns Zeit fuer Sie.</p>
+      <h1 class="hero-h1">Ihr Lächeln ist<br><em>unsere Leidenschaft</em></h1>
+      <p class="hero-sub">Moderne Zahnmedizin mit persönlicher Betreuung &mdash; direkt am Sedansplatz. Wir nehmen uns Zeit für Sie.</p>
       <div class="hero-mobile-visual image-slot">
         <!-- HERO-BILD MOBILE VERSION: Hier deinen eigenen mobilen Bildpfad einsetzen -->
         <img src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim mobile" loading="eager" decoding="async">
         <div class="image-slot-note">
           <span>Mobiles Hero-Bild hier einsetzen</span>
-          <small>Nur src im img-Tag aendern</small>
+          <small>Nur src im img-Tag ändern</small>
         </div>
       </div>
       <button class="hero-cta" onclick="showTermin()">
@@ -834,17 +847,17 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
       <div class="hero-trust">
-        <span class="hero-trust-item"><span class="hero-trust-dot"></span>4,7 bei Google</span>
-        <span class="hero-trust-item"><span class="hero-trust-dot"></span>Kassen- &amp; Privatpatienten</span>
-        <span class="hero-trust-item"><span class="hero-trust-dot"></span>Fuer Angstpatienten geeignet</span>
+        <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>4,7 bei Google</span>
+        <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Kassen- &amp; Privatpatienten</span>
+        <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Für Angstpatienten geeignet</span>
       </div>
     </div>
     <div class="hero-img-col image-slot">
-      <!-- HERO-BILD WEBVERSION: Diesen src-Pfad fuer das Desktop-Bild verwenden -->
+      <!-- HERO-BILD WEBVERSION: Diesen src-Pfad für das Desktop-Bild verwenden -->
       <img class="hero-img-desktop" src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim" loading="eager" decoding="async">
       <div class="image-slot-note">
-        <span>Praxisbild oder Portraetfoto hier einsetzen</span>
-        <small>Nur src im img-Tag aendern</small>
+        <span>Praxisbild oder Porträtfoto hier einsetzen</span>
+        <small>Nur src im img-Tag ändern</small>
       </div>
     </div>
   </section>
@@ -853,30 +866,30 @@
   <section id="leistungen" class="section-wrap bgwhite">
     <p class="eyebrow-v4">Was wir bieten</p>
     <h2 class="h2-serif">Unsere Leistungen</h2>
-    <p class="lead-text">Von der Vorsorge bis zur aesthetischen Behandlung &mdash; immer mit Ruhe, Sorgfalt und einem persoenlichen Blick auf den Menschen.</p>
+    <p class="lead-text">Von der Vorsorge bis zur ästhetischen Behandlung &mdash; immer mit Ruhe, Sorgfalt und einem persönlichen Blick auf den Menschen.</p>
     <div class="leistungen-grid">
       <div class="leistung-card">
         <div class="leistung-icon">&#129470;</div>
         <h3>Vorsorge &amp; Prophylaxe</h3>
-        <p>Regelmaessige Untersuchungen und professionelle Zahnreinigung fuer langfristige Gesundheit.</p>
+        <p>Regelmäßige Untersuchungen und professionelle Zahnreinigung für langfristige Gesundheit.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
         <div class="leistung-icon">&#10024;</div>
-        <h3>Aesthetische Zahnheilkunde</h3>
-        <p>Bleaching, Veneers und individuelle Korrekturen fuer ein strahlendes, natuerliches Laecheln.</p>
+        <h3>Ästhetische Zahnheilkunde</h3>
+        <p>Bleaching, Veneers und individuelle Korrekturen für ein strahlendes, natürliches Lächeln.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
         <div class="leistung-icon">&#129463;</div>
         <h3>Zahnersatz &amp; Implantate</h3>
-        <p>Hochwertige, individuelle Loesungen &mdash; von der Krone bis zum Implantat, praezise und schonend.</p>
+        <p>Hochwertige, individuelle Lösungen &mdash; von der Krone bis zum Implantat, präzise und schonend.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
         <div class="leistung-icon">&#128118;</div>
         <h3>Kinder &amp; Angstpatienten</h3>
-        <p>Ruhige Termine, klare Erklaerungen, viel Geduld &mdash; fuer alle, die besondere Begleitung brauchen.</p>
+        <p>Ruhige Termine, klare Erklärungen, viel Geduld &mdash; für alle, die besondere Begleitung brauchen.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
     </div>
@@ -885,23 +898,23 @@
   <!-- UEBER DIE PRAXIS -->
   <section id="ueber" class="section-wrap bg2">
     <p class="eyebrow-v4">Wer wir sind</p>
-    <h2 class="h2-serif">Ueber die Praxis</h2>
+    <h2 class="h2-serif">Über die Praxis</h2>
     <div class="ueber-layout">
       <div class="ueber-text">
-        <p class="ueber-lead">Moderne Zahnmedizin am Sedansplatz in Pforzheim &mdash; persoenlich, ruhig und mit einem klaren Blick fuer das, was fuer Sie wirklich sinnvoll ist.</p>
-        <p class="ueber-compact-copy">Wir behandeln Patienten jeden Alters, erklaeren jeden Schritt verstaendlich und verbinden moderne Ausstattung mit einer ehrlichen, einfuehlsamen Betreuung.</p>
+        <p class="ueber-lead">Moderne Zahnmedizin am Sedansplatz in Pforzheim &mdash; persönlich, ruhig und mit einem klaren Blick für das, was für Sie wirklich sinnvoll ist.</p>
+        <p class="ueber-compact-copy">Wir behandeln Patienten jeden Alters, erklären jeden Schritt verständlich und verbinden moderne Ausstattung mit einer ehrlichen, einfühlsamen Betreuung.</p>
         <div class="ueber-values">
           <div class="ueber-value">
             <span class="ueber-value-num">I</span>
-            <div class="ueber-value-text"><h4>Persoenlich</h4><p>Ruhige Betreuung mit Zeit fuer Fragen und individuelle Anliegen.</p></div>
+            <div class="ueber-value-text"><h4>Persönlich</h4><p>Ruhige Betreuung mit Zeit für Fragen und individuelle Anliegen.</p></div>
           </div>
           <div class="ueber-value">
             <span class="ueber-value-num">II</span>
-            <div class="ueber-value-text"><h4>Modern</h4><p>Aktuelle Technik fuer praezise Diagnostik und schonende Behandlung.</p></div>
+            <div class="ueber-value-text"><h4>Modern</h4><p>Aktuelle Technik für präzise Diagnostik und schonende Behandlung.</p></div>
           </div>
           <div class="ueber-value">
             <span class="ueber-value-num">III</span>
-            <div class="ueber-value-text"><h4>Transparent</h4><p>Klare Erklaerungen statt unnoetiger Schritte oder Unsicherheit.</p></div>
+            <div class="ueber-value-text"><h4>Transparent</h4><p>Klare Erklärungen statt unnötiger Schritte oder Unsicherheit.</p></div>
           </div>
           <div class="ueber-value">
             <span class="ueber-value-num">IV</span>
@@ -912,8 +925,8 @@
       <div class="ueber-img-wrap image-slot">
         <img src="images/arzt_template.png" alt="Zahnarzt Michael Schulz Pforzheim" loading="lazy" decoding="async">
         <div class="image-slot-note">
-          <span>Portraet- oder Praxisbild hier einsetzen</span>
-          <small>Nur src im img-Tag aendern</small>
+          <span>Porträt- oder Praxisbild hier einsetzen</span>
+          <small>Nur src im img-Tag ändern</small>
         </div>
       </div>
     </div>
@@ -923,12 +936,12 @@
   <section id="team" class="section-wrap bgwhite">
     <p class="eyebrow-v4">Menschen hinter der Praxis</p>
     <h2 class="h2-serif">Unser Team</h2>
-    <p class="lead-text">Ein eingespieltes Team, das jeden Tag fuer Ihre Zahngesundheit da ist &mdash; vom ersten Hallo am Empfang bis zur Behandlung.</p>
+    <p class="lead-text">Ein eingespieltes Team, das jeden Tag für Ihre Zahngesundheit da ist &mdash; vom ersten Hallo am Empfang bis zur Behandlung.</p>
     <div class="team-grid-v4">
       <div class="team-card-v4 featured">
         <div class="team-photo-v4 image-slot">
           <img src="images/portraet_arzt_template.png" alt="Michael Schulz Zahnarzt" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Portraetfoto einsetzen</span><small>src aendern</small></div>
+          <div class="image-slot-note"><span>Porträtfoto einsetzen</span><small>src ändern</small></div>
         </div>
         <div class="team-name-v4">Michael Schulz</div>
         <div class="team-role-v4">Zahnarzt &amp; Inhaber</div>
@@ -936,7 +949,7 @@
       <div class="team-card-v4">
         <div class="team-photo-v4 image-slot">
           <img src="images/MFA_template.png" alt="ZFA" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src aendern</small></div>
+          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
         </div>
         <div class="team-name-v4">[Name]</div>
         <div class="team-role-v4">Zahnmed. Fachangestellte</div>
@@ -944,7 +957,7 @@
       <div class="team-card-v4">
         <div class="team-photo-v4 image-slot">
           <img src="images/empfangsdame_template.png" alt="Empfang" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src aendern</small></div>
+          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
         </div>
         <div class="team-name-v4">[Name]</div>
         <div class="team-role-v4">Empfang &amp; Management</div>
@@ -952,7 +965,7 @@
       <div class="team-card-v4">
         <div class="team-photo-v4 image-slot">
           <img src="images/prophylaxe_template.png" alt="Prophylaxe" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src aendern</small></div>
+          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
         </div>
         <div class="team-name-v4">[Name]</div>
         <div class="team-role-v4">Prophylaxe</div>
@@ -960,7 +973,7 @@
       <div class="team-card-v4">
         <div class="team-photo-v4 image-slot">
           <img src="images/assistenz_template.png" alt="Assistenz" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src aendern</small></div>
+          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
         </div>
         <div class="team-name-v4">[Name]</div>
         <div class="team-role-v4">Assistenz &amp; Hygiene</div>
@@ -979,9 +992,9 @@
     <div class="stimmen-grid">
       <div class="stimme-card">
         <div class="stimme-quote-mark">&ldquo;</div>
-        <p class="stimme-text">Sehr freundliche und kompetente Praxis. Das Team nimmt sich Zeit, erklaert jeden Schritt und macht auch aengstlichen Patienten die Behandlung angenehm. Ich bin seit Jahren Patientin und kann die Praxis nur waermstens empfehlen!</p>
+        <p class="stimme-text">Sehr freundliche und kompetente Praxis. Das Team nimmt sich Zeit, erklärt jeden Schritt und macht auch ängstlichen Patienten die Behandlung angenehm. Ich bin seit Jahren Patientin und kann die Praxis nur wärmstens empfehlen!</p>
         <div class="stimme-author">
-          <div class="stimme-avatar" style="background:linear-gradient(135deg,#2C5F6F,#1E4757)">S</div>
+          <div class="stimme-avatar" style="background:linear-gradient(135deg,#8DA290,#6B7F68)">S</div>
           <div>
             <div class="stimme-name">Sandra K.</div>
             <div class="stimme-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -990,7 +1003,7 @@
       </div>
       <div class="stimme-card">
         <div class="stimme-quote-mark">&ldquo;</div>
-        <p class="stimme-text">Herr Schulz ist ein sehr erfahrener und einfuehlsamer Zahnarzt. Die Behandlung war schmerzfrei und das Personal ausgesprochen nett. Ich fuehle mich hier in besten Haenden und komme gerne zur Kontrolle.</p>
+        <p class="stimme-text">Herr Schulz ist ein sehr erfahrener und einfühlsamer Zahnarzt. Die Behandlung war schmerzfrei und das Personal ausgesprochen nett. Ich fühle mich hier in besten Händen und komme gerne zur Kontrolle.</p>
         <div class="stimme-author">
           <div class="stimme-avatar" style="background:linear-gradient(135deg,#2d8e5a,#1a5c38)">M</div>
           <div>
@@ -1001,7 +1014,7 @@
       </div>
       <div class="stimme-card">
         <div class="stimme-quote-mark">&ldquo;</div>
-        <p class="stimme-text">Meine Kinder gehen hier seit Jahren hin und haben keinerlei Angst vorm Zahnarzt &mdash; das sagt alles! Tolle Atmosphaere, verstaendnisvolles Team und immer puenktliche Termine. Absolute Empfehlung!</p>
+        <p class="stimme-text">Meine Kinder gehen hier seit Jahren hin und haben keinerlei Angst vorm Zahnarzt &mdash; das sagt alles! Tolle Atmosphäre, verständnisvolles Team und immer pünktliche Termine. Absolute Empfehlung!</p>
         <div class="stimme-author">
           <div class="stimme-avatar" style="background:linear-gradient(135deg,#8a6a3a,#5c4220)">A</div>
           <div>
@@ -1023,37 +1036,37 @@
   <section id="galerie" class="section-wrap bgwhite">
     <p class="eyebrow-v4">Einblicke</p>
     <h2 class="h2-serif">Unsere Praxis</h2>
-    <p class="lead-text">Ruhig, modern und einladend &mdash; ein Ort, an dem Sie sich von Anfang an wohl fuehlen sollen.</p>
+    <p class="lead-text">Ruhig, modern und einladend &mdash; ein Ort, an dem Sie sich von Anfang an wohl fühlen sollen.</p>
     <div class="galerie-mosaic-v4">
       <div class="gal-v4 g7 image-slot">
         <img src="images/empfang_template.png" alt="Empfangsbereich" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Empfangsbereich</span><small>hell &middot; einladend</small></div>
       </div>
       <div class="gal-v4 g5 image-slot">
         <img src="images/zimmer_template.png" alt="Behandlungszimmer" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Behandlungszimmer</span><small>modern ausgestattet</small></div>
       </div>
       <div class="gal-v4 g4 image-slot">
-        <img src="images/gerate_template.png" alt="Geraete" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
-        <div class="gal-label-v4"><span>Moderne Geraete</span></div>
+        <img src="images/gerate_template.png" alt="Geräte" loading="lazy" decoding="async">
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
+        <div class="gal-label-v4"><span>Moderne Geräte</span></div>
       </div>
       <div class="gal-v4 g4b image-slot">
         <img src="images/behandlung_template.png" alt="Behandlung" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Im Alltag</span></div>
       </div>
       <div class="gal-v4 g4c image-slot">
         <img src="images/team_template.png" alt="Team" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Unser Team</span></div>
       </div>
       <div class="gal-v4 g12 image-slot">
         <img src="images/warte_template.png" alt="Wartezimmer" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src aendern</small></div>
-        <div class="gal-label-v4"><span>Atmosphaere</span><small>angenehm &middot; entspannt</small></div>
+        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
+        <div class="gal-label-v4"><span>Atmosphäre</span><small>angenehm &middot; entspannt</small></div>
       </div>
     </div>
   </section>
@@ -1064,7 +1077,7 @@
     <h2 class="h2-serif">Wir freuen uns auf Sie</h2>
     <div class="kontakt-layout">
       <div>
-        <div class="kontakt-col-title">Oeffnungszeiten</div>
+        <div class="kontakt-col-title">Öffnungszeiten</div>
         <div class="hours-list-v4">
           <div class="hours-row-v4"><span class="hours-day-v4">Montag</span><span class="hours-time-v4">08:00 – 12:00 &middot; 14:00 – 18:00</span></div>
           <div class="hours-row-v4"><span class="hours-day-v4">Dienstag</span><span class="hours-time-v4">08:00 – 12:00 &middot; 14:00 – 18:00</span></div>
@@ -1092,7 +1105,7 @@
       </div>
       <div class="termin-box">
         <h3>Termin anfragen</h3>
-        <p>Teilen Sie uns Ihren Wunsch mit &mdash; wir melden uns schnellstmoeglich zurueck.</p>
+        <p>Teilen Sie uns Ihren Wunsch mit &mdash; wir melden uns schnellstmöglich zurück.</p>
         <button class="btn-white-petrol" onclick="showTermin()">Zum Terminformular</button>
       </div>
     </div>
@@ -1101,36 +1114,55 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div class="footer-brand">
-        Zahnarztpraxis Michael Schulz
-        <small>Pforzheim am Sedansplatz</small>
-        <span class="footer-address">Dillsteiner Str. 7 &middot; 75173 Pforzheim<br>Tel: 07231 21641</span>
+      <div>
+        <div class="footer-col-title">Kontakt</div>
+        <div class="footer-praxisname">Zahnarztpraxis Michael Schulz</div>
+        <div class="footer-contact-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Dillsteiner Str. 7, 75173 Pforzheim
+        </div>
+        <a class="footer-contact-row" href="tel:0723121641">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          07231 21641
+        </a>
+        <a class="footer-contact-row" href="mailto:info@zahnarzt-schulz-pforzheim.de">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+          info@zahnarzt-schulz-pforzheim.de
+        </a>
+        <a class="footer-contact-row" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          In Google Maps anzeigen
+        </a>
       </div>
       <div>
-        <div class="footer-col-title">Navigation</div>
-        <nav class="footer-nav">
-          <a href="#leistungen" onclick="scrollToSection('leistungen'); return false;">Leistungen</a>
-          <a href="#ueber" onclick="scrollToSection('ueber'); return false;">Ueber uns</a>
-          <a href="#team" onclick="scrollToSection('team'); return false;">Team</a>
-          <a href="#stimmen" onclick="scrollToSection('stimmen'); return false;">Bewertungen</a>
-          <a href="#galerie" onclick="scrollToSection('galerie'); return false;">Galerie</a>
-          <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
-          <a href="#impressum" onclick="showImpressum(); return false;">Impressum &amp; Datenschutz</a>
-        </nav>
+        <div class="footer-col-title">Öffnungszeiten</div>
+        <div class="footer-hours">
+          <div class="footer-hours-row">
+            <span class="footer-hours-day">Mo &middot; Di &middot; Do</span>
+            <span class="footer-hours-time">08:00 – 12:00<br>14:00 – 18:00</span>
+          </div>
+          <div class="footer-hours-row">
+            <span class="footer-hours-day">Mi &middot; Fr</span>
+            <span class="footer-hours-time">08:00 – 12:00</span>
+          </div>
+        </div>
       </div>
       <div>
-        <div class="footer-col-title">Folgen Sie uns</div>
+        <div class="footer-brand">
+          Zahnarztpraxis Michael Schulz
+          <small>Pforzheim am Sedansplatz</small>
+        </div>
         <div class="footer-social">
-          <a class="footer-soc-btn" href="https://maps.app.goo.gl/a6EErPNJfFF2p9xK6" target="_blank" rel="noopener" aria-label="Google">
-            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-          </a>
           <a class="footer-soc-btn" href="https://www.instagram.com/zahnarztpraxis_dr.schulz" target="_blank" rel="noopener" aria-label="Instagram">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a class="footer-soc-btn" href="https://maps.app.goo.gl/a6EErPNJfFF2p9xK6" target="_blank" rel="noopener" aria-label="Google">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
           </a>
         </div>
       </div>
     </div>
-    <div class="footer-copy">&copy; 2025 Zahnarztpraxis Michael Schulz &middot; Pforzheim am Sedansplatz</div>
+    <div class="footer-copy">&copy; 2025 Zahnarztpraxis Michael Schulz &middot; Pforzheim am Sedansplatz &middot; <a href="#impressum" onclick="showImpressum(); return false;" style="color: rgba(255,255,255,0.4); text-decoration: none;">Impressum &amp; Datenschutz</a></div>
   </footer>
 
 </div><!-- /main-page -->
@@ -1138,10 +1170,10 @@
 <!-- ════ KARRIERE VIEW ════ -->
 <div id="karriere-view">
   <div class="karriere-v4">
-    <button class="back-btn-v4" onclick="showMain()">&larr; Zurueck zur Website</button>
+    <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
     <p class="eyebrow-v4">Werden Sie Teil unseres Teams</p>
     <h2 class="h2-serif">Karriere bei uns</h2>
-    <p class="lead-text">Offene Stellen nach Aufgabenbereich. Bewerbung direkt ueber das Formular.</p>
+    <p class="lead-text">Offene Stellen nach Aufgabenbereich. Bewerbung direkt über das Formular.</p>
     <div class="karriere-layout-v4">
       <div>
         <div class="stellen-v4">
@@ -1157,12 +1189,12 @@
               </div>
             </div>
             <div class="stelle-v4-body">
-              <p>Zur Verstaerkung unseres Teams suchen wir eine engagierte ZFA mit Freude am Umgang mit Patienten.</p>
+              <p>Zur Verstärkung unseres Teams suchen wir eine engagierte ZFA mit Freude am Umgang mit Patienten.</p>
               <div class="anf-label-v4">Anforderungen</div>
               <ul class="anf-list-v4">
                 <li>Abgeschlossene Ausbildung als ZFA</li>
-                <li>Freundliches und einfuehlsames Auftreten</li>
-                <li>Teamfaehigkeit und Zuverlaessigkeit</li>
+                <li>Freundliches und einfühlsames Auftreten</li>
+                <li>Teamfähigkeit und Zuverlässigkeit</li>
                 <li>Erfahrung im Praxisalltag von Vorteil</li>
               </ul>
               <button class="btn-apply-v4" onclick="showBewerbung('Zahnmedizinische Fachangestellte (m/w/d)')">Jetzt bewerben &rarr;</button>
@@ -1172,7 +1204,7 @@
             <div class="stelle-v4-header" onclick="toggleStelleV4('s2')">
               <div>
                 <div class="stelle-v4-title">Azubi Zahnarzthelfer/in</div>
-                <div class="stelle-v4-meta">Ausbildung &middot; naechster Jahrgang</div>
+                <div class="stelle-v4-meta">Ausbildung &middot; nächster Jahrgang</div>
               </div>
               <div class="stelle-v4-right">
                 <span class="stelle-v4-tag">Ausbildung</span>
@@ -1180,10 +1212,10 @@
               </div>
             </div>
             <div class="stelle-v4-body">
-              <p>Wir bieten eine fundierte Ausbildung in einer modernen Zahnarztpraxis mit persoenlicher Betreuung.</p>
+              <p>Wir bieten eine fundierte Ausbildung in einer modernen Zahnarztpraxis mit persönlicher Betreuung.</p>
               <div class="anf-label-v4">Anforderungen</div>
               <ul class="anf-list-v4">
-                <li>Mittlere Reife oder hoeher</li>
+                <li>Mittlere Reife oder höher</li>
                 <li>Interesse an Medizin und Zahnheilkunde</li>
                 <li>Gepflegtes Erscheinungsbild</li>
                 <li>Lernbereitschaft und Motivation</li>
@@ -1203,12 +1235,12 @@
               </div>
             </div>
             <div class="stelle-v4-body">
-              <p>Sie sind das freundliche Gesicht unserer Praxis &mdash; der erste Kontakt fuer unsere Patienten.</p>
+              <p>Sie sind das freundliche Gesicht unserer Praxis &mdash; der erste Kontakt für unsere Patienten.</p>
               <div class="anf-label-v4">Anforderungen</div>
               <ul class="anf-list-v4">
-                <li>Erfahrung im Empfang oder Buero</li>
+                <li>Erfahrung im Empfang oder Büro</li>
                 <li>Sicherer Umgang mit PC und Telefon</li>
-                <li>Freundliches, souveraenes Auftreten</li>
+                <li>Freundliches, souveränes Auftreten</li>
                 <li>Kenntnisse in Praxissoftware von Vorteil</li>
               </ul>
               <button class="btn-apply-v4" onclick="showBewerbung('Empfang / Praxismanagement')">Jetzt bewerben &rarr;</button>
@@ -1220,16 +1252,16 @@
         <div class="benefits-v4">
           <h4>Was wir bieten</h4>
           <ul>
-            <li>Angenehmes, familiaeres Arbeitsklima</li>
+            <li>Angenehmes, familiäres Arbeitsklima</li>
             <li>Moderne, gut ausgestattete Praxis</li>
-            <li>Fort- und Weiterbildungsmoeglichkeiten</li>
-            <li>Faire Verguetung &amp; geregelte Arbeitszeiten</li>
+            <li>Fort- und Weiterbildungsmöglichkeiten</li>
+            <li>Faire Vergütung &amp; geregelte Arbeitszeiten</li>
             <li>Langfristige Perspektive in Pforzheim</li>
           </ul>
         </div>
         <div class="cta-petrol-box">
           <h4>Klingt das nach Ihnen?</h4>
-          <p>Senden Sie uns Ihre Bewerbung direkt &mdash; wir melden uns schnellstmoeglich.</p>
+          <p>Senden Sie uns Ihre Bewerbung direkt &mdash; wir melden uns schnellstmöglich.</p>
           <button class="btn-white-sm" onclick="showBewerbung()">Zum Bewerbungsformular</button>
         </div>
       </div>
@@ -1240,13 +1272,13 @@
 <!-- ════ BEWERBUNG VIEW ════ -->
 <div id="bewerbung-view">
   <div class="form-page-v4">
-    <button class="back-btn-v4" onclick="showKarriere()">&larr; Zur Stellenuebersicht</button>
+    <button class="back-btn-v4" onclick="showKarriere()">&larr; Zur Stellenübersicht</button>
     <p class="eyebrow-v4">Karriere</p>
     <h2 class="h2-serif">Bewerbung</h2>
     <div class="form-wrap-v4">
       <div class="form-card-v4" id="bewerbungsformular">
         <h3>Jetzt bewerben</h3>
-        <p>Fuellen Sie das Formular aus &mdash; wir melden uns schnellstmoeglich bei Ihnen.</p>
+        <p>Füllen Sie das Formular aus &mdash; wir melden uns schnellstmöglich bei Ihnen.</p>
         <div class="form-row-v4">
           <div class="form-group"><label>Vorname *</label><input type="text" placeholder="Max" id="f-vorname" /></div>
           <div class="form-group"><label>Nachname *</label><input type="text" placeholder="Mustermann" id="f-nachname" /></div>
@@ -1256,14 +1288,14 @@
         <div class="form-group">
           <label>Stelle *</label>
           <select id="f-stelle">
-            <option value="">Bitte waehlen...</option>
+            <option value="">Bitte wählen...</option>
             <option>Zahnmedizinische Fachangestellte (m/w/d)</option>
             <option>Azubi Zahnarzthelfer/in</option>
             <option>Empfang / Praxismanagement</option>
             <option>Initiativbewerbung</option>
           </select>
         </div>
-        <div class="form-group"><label>Anschreiben / Nachricht</label><textarea placeholder="Erzaehlen Sie uns kurz etwas ueber sich..." id="f-msg"></textarea></div>
+        <div class="form-group"><label>Anschreiben / Nachricht</label><textarea placeholder="Erzählen Sie uns kurz etwas über sich..." id="f-msg"></textarea></div>
         <div class="form-group">
           <div class="file-upload-v4" onclick="document.getElementById('f-file').click()">
             <input type="file" id="f-file" accept=".pdf,.doc,.docx" />
@@ -1283,19 +1315,19 @@
 <!-- ════ TERMIN VIEW ════ -->
 <div id="termin-view">
   <div class="form-page-v4">
-    <button class="back-btn-v4" onclick="showMain();scrollToKontakt()">&larr; Zurueck</button>
+    <button class="back-btn-v4" onclick="showMain();scrollToKontakt()">&larr; Zurück</button>
     <p class="eyebrow-v4">Kontakt</p>
     <h2 class="h2-serif">Terminanfrage</h2>
     <div class="form-wrap-v4">
       <div class="form-card-v4" id="terminformular">
         <h3>Termin anfragen</h3>
-        <p>Teilen Sie uns Ihren Terminwunsch mit. Wir melden uns schnellstmoeglich zurueck.</p>
-        <div class="form-note-v4">Hinweis: Diese Ansicht ist aktuell nur ein UI-Test. Es werden noch keine echten Terminanfragen an die Praxis uebermittelt.</div>
+        <p>Teilen Sie uns Ihren Terminwunsch mit. Wir melden uns schnellstmöglich zurück.</p>
+        <div class="form-note-v4">Hinweis: Diese Ansicht ist aktuell nur ein UI-Test. Es werden noch keine echten Terminanfragen an die Praxis übermittelt.</div>
         <div class="form-group"><label>Name *</label><input type="text" placeholder="Vor- und Nachname" id="t-name" /></div>
         <div class="form-group"><label>Telefonnummer *</label><input type="tel" placeholder="+49 7231 ..." id="t-phone" /></div>
         <div class="form-group"><label>Nachricht</label><textarea placeholder="Teilen Sie uns Ihren Wunsch oder Ihr Anliegen kurz mit..." id="t-message"></textarea></div>
         <button class="form-submit-v4" onclick="submitTerminForm()">Terminanfrage absenden</button>
-        <div class="success-msg test-msg" id="termin-success-msg">Testhinweis: Diese Terminanfrage wurde noch nicht an die Praxis uebermittelt.</div>
+        <div class="success-msg test-msg" id="termin-success-msg">Testhinweis: Diese Terminanfrage wurde noch nicht an die Praxis übermittelt.</div>
       </div>
     </div>
   </div>
@@ -1304,25 +1336,25 @@
 <!-- ════ IMPRESSUM VIEW ════ -->
 <div id="impressum-view">
   <div class="impressum-v4">
-    <button class="back-btn-v4" onclick="showMain()">&larr; Zurueck zur Website</button>
+    <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
     <p class="eyebrow-v4">Rechtliches</p>
     <h2 class="h2-serif">Impressum &amp; Datenschutz</h2>
     <div class="impressum-grid-v4">
       <div class="impressum-box-v4">
-        <h3>Angaben gemaess &sect; 5 TMG</h3>
+        <h3>Angaben gemäß &sect; 5 TMG</h3>
         <p><strong>Zahnarztpraxis Michael Schulz</strong><br>Dillsteiner Str. 7<br>75173 Pforzheim<br><br><strong>Telefon:</strong> 07231 21641<br><strong>E-Mail:</strong> <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a></p>
       </div>
       <div class="impressum-box-v4">
         <h3>Berufsrechtliche Angaben</h3>
-        <p><strong>Berufsbezeichnung:</strong> Zahnarzt<br><strong>Kammer:</strong> Landeszahnaerztekammer Baden-Wuerttemberg<br><strong>Approbation:</strong> Deutschland<br><br><strong>Aufsicht:</strong> KZV Baden-Wuerttemberg</p>
+        <p><strong>Berufsbezeichnung:</strong> Zahnarzt<br><strong>Kammer:</strong> Landeszahnärztekammer Baden-Württemberg<br><strong>Approbation:</strong> Deutschland<br><br><strong>Aufsicht:</strong> KZV Baden-Württemberg</p>
       </div>
       <div class="impressum-box-v4 full-v4">
-        <h3>Datenschutzerklaerung</h3>
-        <p>Der Schutz Ihrer Daten ist uns wichtig. Wir verarbeiten Ihre Daten ausschliesslich auf Grundlage der DSGVO und des TMG.<br><br><strong>Bewerbungsformular:</strong> Angaben werden zwecks Bearbeitung gespeichert und nicht ohne Einwilligung weitergegeben. Bewerbungsdaten werden spaetestens nach 6 Monaten geloescht.<br><br><strong>Verantwortlicher:</strong> Michael Schulz &middot; Dillsteiner Str. 7 &middot; 75173 Pforzheim &middot; <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a></p>
+        <h3>Datenschutzerklärung</h3>
+        <p>Der Schutz Ihrer Daten ist uns wichtig. Wir verarbeiten Ihre Daten ausschließlich auf Grundlage der DSGVO und des TMG.<br><br><strong>Bewerbungsformular:</strong> Angaben werden zwecks Bearbeitung gespeichert und nicht ohne Einwilligung weitergegeben. Bewerbungsdaten werden spätestens nach 6 Monaten gelöscht.<br><br><strong>Verantwortlicher:</strong> Michael Schulz &middot; Dillsteiner Str. 7 &middot; 75173 Pforzheim &middot; <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a></p>
       </div>
       <div class="impressum-box-v4 full-v4">
         <h3>Haftungsausschluss</h3>
-        <p>Die Inhalte dieser Seite wurden mit groesster Sorgfalt erstellt. Fuer Richtigkeit, Vollstaendigkeit und Aktualitaet uebernehmen wir keine Gewaehr. Als Diensteanbieter sind wir gemaess &sect; 7 Abs. 1 TMG fuer eigene Inhalte verantwortlich.</p>
+        <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Als Diensteanbieter sind wir gemäß &sect; 7 Abs. 1 TMG für eigene Inhalte verantwortlich.</p>
       </div>
     </div>
   </div>
