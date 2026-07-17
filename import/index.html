@@ -898,6 +898,12 @@
       line-height: 1.8; font-weight: 300; margin-bottom: 1rem;
     }
     .leistung-detail-text p em { color: var(--soft); }
+    .leistung-detail-text p strong { color: var(--text); font-weight: 600; }
+    .leistung-detail-hinweis {
+      font-size: 0.78rem !important; color: var(--soft) !important;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem; margin-top: 1.5rem;
+    }
     @media (max-width: 600px) {
       .leistung-detail-scroll { padding: 1.75rem 1.4rem 2rem; }
       .leistung-detail-kopf h3 { font-size: 1.35rem; }
@@ -2118,36 +2124,69 @@
   initKarussell('.stimmen-grid', 'stimmen-dots', 'faecher');
 
   /* ── LEISTUNGS-DETAILS (Mehr erfahren) ──
-     Inhalte je Karte; Texte sind Platzhalter und werden spaeter
-     durch die finalen Texte des Kunden ersetzt.
+     Inhalte je Karte. Die Texte sind Entwuerfe auf Basis ueblicher
+     Kassenregeln/Richtwerte und MUESSEN vor dem Livegang von
+     Herrn Schulz fachlich geprueft und freigegeben werden.
      HINWEIS FUER DEN LAUNCH (auf Zuruf von Kevin, NICHT vorher):
      Alle Platzhalter-Bilder der Seite mit grossem rotem
      'Bitte austauschen'-Hinweis versehen, bis echte Fotos da sind. */
   const LEISTUNG_DETAILS = [
-    { titel: 'Vorsorge & Prophylaxe', icon: '&#129470;', bild: 'images/leistung_vorsorge.webp',
-      absaetze: ['Regelmäßige Untersuchungen, professionelle Zahnreinigung und Kinderprophylaxe für langfristige Gesundheit.',
-        '[Platzhalter: ausführlicher Text zu „Vorsorge & Prophylaxe" folgt. Hier ist Platz für Ablauf, Besonderheiten der Praxis und häufige Fragen.]'] },
-    { titel: 'Implantologie', icon: '&#129463;', bild: 'images/leistung_implantologie.jpg',
-      absaetze: ['Unser Spezialgebiet: fest verankerter Zahnersatz auf Implantaten, präzise geplant und schonend umgesetzt.',
-        '[Platzhalter: ausführlicher Text zu „Implantologie" folgt. Hier ist Platz für Ablauf, Besonderheiten der Praxis und häufige Fragen.]'] },
-    { titel: 'Zahnersatz & Prothetik', icon: '&#128081;', bild: 'images/leistung_zahnersatz.jpg',
-      absaetze: ['Kronen, Brücken und Prothesen: hochwertige, individuelle Lösungen, präzise und schonend.',
-        '[Platzhalter: ausführlicher Text zu „Zahnersatz & Prothetik" folgt. Hier ist Platz für Ablauf, Besonderheiten der Praxis und häufige Fragen.]'] },
-    { titel: 'Parodontologie', icon: '&#127807;', bild: 'images/leistung_parodontologie.jpg',
-      absaetze: ['Systematische Parodontitisbehandlung für gesundes Zahnfleisch und einen stabilen Zahnhalt.',
-        '[Platzhalter: ausführlicher Text zu „Parodontologie" folgt. Hier ist Platz für Ablauf, Besonderheiten der Praxis und häufige Fragen.]'] },
-    { titel: 'Füllungen & Endodontie', icon: '&#128300;', bild: 'images/leistung_endodontie.jpg',
-      absaetze: ['Professionelle Füllungen, Wurzelbehandlungen und Knirscherschienen (Bruxismus), zahnerhaltend und sorgfältig.',
-        '[Platzhalter: ausführlicher Text zu „Füllungen & Endodontie" folgt. Hier ist Platz für Ablauf, Besonderheiten der Praxis und häufige Fragen.]'] },
-    { titel: 'Aligner-Therapie', icon: '&#128513;', bild: 'images/leistung_aligner.webp',
-      absaetze: ['Sanfte Zahnkorrektur mit transparenten Schienen, nahezu unsichtbar im Alltag.',
-        '[Platzhalter: ausführlicher Text zu „Aligner-Therapie" folgt. Hier ist Platz für Ablauf, Besonderheiten der Praxis und häufige Fragen.]'] },
-    { titel: 'Ästhetische Zahnheilkunde', icon: '&#10024;', bild: 'images/leistung_aesthetik.jpg',
-      absaetze: ['Bleaching, Veneers und Schmelzflecken-Entfernung für ein strahlendes, natürliches Lächeln.',
-        '[Platzhalter: ausführlicher Text zu „Ästhetische Zahnheilkunde" folgt. Hier ist Platz für Ablauf, Besonderheiten der Praxis und häufige Fragen.]'] },
+    { titel: 'Vorsorge & Prophylaxe', icon: '&#129470;', bild: 'images/leistung_vorsorge.webp', richtwerte: true,
+      absaetze: [
+        'Regelmäßige Untersuchungen, professionelle Zahnreinigung und Kinderprophylaxe für langfristige Gesundheit.',
+        'Kosten & Krankenkasse: Die halbjährliche Kontrolluntersuchung übernimmt Ihre Krankenkasse vollständig. Die professionelle Zahnreinigung ist in der Regel eine Privatleistung, viele Kassen beteiligen sich aber mit einem Zuschuss. Die Kinderprophylaxe ist bis zum 18. Geburtstag Kassenleistung.',
+        'Behandlungsdauer: Eine Kontrolluntersuchung dauert etwa 15 bis 20 Minuten, die professionelle Zahnreinigung je nach Zahnstatus 45 bis 60 Minuten. Beides ist an einem Termin erledigt.',
+        'Gut zu wissen: Wer die Vorsorge regelmäßig im Bonusheft dokumentiert, sichert sich bei späterem Zahnersatz deutlich höhere Zuschüsse der Kasse.'
+      ] },
+    { titel: 'Implantologie', icon: '&#129463;', bild: 'images/leistung_implantologie.jpg', richtwerte: true,
+      absaetze: [
+        'Unser Spezialgebiet: fest verankerter Zahnersatz auf Implantaten, präzise geplant und schonend umgesetzt.',
+        'Kosten & Krankenkasse: Das Setzen des Implantats ist eine Privatleistung. Für die Krone darauf zahlt die Kasse denselben Festzuschuss wie bei klassischem Zahnersatz. Vor Beginn erhalten Sie von uns einen transparenten Heil- und Kostenplan.',
+        'Dauer bis zum Ergebnis: Nach dem Eingriff heilt das Implantat in der Regel drei bis sechs Monate fest in den Kiefer ein, danach wird die endgültige Krone befestigt.',
+        'Behandlungsdauer: Das Setzen eines einzelnen Implantats dauert meist 45 bis 90 Minuten und erfolgt unter örtlicher Betäubung.'
+      ] },
+    { titel: 'Zahnersatz & Prothetik', icon: '&#128081;', bild: 'images/leistung_zahnersatz.jpg', richtwerte: true,
+      absaetze: [
+        'Kronen, Brücken und Prothesen: hochwertige, individuelle Lösungen, präzise und schonend.',
+        'Kosten & Krankenkasse: Gesetzliche Kassen zahlen einen Festzuschuss von 60 Prozent der Regelversorgung, mit gepflegtem Bonusheft bis zu 75 Prozent. Ihren Eigenanteil kennen Sie vorab aus dem Heil- und Kostenplan.',
+        'Dauer bis zum Ergebnis: Vom ersten Termin bis zum Einsetzen vergehen je nach Aufwand ein bis drei Wochen, in denen das Labor Ihren Zahnersatz individuell anfertigt.',
+        'Behandlungsdauer: Für eine Krone planen Sie zwei bis drei Termine ein, die Vorbereitung mit Abformung etwa 60 Minuten, das Einsetzen rund 30 Minuten.'
+      ] },
+    { titel: 'Parodontologie', icon: '&#127807;', bild: 'images/leistung_parodontologie.jpg', richtwerte: true,
+      absaetze: [
+        'Systematische Parodontitisbehandlung für gesundes Zahnfleisch und einen stabilen Zahnhalt.',
+        'Kosten & Krankenkasse: Die systematische Parodontitisbehandlung ist Kassenleistung. Nach der Diagnose beantragen wir sie für Sie, für die Grundbehandlung entstehen in der Regel keine Kosten.',
+        'Dauer bis zum Ergebnis: Die Behandlung verteilt sich auf mehrere Sitzungen innerhalb weniger Wochen. Anschließend begleiten wir Sie mit der Nachsorge über zwei Jahre, damit das Ergebnis stabil bleibt.',
+        'Behandlungsdauer: Eine Sitzung dauert etwa 45 bis 60 Minuten und ist dank örtlicher Betäubung gut verträglich.'
+      ] },
+    { titel: 'Füllungen & Endodontie', icon: '&#128300;', bild: 'images/leistung_endodontie.jpg', richtwerte: true,
+      absaetze: [
+        'Professionelle Füllungen, Wurzelbehandlungen und Knirscherschienen (Bruxismus), zahnerhaltend und sorgfältig.',
+        'Kosten & Krankenkasse: Füllungen sind Kassenleistung, für besonders hochwertige Kunststofffüllungen im Seitenzahnbereich kann eine Zuzahlung anfallen. Wurzelbehandlungen übernimmt die Kasse bei erhaltungswürdigen Zähnen, die Knirscherschiene ist in der Regel ebenfalls Kassenleistung.',
+        'Behandlungsdauer: Eine Füllung ist meist in 30 bis 60 Minuten erledigt. Eine Wurzelbehandlung braucht je nach Zahn ein bis drei Sitzungen von je 45 bis 90 Minuten.',
+        'Dauer bis zum Ergebnis: Für die Knirscherschiene nehmen wir einen Abdruck, etwa ein bis zwei Wochen später sitzt die fertige Schiene.'
+      ] },
+    { titel: 'Aligner-Therapie', icon: '&#128513;', bild: 'images/leistung_aligner.webp', richtwerte: true,
+      absaetze: [
+        'Sanfte Zahnkorrektur mit transparenten Schienen, nahezu unsichtbar im Alltag.',
+        'Kosten & Krankenkasse: Bei Erwachsenen ist die Aligner-Therapie eine Privatleistung, die Kosten hängen vom Umfang der Zahnbewegung ab. Nach einer Analyse erhalten Sie von uns ein individuelles, transparentes Angebot.',
+        'Dauer bis zum Ergebnis: Je nach Ausgangslage dauert die Behandlung wenige Monate bis etwa ein Jahr. Die Schienen werden etwa alle ein bis zwei Wochen gewechselt.',
+        'Behandlungsdauer: Die Kontrolltermine sind kurz, meist 15 bis 30 Minuten. Getragen werden die Schienen rund 22 Stunden am Tag.'
+      ] },
+    { titel: 'Ästhetische Zahnheilkunde', icon: '&#10024;', bild: 'images/leistung_aesthetik.jpg', richtwerte: true,
+      absaetze: [
+        'Bleaching, Veneers und Schmelzflecken-Entfernung für ein strahlendes, natürliches Lächeln.',
+        'Kosten & Krankenkasse: Ästhetische Behandlungen sind Privatleistungen. Was Ihr Wunschergebnis kostet, besprechen wir offen in einer Beratung, bevor irgendetwas beginnt.',
+        'Behandlungsdauer: Ein Bleaching in der Praxis dauert etwa 60 bis 90 Minuten, das Ergebnis sehen Sie sofort. Veneers benötigen meist zwei bis drei Termine innerhalb von zwei bis drei Wochen.',
+        'Gut zu wissen: Vor jeder ästhetischen Behandlung prüfen wir, ob Zähne und Zahnfleisch gesund sind. Das ist die Basis für ein schönes und haltbares Ergebnis.'
+      ] },
     { titel: 'Kinder & Angstpatienten', icon: '&#128118;', bild: 'images/leistung_kinder.jpg',
-      absaetze: ['Kinderzahnheilkunde mit Ruhe und Geduld, dazu einfühlsame Begleitung für Angstpatienten.',
-        '[Platzhalter: ausführlicher Text zu „Kinder & Angstpatienten" folgt. Hier ist Platz für Ablauf, Besonderheiten der Praxis und häufige Fragen.]'] }
+      absaetze: [
+        'Kinderzahnheilkunde mit Ruhe und Geduld, dazu einfühlsame Begleitung für Angstpatienten.',
+        'Bei uns muss niemand tapfer sein. Wir nehmen uns Zeit, erklären jeden Schritt in Ruhe und machen nichts, bevor Sie oder Ihr Kind nicht so weit sind. Das erste Kennenlernen darf auch einfach nur ein Gespräch sein, ganz ohne Behandlung.',
+        'Viele unserer heutigen Stammpatienten kamen einmal mit großer Angst zu uns und kommen heute ganz entspannt zur Kontrolle. Dieses Vertrauen wächst in kleinen Schritten, und genau dafür nehmen wir uns die Zeit.',
+        'Für Kinder und Jugendliche ist die Vorsorge bis zum 18. Geburtstag Kassenleistung. Und wer Schmerzen hat, bekommt bei uns unverzüglich einen Termin, auch mit Angst.'
+      ] }
   ];
 
   function openLeistungDetail(i) {
@@ -2166,10 +2205,25 @@
         em.textContent = text;
         p.appendChild(em);
       } else {
-        p.textContent = text;
+        /* Kurzes Label vor dem ersten Doppelpunkt fett darstellen */
+        const doppelpunkt = text.indexOf(':');
+        if (doppelpunkt > 0 && doppelpunkt < 40 && !text.slice(0, doppelpunkt).includes('.')) {
+          const strong = document.createElement('strong');
+          strong.textContent = text.slice(0, doppelpunkt + 1) + ' ';
+          p.appendChild(strong);
+          p.appendChild(document.createTextNode(text.slice(doppelpunkt + 1).trim()));
+        } else {
+          p.textContent = text;
+        }
       }
       wrap.appendChild(p);
     });
+    if (d.richtwerte) {
+      const hinweis = document.createElement('p');
+      hinweis.className = 'leistung-detail-hinweis';
+      hinweis.textContent = 'Alle Zeit- und Kostenangaben sind Richtwerte. Ihre persönliche Situation besprechen wir vorab transparent mit Ihnen.';
+      wrap.appendChild(hinweis);
+    }
     const overlay = document.getElementById('leistung-detail');
     overlay.classList.add('sichtbar');
     overlay.querySelector('.leistung-detail-scroll').scrollTop = 0;
