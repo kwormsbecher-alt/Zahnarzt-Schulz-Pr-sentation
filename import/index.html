@@ -1012,6 +1012,8 @@
 
     /* ── KARUSSELL-PUNKTE (nur Handy sichtbar) ── */
     .karussell-dots { display: none; }
+    /* Endlos-Schleifen-Kopien: nur im Karussell-Modus sichtbar */
+    .karussell-klon { display: none; }
     .karussell-dots button {
       width: 8px; height: 8px; border-radius: 50%;
       border: none; padding: 0; cursor: pointer;
@@ -1084,6 +1086,7 @@
         will-change: transform;
       }
       .karussell-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.25rem; }
+      .karussell-klon { display: block; }
       .team-grid-v4 { grid-template-columns: 1fr 1fr; }
       .hero-cta-row { flex-direction: column; gap: 0.6rem; width: 100%; }
       .hero-cta, .hero-cta-tel { width: 100%; justify-content: center; }
@@ -2017,22 +2020,43 @@
       : 'Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB';
   });
 
-  /* ── KARUSSELLS (nur Handy, <= 600px) ── */
+  /* ── KARUSSELLS (nur Handy, <= 600px) — mit Endlos-Schleife ──
+     Fuer den 360-Grad-Effekt werden Kopien der ersten Karten ans Ende
+     und der letzten Karten an den Anfang gehaengt (auf Desktop
+     unsichtbar). Kommt das Wischen auf einer Kopie zur Ruhe, wird die
+     Position unsichtbar auf die echte Karte umgesetzt — Kopie und
+     Original sind pixelgleich, der Sprung ist nicht wahrnehmbar. */
   function initKarussell(gridSelector, dotsId, effekt) {
     const grid = document.querySelector(gridSelector);
     const dotsWrap = document.getElementById(dotsId);
     if (!grid || !dotsWrap) return;
-    const cards = [...grid.children];
+    const echte = [...grid.children];
     const mq = window.matchMedia('(max-width: 600px)');
     const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let raf = null;
+    let raf = null, ruheTimer = null, letzteNaechste = null, positioniert = false;
 
-    cards.forEach((card, i) => {
+    echte.forEach((k, i) => { k.dataset.index = i; });
+    function klon(original) {
+      const c = original.cloneNode(true);
+      c.classList.add('karussell-klon');
+      c.setAttribute('aria-hidden', 'true');
+      return c;
+    }
+    const K = Math.min(3, echte.length);
+    echte.slice(-K).map(klon).forEach(c => grid.insertBefore(c, echte[0]));
+    echte.slice(0, K).map(klon).forEach(c => grid.appendChild(c));
+    const alle = [...grid.children];
+
+    function zentriere(karte, sanft) {
+      const ziel = karte.offsetLeft - (grid.clientWidth - karte.clientWidth) / 2;
+      if (sanft) grid.scrollTo({ left: ziel, behavior: 'smooth' });
+      else grid.scrollLeft = ziel;
+    }
+
+    echte.forEach((karte, i) => {
       const dot = document.createElement('button');
       dot.setAttribute('aria-label', 'Karte ' + (i + 1) + ' anzeigen');
-      dot.addEventListener('click', () => {
-        grid.scrollTo({ left: card.offsetLeft - (grid.clientWidth - card.clientWidth) / 2, behavior: 'smooth' });
-      });
+      dot.addEventListener('click', () => zentriere(karte, true));
       dotsWrap.appendChild(dot);
     });
     const dots = [...dotsWrap.children];
@@ -2040,10 +2064,10 @@
     function update() {
       raf = null;
       const mitte = grid.scrollLeft + grid.clientWidth / 2;
-      let naechste = 0, naechsteDist = Infinity;
-      cards.forEach((card, i) => {
+      let naechsteDist = Infinity;
+      alle.forEach(card => {
         const dist = card.offsetLeft + card.clientWidth / 2 - mitte;
-        if (Math.abs(dist) < naechsteDist) { naechsteDist = Math.abs(dist); naechste = i; }
+        if (Math.abs(dist) < naechsteDist) { naechsteDist = Math.abs(dist); letzteNaechste = card; }
         if (ruhig.matches) return;
         const o = Math.max(-1.5, Math.min(1.5, dist / card.clientWidth));
         const a = Math.abs(o);
@@ -2057,14 +2081,35 @@
           card.style.opacity = (1 - a * 0.35).toFixed(3);
         }
       });
-      dots.forEach((d, i) => d.classList.toggle('active', i === naechste));
+      const aktiv = letzteNaechste ? parseInt(letzteNaechste.dataset.index, 10) : 0;
+      dots.forEach((d, i) => d.classList.toggle('active', i === aktiv));
     }
     function anfordern() { if (!raf) raf = requestAnimationFrame(update); }
-    function toggle() {
-      if (mq.matches) { anfordern(); }
-      else { cards.forEach(c => { c.style.transform = ''; c.style.opacity = ''; }); }
+
+    /* Ruht das Wischen auf einer Kopie, unsichtbar zum Original springen */
+    function springeWennKlon() {
+      if (!letzteNaechste || !letzteNaechste.classList.contains('karussell-klon')) return;
+      const original = echte[parseInt(letzteNaechste.dataset.index, 10)];
+      grid.scrollLeft += original.offsetLeft - letzteNaechste.offsetLeft;
+      anfordern();
     }
-    grid.addEventListener('scroll', () => { if (mq.matches) anfordern(); }, { passive: true });
+
+    function toggle() {
+      if (mq.matches) {
+        if (!positioniert) {
+          positioniert = true;
+          requestAnimationFrame(() => { zentriere(echte[0], false); anfordern(); });
+        } else { anfordern(); }
+      } else {
+        alle.forEach(c => { c.style.transform = ''; c.style.opacity = ''; });
+      }
+    }
+    grid.addEventListener('scroll', () => {
+      if (!mq.matches) return;
+      anfordern();
+      clearTimeout(ruheTimer);
+      ruheTimer = setTimeout(springeWennKlon, 120);
+    }, { passive: true });
     window.addEventListener('resize', toggle);
     mq.addEventListener('change', toggle);
     toggle();
@@ -2139,9 +2184,13 @@
     document.body.style.overflow = '';
     setTimeout(() => overlay.classList.remove('sichtbar'), 400);
   }
-  document.querySelectorAll('.leistungen-grid .leistung-card').forEach((card, i) => {
-    const link = card.querySelector('.leistung-link');
-    if (link) link.addEventListener('click', () => openLeistungDetail(i));
+  /* Klick-Weiterleitung ueber das Grid, damit auch die
+     Endlos-Schleifen-Kopien der Karten funktionieren */
+  document.querySelector('.leistungen-grid').addEventListener('click', e => {
+    const link = e.target.closest('.leistung-link');
+    if (!link) return;
+    const card = link.closest('.leistung-card');
+    if (card && card.dataset.index !== undefined) openLeistungDetail(parseInt(card.dataset.index, 10));
   });
 
   /* ── IMAGE SLOTS ── */
