@@ -1,0 +1,7 @@
+# Zahnarztpraxis Michael Schulz - Pforzheim
+# Domain im Sitemap-Verweis ggf. anpassen, sobald die finale Domain feststeht
+
+User-agent: *
+Allow: /
+
+Sitemap: https://zahnarzt-schulz-pforzheim.de/sitemap.xml

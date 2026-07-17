@@ -6,6 +6,43 @@
   <title>Zahnarztpraxis Michael Schulz – Pforzheim</title>
   <meta name="description" content="Zahnarztpraxis Michael Schulz in Pforzheim — familiengeführt seit über 40 Jahren. Moderne Zahnmedizin, persönliche Betreuung. Dillsteiner Str. 7, 75173 Pforzheim. Tel: 07231 21641" />
   <link rel="canonical" href="https://zahnarzt-schulz-pforzheim.de" />
+
+  <!-- Social-Vorschau (Open Graph) — Domain ggf. anpassen, sobald final -->
+  <meta property="og:title" content="Zahnarztpraxis Michael Schulz – Pforzheim" />
+  <meta property="og:description" content="Zahnarztpraxis Michael Schulz in Pforzheim — familiengeführt seit über 40 Jahren. Moderne Zahnmedizin, persönliche Betreuung. Dillsteiner Str. 7, 75173 Pforzheim." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:url" content="https://zahnarzt-schulz-pforzheim.de" />
+  <meta property="og:image" content="https://zahnarzt-schulz-pforzheim.de/favicon/web-app-manifest-512x512.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <!-- Strukturierte Daten fuer Google (lokales SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "Zahnarztpraxis Michael Schulz",
+    "url": "https://zahnarzt-schulz-pforzheim.de",
+    "image": "https://zahnarzt-schulz-pforzheim.de/favicon/web-app-manifest-512x512.png",
+    "telephone": "+49 7231 21641",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dillsteiner Str. 7",
+      "postalCode": "75173",
+      "addressLocality": "Pforzheim",
+      "addressCountry": "DE"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Thursday"], "opens": "08:00", "closes": "12:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Thursday"], "opens": "14:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Friday"], "opens": "08:00", "closes": "12:00" }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/zahnarztpraxis_dr.schulz",
+      "https://maps.app.goo.gl/a6EErPNJfFF2p9xK6"
+    ]
+  }
+  </script>
   <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
   <link rel="shortcut icon" href="favicon/favicon.ico" />
@@ -144,12 +181,12 @@
     .mobile-menu a, .mobile-menu .mob-sub {
       display: block; padding: 1.15rem 0;
       text-align: left;
-      font-size: 1.25rem; font-weight: 400; color: var(--text);
+      font-size: 1.3rem; font-weight: 500; color: var(--text);
       text-decoration: none; border-bottom: 1px solid var(--border); cursor: pointer;
       transition: color 0.15s;
     }
     .mobile-menu a:hover { color: var(--petrol2); }
-    .mobile-menu .mob-sub { font-size: 0.95rem; color: var(--petrol2); padding-left: 1.25rem; }
+    .mobile-menu .mob-sub { font-size: 0.95rem; font-weight: 400; color: var(--petrol2); padding-left: 1.25rem; }
     .mobile-menu .mob-cta {
       display: block; margin-top: 2rem; text-align: center;
       background: var(--petrol); color: white;
@@ -870,6 +907,43 @@
       .leistung-detail.open .leistung-detail-card { transform: none; }
     }
 
+    /* ── COOKIE-BANNER ── */
+    #cookie-banner {
+      position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 250;
+      display: none; justify-content: space-between; align-items: center; gap: 1.5rem;
+      max-width: 860px; margin: 0 auto;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.25rem 1.5rem;
+      box-shadow: 0 16px 50px rgba(46,51,48,0.18);
+      transform: translateY(20px); opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s;
+    }
+    #cookie-banner.sichtbar { display: flex; }
+    #cookie-banner.open { transform: translateY(0); opacity: 1; }
+    .cookie-text { font-size: 0.84rem; color: var(--mid); line-height: 1.6; font-weight: 300; }
+    .cookie-text a { color: var(--petrol2); text-decoration: underline; text-underline-offset: 2px; }
+    .cookie-buttons { display: flex; gap: 0.6rem; flex-shrink: 0; }
+    .cookie-btn-ja {
+      padding: 0.65rem 1.4rem;
+      background: var(--petrol); color: white;
+      border: none; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 500;
+      cursor: pointer; transition: background 0.18s;
+    }
+    .cookie-btn-ja:hover { background: var(--petrol2); }
+    .cookie-btn-nein {
+      padding: 0.65rem 1.4rem;
+      background: transparent; color: var(--mid);
+      border: 1.5px solid var(--border); border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 500;
+      cursor: pointer; transition: border-color 0.18s, color 0.18s;
+    }
+    .cookie-btn-nein:hover { border-color: var(--soft); color: var(--text); }
+    @media (max-width: 600px) {
+      #cookie-banner { flex-direction: column; align-items: stretch; gap: 1rem; }
+      .cookie-buttons button { flex: 1; }
+    }
+
     /* ── IMPRESSUM VIEW ── */
     #impressum-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
     #impressum-view.visible { display: block; }
@@ -1309,32 +1383,32 @@
     <p class="lead-text">Ruhig, modern und einladend &mdash; ein Ort, an dem Sie sich von Anfang an wohl fühlen sollen.</p>
     <div class="galerie-mosaic-v4">
       <div class="gal-v4 g7 image-slot">
-        <img src="images/empfang_template.png" alt="Empfangsbereich" loading="lazy" decoding="async">
+        <img src="images/empfang_template.png" alt="Empfangsbereich der Zahnarztpraxis Michael Schulz in Pforzheim" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Empfangsbereich</span><small>hell &middot; einladend</small></div>
       </div>
       <div class="gal-v4 g5 image-slot">
-        <img src="images/zimmer_template.png" alt="Behandlungszimmer" loading="lazy" decoding="async">
+        <img src="images/zimmer_template.png" alt="Modern ausgestattetes Behandlungszimmer der Zahnarztpraxis Schulz" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Behandlungszimmer</span><small>modern ausgestattet</small></div>
       </div>
       <div class="gal-v4 g4 image-slot">
-        <img src="images/gerate_template.png" alt="Geräte" loading="lazy" decoding="async">
+        <img src="images/gerate_template.png" alt="Moderne zahnmedizinische Geräte der Praxis" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Moderne Geräte</span></div>
       </div>
       <div class="gal-v4 g4b image-slot">
-        <img src="images/behandlung_template.png" alt="Behandlung" loading="lazy" decoding="async">
+        <img src="images/behandlung_template.png" alt="Zahnärztliche Behandlung in der Zahnarztpraxis Schulz" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Im Alltag</span></div>
       </div>
       <div class="gal-v4 g4c image-slot">
-        <img src="images/team_template.png" alt="Team" loading="lazy" decoding="async">
+        <img src="images/team_template.png" alt="Das Team der Zahnarztpraxis Michael Schulz" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Unser Team</span></div>
       </div>
       <div class="gal-v4 g12 image-slot">
-        <img src="images/warte_template.png" alt="Wartezimmer" loading="lazy" decoding="async">
+        <img src="images/warte_template.png" alt="Wartezimmer der Zahnarztpraxis Michael Schulz in Pforzheim" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Atmosphäre</span><small>angenehm &middot; entspannt</small></div>
       </div>
@@ -1393,6 +1467,7 @@
           <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
           <a href="#impressum" onclick="showImpressum(); return false;">Impressum</a>
           <a href="#impressum" onclick="showImpressum(); return false;">Datenschutz</a>
+          <a href="#cookies" onclick="zeigeCookieBanner(); return false;">Cookie-Einstellungen</a>
         </nav>
         <div class="footer-social">
           <a class="footer-soc-btn" href="https://www.instagram.com/zahnarztpraxis_dr.schulz" target="_blank" rel="noopener" aria-label="Instagram">
@@ -1650,6 +1725,15 @@
   </div>
 </div>
 
+<!-- ════ COOKIE-BANNER ════ -->
+<div id="cookie-banner" role="dialog" aria-label="Cookie-Hinweis">
+  <p class="cookie-text">Wir möchten anonyme Statistiken mit Google Analytics erheben, um die Website zu verbessern &mdash; nur mit Ihrer Zustimmung. Details in der <a href="#datenschutz" onclick="openDsgvoModal(); return false;">Datenschutzerklärung</a>.</p>
+  <div class="cookie-buttons">
+    <button class="cookie-btn-nein" onclick="cookieEntscheidung('nein')">Ablehnen</button>
+    <button class="cookie-btn-ja" onclick="cookieEntscheidung('ja')">Akzeptieren</button>
+  </div>
+</div>
+
 <script>
   /* ── NAV SCROLL EFFECT ── */
   window.addEventListener('scroll', () => {
@@ -1802,6 +1886,48 @@
       if (this.checked) document.getElementById(p + '-dsgvo-hint').style.display = 'none';
     });
   });
+
+  /* ── COOKIES & GOOGLE ANALYTICS ── */
+  /* PLATZHALTER: Hier die echte Mess-ID aus dem Google-Analytics-Konto
+     der Praxis eintragen (Format G-XXXXXXXXXX). Solange ein Platzhalter
+     mit 'X' drinsteht, wird Google Analytics bewusst NICHT geladen. */
+  const GA_MESS_ID = 'G-XXXXXXXX';
+
+  function loadGoogleAnalytics() {
+    if (GA_MESS_ID.indexOf('X') !== -1) {
+      console.info('Google Analytics: Platzhalter-Mess-ID erkannt — Laden übersprungen (gewollt, bis die echte ID eingetragen ist).');
+      return;
+    }
+    if (window.gaGeladen) return;
+    window.gaGeladen = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MESS_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', GA_MESS_ID, { anonymize_ip: true });
+  }
+
+  function zeigeCookieBanner() {
+    const b = document.getElementById('cookie-banner');
+    b.classList.add('sichtbar');
+    requestAnimationFrame(() => requestAnimationFrame(() => b.classList.add('open')));
+  }
+  function cookieEntscheidung(wahl) {
+    try { localStorage.setItem('schulz-cookie-consent', wahl); } catch (e) {}
+    const b = document.getElementById('cookie-banner');
+    b.classList.remove('open');
+    setTimeout(() => b.classList.remove('sichtbar'), 350);
+    if (wahl === 'ja') loadGoogleAnalytics();
+  }
+  (function () {
+    let consent = null;
+    try { consent = localStorage.getItem('schulz-cookie-consent'); } catch (e) {}
+    if (consent === 'ja') loadGoogleAnalytics();
+    else if (consent === null) setTimeout(zeigeCookieBanner, 800);
+  })();
 
   /* ── FORMS ── */
   /* Empfaenger der Bewerbungen.
