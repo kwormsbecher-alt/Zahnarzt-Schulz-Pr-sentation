@@ -44,10 +44,10 @@
     ]
   }
   </script>
-  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-  <link rel="shortcut icon" href="favicon/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png?v=2" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg?v=2" />
+  <link rel="shortcut icon" href="favicon/favicon.ico?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png?v=2" />
   <meta name="apple-mobile-web-app-title" content="Zahnarzt Schulz" />
   <link rel="manifest" href="favicon/site.webmanifest" />
 
@@ -235,6 +235,16 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── SCHOENERE ZEILENUMBRUECHE ──
+       pretty verhindert einsame kurze Woerter am Absatzende (Hurenkinder/
+       Schusterjungen) und gleicht Zeilenlaengen aus; balance verteilt
+       mehrzeilige Ueberschriften gleichmaessig. Aeltere Browser ignorieren
+       die Werte einfach - kein Layout-Bruch. */
+    p, li, .lead-text, .hero-sub, .ueber-lead, .ueber-compact-copy,
+    .stimme-text, .karriere-banner-text, .leistung-detail-text p,
+    .contact-note { text-wrap: pretty; }
+    h1, h2, h3, h4, .hero-h1, .h2-serif { text-wrap: balance; }
 
     :root {
       --bg:        #FAFAF8;
@@ -1344,7 +1354,7 @@
     <div class="hero-text-col">
       <p class="eyebrow-v4">Zahnarztpraxis in Pforzheim</p>
       <h1 class="hero-h1">Ihr Lächeln ist<br><em>unsere Leidenschaft</em></h1>
-      <p class="hero-sub">Familiengeführt seit über 40 Jahren: moderne Zahnmedizin mit persönlicher Betreuung, direkt am Sedansplatz. Wir nehmen uns Zeit für Sie.</p>
+      <p class="hero-sub">Familiengeführt seit über <span class="nbr">40&nbsp;Jahren</span>: moderne Zahnmedizin mit persönlicher Betreuung, direkt <span class="nbr">am&nbsp;Sedansplatz</span>. Wir nehmen uns <span class="nbr">Zeit&nbsp;für&nbsp;Sie</span>.</p>
       <div class="hero-mobile-visual image-slot">
         <!-- HERO-BILD MOBILE VERSION: Hier deinen eigenen mobilen Bildpfad einsetzen -->
         <img src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim mobile" loading="eager" decoding="async">
@@ -1384,7 +1394,7 @@
     <div>
       <p class="karriere-banner-eyebrow">Karriere bei uns</p>
       <h2>Zum Zahnarzt gehen ist gut. <em>Im Team arbeiten ist besser.</em></h2>
-      <p class="karriere-banner-text">Ob ZFA, Ausbildung oder Empfang: Dich erwartet ein familiäres, eingespieltes Team, eine moderne Praxis am Sedansplatz und Arbeit, die jeden Tag Menschen zum Lächeln bringt.</p>
+      <p class="karriere-banner-text">Ob ZFA, Ausbildung oder Empfang: Dich erwartet ein familiäres, eingespieltes Team, eine moderne Praxis <span class="nbr">am&nbsp;Sedansplatz</span> und Arbeit, die jeden Tag Menschen zum <span class="nbr">Lächeln&nbsp;bringt</span>.</p>
     </div>
     <button class="karriere-banner-btn" onclick="showKarriere()">
       Bewirb dich jetzt
@@ -1456,7 +1466,7 @@
     <h2 class="h2-serif">Über die Praxis</h2>
     <div class="ueber-layout">
       <div class="ueber-text">
-        <p class="ueber-lead">Seit über 40 Jahren familiengeführt: moderne Zahnmedizin am Sedansplatz in Pforzheim, persönlich, ruhig und mit einem klaren Blick für das, was für Sie wirklich sinnvoll ist.</p>
+        <p class="ueber-lead">Seit über <span class="nbr">40&nbsp;Jahren</span> familiengeführt: moderne Zahnmedizin <span class="nbr">am&nbsp;Sedansplatz</span> in Pforzheim, persönlich, ruhig und mit einem klaren Blick für das, was für Sie wirklich sinnvoll ist.</p>
         <p class="ueber-compact-copy">Im Oktober 2025 hat Michael Schulz die Praxis von seinem Vater Dr. Hans Joachim Schulz übernommen. Die Erfahrung aus über 40 Jahren bleibt dem Team dabei erhalten. Bei uns steht der Patient im Vordergrund: Wir sind hilfsbereit, locker und ruhig und gehen auf jeden Menschen individuell ein. Aus etlichen Angstpatienten sind so Patienten geworden, die heute gerne zum Zahnarzt kommen. Sein Studium absolvierte Michael Schulz an der Rheinischen Friedrich-Wilhelms-Universität Bonn.</p>
         <p class="ueber-compact-copy">Wir verbinden neueste Zahnmedizin und moderne Technik mit bewährten konventionellen Methoden. Darüber hinaus betreuen wir Altenheime und machen Hausbesuche. Wir sprechen Deutsch, Englisch und Serbisch.</p>
         <div class="ueber-values">
