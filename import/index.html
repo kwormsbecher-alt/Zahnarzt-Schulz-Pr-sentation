@@ -951,8 +951,18 @@
     }
 
     /* ── IMPRESSUM VIEW ── */
-    #impressum-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
-    #impressum-view.visible { display: block; }
+    #impressum-view, #datenschutz-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
+    #impressum-view.visible, #datenschutz-view.visible { display: block; }
+    /* Platzhalter fuer Rechtstexte aus dem Kammer-Mustertext (LZK BW) */
+    .rechtstext-platzhalter {
+      border: 1.5px dashed var(--petrol-mid);
+      background: var(--petrol-bg);
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+      margin-top: 0.75rem;
+      font-size: 0.83rem; color: var(--petrol2);
+      line-height: 1.65; font-style: italic;
+    }
     .impressum-v4 { padding: 6rem 4rem; }
     .impressum-grid-v4 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
     .impressum-box-v4 { background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid var(--border); }
@@ -1117,6 +1127,7 @@
     <a href="#galerie" onclick="scrollToSection('galerie'); return false;">Galerie</a>
     <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
     <a href="#impressum" onclick="showImpressum(); return false;">Impressum</a>
+    <a href="#datenschutz" onclick="showDatenschutz(); return false;">Datenschutz</a>
   </div>
   <button class="nav-cta" onclick="showKarriere()">Jetzt bewerben</button>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
@@ -1137,6 +1148,7 @@
   <span class="mob-sub" onclick="showKarriere('s2'); closeMenu()">&rarr; Azubi Stelle</span>
   <span class="mob-sub" onclick="showKarriere('s3'); closeMenu()">&rarr; Empfang Stelle</span>
   <a href="#impressum" onclick="showImpressum(); closeMenu(); return false;">Impressum</a>
+  <a href="#datenschutz" onclick="showDatenschutz(); closeMenu(); return false;">Datenschutz</a>
   <a class="mob-cta" href="#terminformular" onclick="showTermin(); closeMenu(); return false;">Termin anfragen</a>
 </div>
 
@@ -1475,7 +1487,7 @@
         <nav class="footer-links">
           <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
           <a href="#impressum" onclick="showImpressum(); return false;">Impressum</a>
-          <a href="#impressum" onclick="showImpressum(); return false;">Datenschutz</a>
+          <a href="#datenschutz" onclick="showDatenschutz(); return false;">Datenschutz</a>
           <a href="#cookies" onclick="zeigeCookieBanner(); return false;">Cookie-Einstellungen</a>
         </nav>
         <div class="footer-social">
@@ -1681,23 +1693,97 @@
   <div class="impressum-v4">
     <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
     <p class="eyebrow-v4">Rechtliches</p>
-    <h2 class="h2-serif">Impressum &amp; Datenschutz</h2>
+    <h2 class="h2-serif">Impressum</h2>
     <div class="impressum-grid-v4">
       <div class="impressum-box-v4">
-        <h3>Angaben gemäß &sect; 5 TMG</h3>
+        <h3>Angaben gemäß &sect; 5 DDG</h3>
         <p><strong>Zahnarztpraxis Michael Schulz</strong><br>Dillsteiner Str. 7<br>75173 Pforzheim<br><br><strong>Telefon:</strong> 07231 21641<br><strong>E-Mail:</strong> <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a></p>
       </div>
       <div class="impressum-box-v4">
-        <h3>Berufsrechtliche Angaben</h3>
-        <p><strong>Berufsbezeichnung:</strong> Zahnarzt<br><strong>Kammer:</strong> Landeszahnärztekammer Baden-Württemberg<br><strong>Approbation:</strong> Deutschland<br><br><strong>Aufsicht:</strong> KZV Baden-Württemberg</p>
+        <h3>Verantwortlich für den Inhalt</h3>
+        <p><strong>Michael Schulz</strong><br>Zahnarzt<br>Dillsteiner Str. 7<br>75173 Pforzheim</p>
       </div>
       <div class="impressum-box-v4 full-v4">
-        <h3>Datenschutzerklärung</h3>
-        <p>Der Schutz Ihrer Daten ist uns wichtig. Wir verarbeiten Ihre Daten ausschließlich auf Grundlage der DSGVO und des TMG.<br><br><strong>Bewerbungsformular:</strong> Angaben werden zwecks Bearbeitung gespeichert und nicht ohne Einwilligung weitergegeben. Bewerbungsdaten werden spätestens nach 6 Monaten gelöscht.<br><br><strong>Verantwortlicher:</strong> Michael Schulz &middot; Dillsteiner Str. 7 &middot; 75173 Pforzheim &middot; <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a></p>
+        <h3>Berufsrechtliche Angaben</h3>
+        <p><strong>Berufsbezeichnung:</strong> Zahnarzt (verliehen in Deutschland)<br><strong>Zuständige Kammer:</strong> Bezirkszahnärztekammer Karlsruhe (Untergliederung der Landeszahnärztekammer Baden-Württemberg)<br><strong>Kassenzahnärztliche Vereinigung:</strong> KZV Baden-Württemberg</p>
+        <div class="rechtstext-platzhalter">[Platzhalter: Berufsrechtliche Regelungen mit Fundstelle hier einfügen, u.&nbsp;a. Berufsordnung der Landeszahnärztekammer Baden-Württemberg und Heilberufe-Kammergesetz BW, jeweils mit Link/Bezugsquelle. Quelle: lzk-bw.de, Pflichtangaben im Internet.]</div>
+      </div>
+      <div class="impressum-box-v4">
+        <h3>Berufshaftpflichtversicherung</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Name und Anschrift der Berufshaftpflichtversicherung sowie räumlicher Geltungsbereich hier einfügen.]</div>
+      </div>
+      <div class="impressum-box-v4">
+        <h3>Umsatzsteuer-Identifikationsnummer</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: USt-IdNr. gemäß &sect; 27a UStG hier einfügen, falls vorhanden. Andernfalls diesen Kasten entfernen.]</div>
       </div>
       <div class="impressum-box-v4 full-v4">
         <h3>Haftungsausschluss</h3>
-        <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Als Diensteanbieter sind wir gemäß &sect; 7 Abs. 1 TMG für eigene Inhalte verantwortlich.</p>
+        <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Als Diensteanbieter sind wir gemäß &sect; 7 Abs. 1 DDG für eigene Inhalte verantwortlich.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ DATENSCHUTZ VIEW ════ -->
+<div id="datenschutz-view">
+  <div class="impressum-v4">
+    <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
+    <p class="eyebrow-v4">Rechtliches</p>
+    <h2 class="h2-serif">Datenschutzerklärung</h2>
+    <p class="lead-text">Informationen zur Verarbeitung Ihrer personenbezogenen Daten auf dieser Website gemäß Art. 12 ff. DSGVO.</p>
+    <div class="impressum-grid-v4">
+      <div class="impressum-box-v4 full-v4">
+        <h3>1. Verantwortlicher</h3>
+        <p><strong>Zahnarztpraxis Michael Schulz</strong><br>Michael Schulz<br>Dillsteiner Str. 7<br>75173 Pforzheim<br><br><strong>Telefon:</strong> 07231 21641<br><strong>E-Mail:</strong> <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a></p>
+        <div class="rechtstext-platzhalter">[Platzhalter: Einleitungstext aus dem Kammer-Mustertext (LZK BW, Kapitel 4 Informationspflichten Webseite) hier einfügen. Falls ein Datenschutzbeauftragter benannt ist, hier ergänzen, andernfalls Hinweis entfernen.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>2. Erhebung allgemeiner Daten beim Besuch der Website</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Passage aus dem Kammer-Mustertext zu Server-Logfiles einfügen: erfasste Daten (u.&nbsp;a. IP-Adresse, Datum/Uhrzeit, aufgerufene Seite, Browser), Zweck, Rechtsgrundlage, Speicherdauer der Logs.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>3. SSL-/TLS-Verschlüsselung</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Hinweis zur verschlüsselten Übertragung (https) aus dem Kammer-Mustertext einfügen.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>4. Cookies und Einwilligung</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Cookie-Passage aus dem Kammer-Mustertext einfügen und an diese Website anpassen: Es wird ein Cookie-Banner mit Akzeptieren/Ablehnen eingesetzt; die Auswahl wird im Browser gespeichert (localStorage); Statistik-Dienste laden erst nach Einwilligung; Einwilligung über den Footer-Link &bdquo;Cookie-Einstellungen&ldquo; jederzeit änderbar.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>5. Kontakt- und Terminanfrage</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Passage zu Kontaktaufnahme per Telefon/E-Mail und über das Terminanfrage-Formular einfügen (verarbeitete Daten, Zweck, Rechtsgrundlage, Speicherdauer). Hinweis: Das Terminanfrage-Formular ist derzeit ausgeblendet, die Passage aber vorbereitet.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>6. Bewerbungsformular und Datei-Upload</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Passage zu Bewerbungen einfügen: verarbeitete Daten (Name, Kontaktdaten, Anschreiben, Lebenslauf/Zeugnisse als Datei-Upload), Zweck, Rechtsgrundlage (Art. 6 Abs. 1 lit. b DSGVO, &sect; 26 BDSG), Löschfrist für Bewerbungsunterlagen.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>7. Formularversand über Dienstleister</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Passage zum eingesetzten Formular-Versanddienst einfügen. Aktuell technisch eingebunden: FormSubmit (formsubmit.co) zur Übermittlung der Formulardaten per E-Mail. Anbieter, Datenübermittlung (ggf. Drittland), Rechtsgrundlage und Auftragsverarbeitung benennen, oder den Dienst vor Livegang durch eine eigene Lösung beim Hoster ersetzen.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>8. Google Analytics</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Google-Analytics-Passage aus dem Kammer-Mustertext einfügen. Technischer Stand dieser Website: Google Analytics (gtag.js) lädt ausschließlich nach Einwilligung über den Cookie-Banner und mit IP-Anonymisierung; ohne Einwilligung findet keine Messung statt.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>9. Google Fonts</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Passage zu extern geladenen Schriftarten einfügen. Technischer Stand: Die Schriften Fraunces und Inter werden derzeit von Google-Servern (fonts.googleapis.com) geladen; dabei wird die IP-Adresse an Google übertragen. Empfehlung vor Livegang: Schriften lokal einbinden, dann kann dieser Abschnitt entfallen.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>10. Webhosting</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Passage zum Hosting-Anbieter einfügen (voraussichtlich IONOS SE), inkl. Hinweis auf Auftragsverarbeitungsvertrag nach Art. 28 DSGVO.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>11. Speicherdauer</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Allgemeine Passage zur Speicherdauer und zu Löschfristen aus dem Kammer-Mustertext einfügen.]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>12. Ihre Rechte (Betroffenenrechte)</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Passage zu den Betroffenenrechten einfügen: Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch, Widerruf erteilter Einwilligungen sowie Beschwerderecht bei der Aufsichtsbehörde (Landesbeauftragter für den Datenschutz und die Informationsfreiheit Baden-Württemberg).]</div>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>13. Stand und Änderungen dieser Datenschutzerklärung</h3>
+        <div class="rechtstext-platzhalter">[Platzhalter: Standdatum und Änderungsvorbehalt einfügen.]</div>
       </div>
     </div>
   </div>
@@ -1709,8 +1795,9 @@
   <div class="dsgvo-modal-card">
     <button class="dsgvo-modal-close" onclick="closeDsgvoModal()" aria-label="Schließen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
     <h3>Datenschutzerklärung</h3>
-    <p><em>[Platzhalter: Der vollständige Text der Datenschutzerklärung wird hier noch ergänzt.]</em></p>
+    <p><em>[Platzhalter: Kurzfassung zur Datenverarbeitung im Formular aus dem Kammer-Mustertext hier einfügen.]</em></p>
     <p>Ihre Angaben aus diesem Formular werden ausschließlich zur Bearbeitung Ihrer Anfrage verarbeitet und nicht ohne Ihre Einwilligung weitergegeben.</p>
+    <p><a class="dsgvo-link" href="#datenschutz" onclick="closeDsgvoModal(); showDatenschutz(); return false;">Zur vollständigen Datenschutzerklärung</a></p>
     <button class="dsgvo-modal-btn" onclick="closeDsgvoModal()">Schließen</button>
   </div>
 </div>
@@ -1764,7 +1851,7 @@
   }
 
   /* ── VIEW SWITCHING ── */
-  const views = ['main-page','karriere-view','bewerbung-view','termin-view','impressum-view'];
+  const views = ['main-page','karriere-view','bewerbung-view','termin-view','impressum-view','datenschutz-view'];
 
   function showOnly(id) {
     /* Nur bei einem echten Ansichtswechsel nach oben springen.
@@ -1793,6 +1880,7 @@
 
   function showMain() { showOnly('main-page'); }
   function showImpressum() { showOnly('impressum-view'); }
+  function showDatenschutz() { showOnly('datenschutz-view'); }
 
   function showKarriere(stelleId) {
     showOnly('karriere-view');
