@@ -396,9 +396,10 @@
     /* ── SECTION WRAPPER ── */
     .section-wrap {
       padding: 7rem 4rem;
-      /* Beim Ansteuern per Menue unter der fixen Kopfleiste (72px) stoppen,
-         damit die Eyebrow-Zeile nicht abgeschnitten wird */
-      scroll-margin-top: 88px;
+      /* Beim Ansteuern per Menue exakt an der Unterkante der fixen
+         Kopfleiste (72px) stoppen: der Abschnitt beginnt buendig mit
+         seiner eigenen Farbe, ohne Streifen der vorherigen Sektion */
+      scroll-margin-top: 71px;
     }
     .section-wrap.bg2 { background: var(--bg2); }
     .section-wrap.bg3 { background: var(--bg3); }
