@@ -2089,7 +2089,7 @@
 </div>
 
 <!-- ════ DATENSCHUTZ-OVERLAY ════ -->
-<div class="dsgvo-modal" id="dsgvo-modal" role="dialog" aria-modal="true" aria-label="Datenschutzerklärung">
+<div class="dsgvo-modal" id="dsgvo-modal" role="dialog" aria-modal="true" aria-label="Datenschutzerklärung" hidden>
   <div class="dsgvo-modal-backdrop" onclick="closeDsgvoModal()"></div>
   <div class="dsgvo-modal-card">
     <button class="dsgvo-modal-close" onclick="closeDsgvoModal()" aria-label="Schließen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
@@ -2114,7 +2114,7 @@
         <h3 id="ld-titel"></h3>
       </div>
       <div class="leistung-detail-bild image-slot">
-        <img id="ld-bild" src="" alt="" loading="lazy" decoding="async">
+        <img id="ld-bild" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Bild hier einsetzen</span><small>src ändern</small></div>
       </div>
       <div class="leistung-detail-text" id="ld-text"></div>
@@ -2284,11 +2284,15 @@
   }
   function openDsgvoModal(prefix) {
     unlockDsgvo(prefix);
-    document.getElementById('dsgvo-modal').classList.add('open');
+    const m = document.getElementById('dsgvo-modal');
+    m.hidden = false;
+    m.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   function closeDsgvoModal() {
-    document.getElementById('dsgvo-modal').classList.remove('open');
+    const m = document.getElementById('dsgvo-modal');
+    m.classList.remove('open');
+    m.hidden = true;
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => {
