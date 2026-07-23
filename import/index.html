@@ -1122,12 +1122,15 @@
       font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600;
       cursor: pointer;
       box-shadow: 0 10px 30px rgba(162,74,46,0.38);
-      transition: background 0.18s, transform 0.18s, opacity 0.3s;
+      transition: background 0.18s, transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s;
     }
     .notfall-fab:hover { background: var(--notfall2); transform: translateY(-2px); }
     .notfall-fab svg { flex-shrink: 0; }
     /* Waehrend der Cookie-Banner offen ist, den schwebenden Button ausblenden */
     body.cookie-offen .notfall-fab { opacity: 0; pointer-events: none; transform: translateY(20px); }
+    /* In der Kontakt-Sektion nach rechts rausgleiten (dort gibt es schon
+       einen eigenen Notfall-Button) */
+    .notfall-fab.eingefahren { transform: translateX(160%); opacity: 0; pointer-events: none; }
 
     .notfall-inline {
       display: inline-flex; align-items: center; gap: 0.6rem;
@@ -2349,6 +2352,17 @@
     document.body.style.overflow = '';
     setTimeout(() => m.classList.remove('sichtbar'), 350);
   }
+  /* Schwebenden Notfall-Button in der Kontakt-Sektion nach rechts einfahren
+     (dort steht bereits ein eigener Notfall-Button) */
+  (function () {
+    const fab = document.querySelector('.notfall-fab');
+    const kontakt = document.getElementById('kontakt');
+    if (!fab || !kontakt || !('IntersectionObserver' in window)) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => fab.classList.toggle('eingefahren', e.isIntersecting));
+    }, { threshold: 0 });
+    obs.observe(kontakt);
+  })();
 
   function zeigeCookieBanner() {
     const b = document.getElementById('cookie-banner');
