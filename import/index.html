@@ -260,6 +260,9 @@
       --petrol-mid:#C2D2C8;
       --border:    rgba(46,51,48,0.09);
       --border2:   rgba(141,162,144,0.22);
+      --notfall:   #BC5B3C;
+      --notfall2:  #A24A2E;
+      --notfall-bg:#F7ECE6;
     }
 
     html {
@@ -1109,6 +1112,82 @@
       .leistung-detail.open .leistung-detail-card { transform: none; }
     }
 
+    /* ── NOTFALL-BUTTON + KARTE ── */
+    .notfall-fab {
+      position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 240;
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.85rem 1.4rem;
+      background: var(--notfall); color: #fff;
+      border: none; border-radius: 999px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(162,74,46,0.38);
+      transition: background 0.18s, transform 0.18s, opacity 0.3s;
+    }
+    .notfall-fab:hover { background: var(--notfall2); transform: translateY(-2px); }
+    .notfall-fab svg { flex-shrink: 0; }
+    /* Waehrend der Cookie-Banner offen ist, den schwebenden Button ausblenden */
+    body.cookie-offen .notfall-fab { opacity: 0; pointer-events: none; transform: translateY(20px); }
+
+    .notfall-inline {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      margin-top: 1.25rem;
+      padding: 0.85rem 1.6rem;
+      background: var(--notfall); color: #fff;
+      border: none; border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: background 0.18s, transform 0.15s;
+    }
+    .notfall-inline:hover { background: var(--notfall2); transform: translateY(-2px); }
+
+    .notfall-modal { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: 1.25rem; }
+    .notfall-modal.sichtbar { display: flex; }
+    .notfall-modal-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(46,51,48,0.5); backdrop-filter: blur(3px);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .notfall-modal.open .notfall-modal-backdrop { opacity: 1; }
+    .notfall-modal-card {
+      position: relative; background: var(--white);
+      border-radius: 20px; max-width: 460px; width: 100%;
+      padding: 2.75rem 2.25rem 2.5rem; text-align: center;
+      box-shadow: 0 30px 90px rgba(46,51,48,0.32);
+      transform: scale(0.88); opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.3s;
+    }
+    .notfall-modal.open .notfall-modal-card { transform: scale(1); opacity: 1; }
+    .notfall-modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none; color: var(--soft);
+      cursor: pointer; padding: 0.5rem; line-height: 1; transition: color 0.15s;
+    }
+    .notfall-modal-close:hover { color: var(--text); }
+    .notfall-modal-icon {
+      width: 60px; height: 60px; margin: 0 auto 1.25rem;
+      border-radius: 50%; background: var(--notfall-bg);
+      display: flex; align-items: center; justify-content: center; color: var(--notfall);
+    }
+    .notfall-modal-card h3 {
+      font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 400;
+      color: var(--text); margin-bottom: 0.85rem; line-height: 1.25;
+    }
+    .notfall-modal-card p { font-size: 0.95rem; color: var(--mid); line-height: 1.7; font-weight: 300; margin-bottom: 1.75rem; }
+    .notfall-tel {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      padding: 1.05rem; background: var(--notfall); color: #fff;
+      border-radius: 10px; text-decoration: none;
+      font-family: 'Inter', sans-serif; font-size: 1.15rem; font-weight: 600;
+      letter-spacing: 0.01em; transition: background 0.18s;
+    }
+    .notfall-tel:hover { background: var(--notfall2); }
+    .notfall-tel svg { flex-shrink: 0; }
+    .notfall-modal-note { font-size: 0.78rem !important; color: var(--soft) !important; margin: 1rem 0 0 !important; }
+    @media (max-width: 600px) {
+      .notfall-fab { right: 1rem; bottom: 1rem; padding: 0.8rem 1.2rem; font-size: 0.86rem; }
+      .notfall-modal-card { padding: 2.25rem 1.5rem 2rem; }
+    }
+
     /* ── COOKIE-BANNER ── */
     #cookie-banner {
       position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 250;
@@ -1668,6 +1747,10 @@
           info@zahnarzt-schulz-pforzheim.de
         </a>
         <p class="contact-note">Gut erreichbar am Sedansplatz. Bei uns sind alle willkommen, Kassen- wie Privatpatienten. Wir sprechen Deutsch, Englisch und Serbisch. Schmerzpatienten erhalten unverzüglich einen Termin.</p>
+        <button class="notfall-inline" onclick="openNotfall()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Notfall? Jetzt anrufen
+        </button>
       </div>
       <div class="termin-box">
         <h3>Termin anfragen</h3>
@@ -2039,6 +2122,29 @@
   </div>
 </div>
 
+<!-- ════ NOTFALL: schwebender Button + Karte ════ -->
+<button class="notfall-fab" onclick="openNotfall()" aria-label="Zahnärztlicher Notfall">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  Notfall?
+</button>
+
+<div class="notfall-modal" id="notfall-modal" role="dialog" aria-modal="true" aria-label="Zahnärztlicher Notfall">
+  <div class="notfall-modal-backdrop" onclick="closeNotfall()"></div>
+  <div class="notfall-modal-card">
+    <button class="notfall-modal-close" onclick="closeNotfall()" aria-label="Schließen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
+    <div class="notfall-modal-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </div>
+    <h3>Zahnärztlicher Notfall?</h3>
+    <p>Ich bin jederzeit für Sie erreichbar. Rufen Sie mich gerne an, wir besprechen in Ruhe, worum es geht, und finden gemeinsam eine Lösung.</p>
+    <a class="notfall-tel" href="tel:+491717509980">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="nbr">+49&nbsp;171&nbsp;7509980</span>
+    </a>
+    <p class="notfall-modal-note">Bei akut lebensbedrohlichen Notfällen wählen Sie bitte den Rettungsdienst unter 112.</p>
+  </div>
+</div>
+
 <!-- ════ COOKIE-BANNER ════ -->
 <div id="cookie-banner" role="dialog" aria-label="Cookie-Hinweis">
   <p class="cookie-text">Wir möchten anonyme Statistiken mit Google Analytics erheben, um die Website zu verbessern, nur mit Ihrer Zustimmung. Details in der <a href="#datenschutz" onclick="openDsgvoModal(); return false;">Datenschutzerklärung</a>.</p>
@@ -2186,7 +2292,7 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeDsgvoModal(); closeLeistungDetail(); }
+    if (e.key === 'Escape') { closeDsgvoModal(); closeLeistungDetail(); closeNotfall(); }
   });
   /* Pflicht-Pruefung: true = zugestimmt, sonst Hinweis anzeigen */
   function checkDsgvo(prefix) {
@@ -2225,15 +2331,32 @@
     gtag('config', GA_MESS_ID, { anonymize_ip: true });
   }
 
+  /* ── NOTFALL-KARTE ── */
+  function openNotfall() {
+    const m = document.getElementById('notfall-modal');
+    m.classList.add('sichtbar');
+    requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('open')));
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNotfall() {
+    const m = document.getElementById('notfall-modal');
+    if (!m.classList.contains('sichtbar')) return;
+    m.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => m.classList.remove('sichtbar'), 350);
+  }
+
   function zeigeCookieBanner() {
     const b = document.getElementById('cookie-banner');
     b.classList.add('sichtbar');
+    document.body.classList.add('cookie-offen');
     requestAnimationFrame(() => requestAnimationFrame(() => b.classList.add('open')));
   }
   function cookieEntscheidung(wahl) {
     try { localStorage.setItem('schulz-cookie-consent', wahl); } catch (e) {}
     const b = document.getElementById('cookie-banner');
     b.classList.remove('open');
+    document.body.classList.remove('cookie-offen');
     setTimeout(() => b.classList.remove('sichtbar'), 350);
     if (wahl === 'ja') loadGoogleAnalytics();
   }
