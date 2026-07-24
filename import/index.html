@@ -1254,6 +1254,8 @@
       .cookie-buttons button { flex: 1; }
     }
 
+    /* Impressum-Teil im kombinierten Rechtliches-Bereich */
+    #impressum-teil { margin-top: 4rem; scroll-margin-top: 90px; }
     /* ── IMPRESSUM VIEW ── */
     #impressum-view, #datenschutz-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
     #impressum-view.visible, #datenschutz-view.visible { display: block; }
@@ -1432,11 +1434,8 @@
     <a href="#leistungen" onclick="scrollToSection('leistungen'); return false;">Leistungen</a>
     <a href="#ueber" onclick="scrollToSection('ueber'); return false;">Über uns</a>
     <a href="#team" onclick="scrollToSection('team'); return false;">Team</a>
-    <a href="#stimmen" onclick="scrollToSection('stimmen'); return false;">Bewertungen</a>
     <a href="#galerie" onclick="scrollToSection('galerie'); return false;">Galerie</a>
-    <a href="#karriere" onclick="showKarriere(); return false;">Karriere</a>
-    <a href="#impressum" onclick="showImpressum(); return false;">Impressum</a>
-    <a href="#datenschutz" onclick="showDatenschutz(); return false;">Datenschutz</a>
+    <a href="#datenschutz" onclick="showDatenschutz(); return false;">Datenschutz / Impressum</a>
   </div>
   <button class="nav-cta" onclick="showKarriere()">Jetzt bewerben</button>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
@@ -2021,56 +2020,13 @@
   </div>
 </div>
 
-<!-- ════ IMPRESSUM VIEW ════ -->
-<div id="impressum-view">
-  <div class="impressum-v4">
-    <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
-    <p class="eyebrow-v4">Rechtliches</p>
-    <h2 class="h2-serif">Impressum</h2>
-    <div class="impressum-grid-v4">
-      <div class="impressum-box-v4">
-        <h3>Angaben gemäß &sect;&nbsp;5 DDG</h3>
-        <p><strong>Zahnarztpraxis Michael Schulz</strong><br>Inhaber: Michael Schulz<br>Dillsteiner Str.&nbsp;7<br>75173&nbsp;Pforzheim<br><br><strong>Telefon:</strong> <a href="tel:0723121641" class="nbr">07231&nbsp;21641</a><br><strong>E-Mail:</strong> <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a><br><strong>Internet:</strong> www.zahnarzt-schulz-pforzheim.de</p>
-      </div>
-      <div class="impressum-box-v4">
-        <h3>Verantwortlich für den Inhalt</h3>
-        <p><strong>Michael Schulz</strong><br>Zahnarzt<br>Dillsteiner Str.&nbsp;7<br>75173&nbsp;Pforzheim</p>
-      </div>
-      <div class="impressum-box-v4">
-        <h3>Zuständige Kammer</h3>
-        <p>Landeszahnärztekammer Baden-Württemberg<br>Albstadtweg&nbsp;9<br>70567&nbsp;Stuttgart</p>
-      </div>
-      <div class="impressum-box-v4">
-        <h3>Berufsbezeichnung</h3>
-        <p><strong>Berufsbezeichnung:</strong> Zahnarzt<br><strong>Verliehen in:</strong> Bundesrepublik Deutschland</p>
-      </div>
-      <div class="impressum-box-v4 full-v4">
-        <h3>Berufsrechtliche Regelungen</h3>
-        <p>Zahnheilkundegesetz &middot; Heilberufe-Kammergesetz &middot; Gebührenordnung für Zahnärzte (GOZ) &middot; Berufsordnung für Zahnärzte<br><br>Die berufsrechtlichen Regelungen finden Sie auf den Seiten der Landeszahnärztekammer Baden-Württemberg: <a href="https://lzk-bw.de/patienten/gesetzliche-regelungen-zur-zahnaerztlichen-berufsausuebung" target="_blank" rel="noopener">Gesetzliche Regelungen zur zahnärztlichen Berufsausübung</a></p>
-      </div>
-      <div class="impressum-box-v4 full-v4">
-        <h3>Zuständige Aufsichtsbehörden</h3>
-        <p>Landeszahnärztekammer Baden-Württemberg &middot; Kassenzahnärztliche Vereinigung Baden-Württemberg &middot; Regierungspräsidium Stuttgart</p>
-      </div>
-      <div class="impressum-box-v4">
-        <h3>Verbraucherstreitbeilegung</h3>
-        <p>Michael Schulz ist nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-      </div>
-      <div class="impressum-box-v4 full-v4">
-        <h3>Haftungsausschluss</h3>
-        <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Als Diensteanbieter sind wir gemäß &sect;&nbsp;7 Abs.&nbsp;1 DDG für eigene Inhalte verantwortlich.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ════ DATENSCHUTZ VIEW ════ -->
+<!-- ════ DATENSCHUTZ / IMPRESSUM VIEW ════ -->
 <div id="datenschutz-view">
   <div class="impressum-v4">
     <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
     <p class="eyebrow-v4">Rechtliches</p>
     <h2 class="h2-serif">Datenschutzerklärung</h2>
-    <p class="lead-text">Informationen über die Erhebung personenbezogener Daten auf unserer Webseite (auf Grundlage des Mustertextes der Landeszahnärztekammer Baden-Württemberg).</p>
+    <p class="lead-text">Informationen über die Erhebung personenbezogener Daten auf unserer Webseite (auf Grundlage des Mustertextes der Landeszahnärztekammer Baden-Württemberg). Das Impressum finden Sie im Anschluss.</p>
     <div class="impressum-grid-v4">
       <div class="impressum-box-v4 full-v4">
         <h3>1. Verantwortlicher</h3>
@@ -2138,6 +2094,42 @@
       <div class="impressum-box-v4 full-v4">
         <h3>12. Stand und Änderungen dieser Datenschutzerklärung</h3>
         <p>Stand dieser Datenschutzerklärung: Juli 2026. Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen umzusetzen. Für Ihren erneuten Besuch gilt dann die jeweils aktuelle Fassung.</p>
+      </div>
+    </div>
+
+    <h2 class="h2-serif" id="impressum-teil">Impressum</h2>
+    <div class="impressum-grid-v4">
+      <div class="impressum-box-v4">
+        <h3>Angaben gemäß &sect;&nbsp;5 DDG</h3>
+        <p><strong>Zahnarztpraxis Michael Schulz</strong><br>Inhaber: Michael Schulz<br>Dillsteiner Str.&nbsp;7<br>75173&nbsp;Pforzheim<br><br><strong>Telefon:</strong> <a href="tel:0723121641" class="nbr">07231&nbsp;21641</a><br><strong>E-Mail:</strong> <a href="mailto:info@zahnarzt-schulz-pforzheim.de">info@zahnarzt-schulz-pforzheim.de</a><br><strong>Internet:</strong> www.zahnarzt-schulz-pforzheim.de</p>
+      </div>
+      <div class="impressum-box-v4">
+        <h3>Verantwortlich für den Inhalt</h3>
+        <p><strong>Michael Schulz</strong><br>Zahnarzt<br>Dillsteiner Str.&nbsp;7<br>75173&nbsp;Pforzheim</p>
+      </div>
+      <div class="impressum-box-v4">
+        <h3>Zuständige Kammer</h3>
+        <p>Landeszahnärztekammer Baden-Württemberg<br>Albstadtweg&nbsp;9<br>70567&nbsp;Stuttgart</p>
+      </div>
+      <div class="impressum-box-v4">
+        <h3>Berufsbezeichnung</h3>
+        <p><strong>Berufsbezeichnung:</strong> Zahnarzt<br><strong>Verliehen in:</strong> Bundesrepublik Deutschland</p>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>Berufsrechtliche Regelungen</h3>
+        <p>Zahnheilkundegesetz &middot; Heilberufe-Kammergesetz &middot; Gebührenordnung für Zahnärzte (GOZ) &middot; Berufsordnung für Zahnärzte<br><br>Die berufsrechtlichen Regelungen finden Sie auf den Seiten der Landeszahnärztekammer Baden-Württemberg: <a href="https://lzk-bw.de/patienten/gesetzliche-regelungen-zur-zahnaerztlichen-berufsausuebung" target="_blank" rel="noopener">Gesetzliche Regelungen zur zahnärztlichen Berufsausübung</a></p>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>Zuständige Aufsichtsbehörden</h3>
+        <p>Landeszahnärztekammer Baden-Württemberg &middot; Kassenzahnärztliche Vereinigung Baden-Württemberg &middot; Regierungspräsidium Stuttgart</p>
+      </div>
+      <div class="impressum-box-v4">
+        <h3>Verbraucherstreitbeilegung</h3>
+        <p>Michael Schulz ist nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+      </div>
+      <div class="impressum-box-v4 full-v4">
+        <h3>Haftungsausschluss</h3>
+        <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Als Diensteanbieter sind wir gemäß &sect;&nbsp;7 Abs.&nbsp;1 DDG für eigene Inhalte verantwortlich.</p>
       </div>
     </div>
   </div>
@@ -2233,7 +2225,7 @@
   }
 
   /* ── VIEW SWITCHING ── */
-  const views = ['main-page','karriere-view','bewerbung-view','termin-view','impressum-view','datenschutz-view'];
+  const views = ['main-page','karriere-view','bewerbung-view','termin-view','datenschutz-view'];
 
   function showOnly(id) {
     /* Nur bei einem echten Ansichtswechsel nach oben springen.
@@ -2261,7 +2253,20 @@
   }
 
   function showMain() { showOnly('main-page'); }
-  function showImpressum() { showOnly('impressum-view'); }
+  /* Impressum ist jetzt Teil des kombinierten Rechtliches-Bereichs:
+     Datenschutz-Ansicht zeigen und zum Impressum-Teil scrollen */
+  function showImpressum() {
+    showOnly('datenschutz-view');
+    setTimeout(() => {
+      const el = document.getElementById('impressum-teil');
+      if (!el) return;
+      const root = document.documentElement;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      el.scrollIntoView();
+      root.style.scrollBehavior = prev;
+    }, 60);
+  }
   function showDatenschutz() { showOnly('datenschutz-view'); }
 
   function showKarriere(stelleId) {
