@@ -374,6 +374,8 @@
       padding: 5.5rem 2.5rem 2.5rem; overflow-y: auto;
     }
     .mobile-menu.open { display: flex; }
+    /* Liegt die Kontakt-Karte darueber, darf das Menue nicht mitscrollen */
+    body.karte-offen .mobile-menu { overflow: hidden; }
     .mobile-menu a, .mobile-menu .mob-sub {
       display: block; padding: 1.15rem 0;
       text-align: left;
@@ -383,22 +385,11 @@
     }
     .mobile-menu a:hover { color: var(--petrol2); }
     .mobile-menu .mob-sub { font-size: 0.95rem; font-weight: 400; color: var(--petrol2); padding-left: 1.25rem; }
-    /* Kontaktblock unten im mobilen Menue */
-    .mob-kontakt { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
-    .mob-kontakt-title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--petrol2); margin-bottom: 0.75rem; }
-    .mob-kontakt a {
-      display: flex; align-items: center; gap: 0.7rem;
-      padding: 0.55rem 0; font-size: 0.95rem; font-weight: 400;
-      color: var(--mid); text-decoration: none;
-      border-bottom: none; text-transform: none; letter-spacing: normal;
-      transition: color 0.15s;
-    }
-    .mob-kontakt a:hover { color: var(--petrol2); }
-    .mob-kontakt svg { color: var(--petrol2); flex-shrink: 0; }
-    /* Notfall-Button ganz unten im mobilen Menue */
+    /* Kontakt-Button ganz unten im mobilen Menue. Er oeffnet die
+       Kontakt-Karte ueber dem Menue, das Menue bleibt darunter offen. */
     .mob-notfall {
       display: flex; align-items: center; justify-content: center; gap: 0.55rem;
-      width: 100%; margin-top: 1.75rem;
+      width: 100%; margin-top: 2.25rem;
       padding: 1rem; border-radius: 8px;
       background: var(--notfall); color: #fff;
       font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
@@ -1233,6 +1224,21 @@
     }
     .notfall-mail:hover { border-color: var(--petrol); background: var(--petrol-bg); }
     .notfall-mail svg { flex-shrink: 0; }
+    .notfall-route {
+      display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+      margin-top: clamp(0.55rem, 1.2vh, 0.75rem); padding: clamp(0.65rem, 1.4vh, 0.85rem);
+      border: 1.5px solid var(--border); border-radius: 10px;
+      color: var(--petrol2); text-decoration: none; text-align: left;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .notfall-route:hover { border-color: var(--petrol); background: var(--petrol-bg); }
+    .notfall-route svg { flex-shrink: 0; }
+    .notfall-route-text { display: flex; flex-direction: column; gap: 0.1rem; }
+    .notfall-route-label { font-size: clamp(0.8rem, 1.5vh, 0.92rem); font-weight: 600; }
+    .notfall-route-adresse {
+      font-size: clamp(0.72rem, 1.3vh, 0.8rem); font-weight: 400;
+      color: var(--soft); line-height: 1.35;
+    }
     .notfall-zeiten {
       margin-top: clamp(0.9rem, 2.2vh, 1.5rem); padding-top: clamp(0.8rem, 1.8vh, 1.25rem);
       border-top: 1px solid var(--border); text-align: left;
@@ -1504,22 +1510,10 @@
   <!-- Termin-Button deaktiviert (Terminformular wird derzeit nicht genutzt):
   <a class="mob-cta" href="#terminformular" onclick="showTermin(); closeMenu(); return false;">Termin anfragen</a>
   -->
-  <div class="mob-kontakt">
-    <div class="mob-kontakt-title">Kontakt</div>
-    <a href="tel:0723121641">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span class="nbr">07231&nbsp;21641</span>
-    </a>
-    <a class="route-link" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Dillsteiner Str.&nbsp;7, 75173&nbsp;Pforzheim
-    </a>
-    <a href="mailto:info@zahnarzt-schulz-pforzheim.de">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
-      info@zahnarzt-schulz-pforzheim.de
-    </a>
-  </div>
-  <button class="mob-notfall" onclick="closeMenu(); openNotfall();">
+  <!-- Kontaktdaten stehen gebuendelt in der Kontakt-Karte, die dieser
+       Button oeffnet. Das Menue bleibt dabei offen: beim Schliessen der
+       Karte ist man wieder hier. -->
+  <button class="mob-notfall" onclick="openNotfall()">
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
     Kontakt aufnehmen
   </button>
@@ -2253,6 +2247,15 @@
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
       info@zahnarzt-schulz-pforzheim.de
     </a>
+    <!-- Route: oeffnet Apple Karten auf iPhone/Mac, sonst Google Maps
+         (der Adresstausch passiert weiter unten im Skript ueber .route-link) -->
+    <a class="notfall-route route-link" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+      <span class="notfall-route-text">
+        <span class="notfall-route-label">Route zu uns</span>
+        <span class="notfall-route-adresse">Dillsteiner Str.&nbsp;7, 75173&nbsp;Pforzheim</span>
+      </span>
+    </a>
     <div class="notfall-zeiten">
       <div class="notfall-zeiten-title">Öffnungszeiten</div>
       <div class="notfall-zeiten-row"><span>Mo &middot; Di &middot; Do</span><span>08:00 – 12:00<br>14:00 – 18:00</span></div>
@@ -2547,12 +2550,16 @@
     if (m.classList.contains('sichtbar')) return;
     m.classList.add('sichtbar');
     requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('open')));
+    /* Wird die Karte aus dem Menue heraus geoeffnet, bleibt das Menue
+       darunter stehen. So landet man beim Schliessen wieder dort. */
+    document.body.classList.add('karte-offen');
     sperreHintergrund();
   }
   function closeNotfall() {
     const m = document.getElementById('notfall-modal');
     if (!m.classList.contains('sichtbar')) return;
     m.classList.remove('open');
+    document.body.classList.remove('karte-offen');
     gibHintergrundFrei();
     setTimeout(() => m.classList.remove('sichtbar'), 350);
   }
