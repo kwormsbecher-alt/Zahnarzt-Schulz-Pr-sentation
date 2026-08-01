@@ -1192,7 +1192,10 @@
       max-height: 85vh;   /* Fallback fuer aeltere Browser */
       max-height: 85dvh;  /* beruecksichtigt die Browserleiste auf dem Handy */
       overflow-y: auto; overscroll-behavior: contain;
-      padding: 2.75rem 2.25rem 2.5rem; text-align: center;
+      /* Fliessende Innenabstaende: rechnen sich stufenlos aus der
+         Bildschirmgroesse, keine geraetespezifischen Regeln noetig */
+      padding: clamp(1.4rem, 3.6vh, 2.75rem) clamp(1.25rem, 5vw, 2.25rem) clamp(1.25rem, 3.2vh, 2.5rem);
+      text-align: center;
       box-shadow: 0 30px 90px rgba(46,51,48,0.32);
       transform: scale(0.88); opacity: 0;
       transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.3s;
@@ -1205,75 +1208,64 @@
     }
     .notfall-modal-close:hover { color: var(--text); }
     .notfall-modal-icon {
-      width: 60px; height: 60px; margin: 0 auto 1.25rem;
+      width: clamp(42px, 7vh, 60px); height: clamp(42px, 7vh, 60px);
+      margin: 0 auto clamp(0.7rem, 1.8vh, 1.25rem);
       border-radius: 50%; background: var(--notfall-bg);
       display: flex; align-items: center; justify-content: center; color: var(--notfall);
     }
+    .notfall-modal-icon svg { width: 47%; height: 47%; }
     .notfall-modal-card h3 {
-      font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 400;
-      color: var(--text); margin-bottom: 0.85rem; line-height: 1.25;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.2rem, 2.7vh, 1.5rem); font-weight: 400;
+      color: var(--text); margin-bottom: clamp(0.5rem, 1.2vh, 0.85rem); line-height: 1.25;
     }
-    .notfall-modal-card p { font-size: 0.95rem; color: var(--mid); line-height: 1.7; font-weight: 300; margin-bottom: 1.75rem; }
+    .notfall-modal-card p {
+      font-size: clamp(0.85rem, 1.6vh, 0.95rem); color: var(--mid);
+      line-height: 1.6; font-weight: 300;
+      margin-bottom: clamp(1rem, 2.4vh, 1.75rem);
+    }
     .notfall-tel {
       display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-      padding: 1.05rem; background: var(--notfall); color: #fff;
+      padding: clamp(0.8rem, 1.7vh, 1.05rem); background: var(--notfall); color: #fff;
       border-radius: 10px; text-decoration: none;
-      font-family: 'Inter', sans-serif; font-size: 1.15rem; font-weight: 600;
+      font-family: 'Inter', sans-serif; font-size: clamp(1rem, 2vh, 1.15rem); font-weight: 600;
       letter-spacing: 0.01em; transition: background 0.18s;
     }
     .notfall-tel:hover { background: var(--notfall2); }
     .notfall-tel svg { flex-shrink: 0; }
     .notfall-mail {
       display: flex; align-items: center; justify-content: center; gap: 0.55rem;
-      margin-top: 0.75rem; padding: 0.85rem;
+      margin-top: clamp(0.55rem, 1.2vh, 0.75rem); padding: clamp(0.65rem, 1.4vh, 0.85rem);
       border: 1.5px solid var(--border); border-radius: 10px;
       color: var(--petrol2); text-decoration: none;
-      font-size: 0.92rem; font-weight: 500;
+      font-size: clamp(0.8rem, 1.5vh, 0.92rem); font-weight: 500;
       transition: border-color 0.18s, background 0.18s;
       overflow-wrap: anywhere;
     }
     .notfall-mail:hover { border-color: var(--petrol); background: var(--petrol-bg); }
     .notfall-mail svg { flex-shrink: 0; }
     .notfall-zeiten {
-      margin-top: 1.5rem; padding-top: 1.25rem;
+      margin-top: clamp(0.9rem, 2.2vh, 1.5rem); padding-top: clamp(0.8rem, 1.8vh, 1.25rem);
       border-top: 1px solid var(--border); text-align: left;
     }
     .notfall-zeiten-title {
       font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--petrol2); margin-bottom: 0.6rem;
+      text-transform: uppercase; color: var(--petrol2); margin-bottom: clamp(0.4rem, 1vh, 0.6rem);
     }
     .notfall-zeiten-row {
       display: flex; justify-content: space-between; align-items: baseline;
-      gap: 1rem; padding: 0.3rem 0; font-size: 0.88rem; color: var(--mid);
+      gap: 1rem; padding: clamp(0.2rem, 0.5vh, 0.3rem) 0;
+      font-size: clamp(0.82rem, 1.5vh, 0.88rem); color: var(--mid);
     }
     .notfall-zeiten-row span:last-child { color: var(--text); text-align: right; line-height: 1.5; }
-    .notfall-modal-note { font-size: 0.78rem !important; color: var(--soft) !important; margin: 1.25rem 0 0 !important; }
-    @media (max-width: 600px) {
-      .notfall-fab { right: 1rem; bottom: 1rem; padding: 0.8rem 1.2rem; font-size: 0.86rem; }
-      /* Kompakter, damit die Karte auch auf kleinen Handys ohne Scrollen passt */
-      .notfall-modal-card { padding: 1.75rem 1.25rem 1.5rem; }
-      .notfall-modal-icon { width: 48px; height: 48px; margin-bottom: 0.9rem; }
-      .notfall-modal-icon svg { width: 24px; height: 24px; }
-      .notfall-modal-card h3 { font-size: 1.3rem; margin-bottom: 0.7rem; }
-      .notfall-modal-card p { font-size: 0.9rem; margin-bottom: 1.25rem; }
-      .notfall-tel { padding: 0.9rem; font-size: 1.05rem; }
-      .notfall-mail { font-size: 0.85rem; padding: 0.75rem; }
-      .notfall-zeiten { margin-top: 1.1rem; padding-top: 1rem; }
-      .notfall-modal-note { margin-top: 1rem !important; }
+    .notfall-modal-note {
+      font-size: clamp(0.72rem, 1.3vh, 0.78rem) !important; color: var(--soft) !important;
+      margin: clamp(0.8rem, 1.8vh, 1.25rem) 0 0 !important;
     }
-    /* Sehr flache Bildschirme (kleine Handys, Querformat): noch kompakter,
-       damit die Kontakt-Karte ohne Scrollen hineinpasst */
-    @media (max-height: 720px) {
-      .notfall-modal-card { padding: 1.4rem 1.25rem 1.25rem; }
-      .notfall-modal-icon { width: 42px; height: 42px; margin-bottom: 0.7rem; }
-      .notfall-modal-icon svg { width: 21px; height: 21px; }
-      .notfall-modal-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
-      .notfall-modal-card p { font-size: 0.85rem; line-height: 1.55; margin-bottom: 1rem; }
-      .notfall-tel { padding: 0.8rem; font-size: 1rem; }
-      .notfall-mail { margin-top: 0.55rem; padding: 0.65rem; font-size: 0.82rem; }
-      .notfall-zeiten { margin-top: 0.9rem; padding-top: 0.8rem; }
-      .notfall-zeiten-row { padding: 0.2rem 0; font-size: 0.84rem; }
-      .notfall-modal-note { margin-top: 0.8rem !important; font-size: 0.72rem !important; }
+    @media (max-width: 600px) {
+      /* Nur der schwebende Button wird auf schmalen Bildschirmen naeher an
+         den Rand gerueckt; die Karte selbst rechnet sich fliessend aus. */
+      .notfall-fab { right: 1rem; bottom: 1rem; padding: 0.8rem 1.2rem; font-size: 0.86rem; }
     }
 
     /* ── COOKIE-BANNER ── */
