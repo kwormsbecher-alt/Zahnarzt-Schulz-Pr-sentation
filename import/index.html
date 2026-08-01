@@ -260,9 +260,10 @@
       --petrol-mid:#C2D2C8;
       --border:    rgba(46,51,48,0.09);
       --border2:   rgba(141,162,144,0.22);
-      --notfall:   #BC5B3C;
-      --notfall2:  #A24A2E;
-      --notfall-bg:#F7ECE6;
+      /* Kontakt-Button (frueher Notfall): normale Salbei-Akzentfarbe */
+      --notfall:   #8DA290;
+      --notfall2:  #6B7F68;
+      --notfall-bg:#E8F0EC;
     }
 
     html {
@@ -1211,7 +1212,31 @@
     }
     .notfall-tel:hover { background: var(--notfall2); }
     .notfall-tel svg { flex-shrink: 0; }
-    .notfall-modal-note { font-size: 0.78rem !important; color: var(--soft) !important; margin: 1rem 0 0 !important; }
+    .notfall-mail {
+      display: flex; align-items: center; justify-content: center; gap: 0.55rem;
+      margin-top: 0.75rem; padding: 0.85rem;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      color: var(--petrol2); text-decoration: none;
+      font-size: 0.92rem; font-weight: 500;
+      transition: border-color 0.18s, background 0.18s;
+      overflow-wrap: anywhere;
+    }
+    .notfall-mail:hover { border-color: var(--petrol); background: var(--petrol-bg); }
+    .notfall-mail svg { flex-shrink: 0; }
+    .notfall-zeiten {
+      margin-top: 1.5rem; padding-top: 1.25rem;
+      border-top: 1px solid var(--border); text-align: left;
+    }
+    .notfall-zeiten-title {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--petrol2); margin-bottom: 0.6rem;
+    }
+    .notfall-zeiten-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 1rem; padding: 0.3rem 0; font-size: 0.88rem; color: var(--mid);
+    }
+    .notfall-zeiten-row span:last-child { color: var(--text); text-align: right; line-height: 1.5; }
+    .notfall-modal-note { font-size: 0.78rem !important; color: var(--soft) !important; margin: 1.25rem 0 0 !important; }
     @media (max-width: 600px) {
       .notfall-fab { right: 1rem; bottom: 1rem; padding: 0.8rem 1.2rem; font-size: 0.86rem; }
       .notfall-modal-card { padding: 2.25rem 1.5rem 2rem; }
@@ -1327,9 +1352,12 @@
       text-align: center;
     }
 
-    /* ── TERMINANFRAGE VORUEBERGEHEND AUSGEBLENDET ──
-       Formular und Code bleiben erhalten. Zum Wieder-Einblenden
-       diesen Block einfach komplett loeschen. */
+    /* ── TERMINFORMULAR DEAKTIVIERT ──
+       Markup und Logik sind auskommentiert (siehe Hinweise dort). Die
+       folgenden Regeln gehoeren dazu: Die beiden display:none-Regeln
+       greifen ins Leere (Elemente existieren nicht mehr) und dienen als
+       Sicherheitsnetz beim Reaktivieren; die Kontakt-Sektion laeuft
+       ohne Termin-Box auf zwei Spalten. */
     .mobile-menu .mob-cta { display: none; }
     .termin-box { display: none; }
     .kontakt-layout { grid-template-columns: 1fr 1fr; }
@@ -1458,7 +1486,9 @@
   <span class="mob-sub" onclick="showKarriere('s3'); closeMenu()">&rarr; Empfang Stelle</span>
   <a href="#impressum" onclick="showImpressum(); closeMenu(); return false;">Impressum</a>
   <a href="#datenschutz" onclick="showDatenschutz(); closeMenu(); return false;">Datenschutz</a>
+  <!-- Termin-Button deaktiviert (Terminformular wird derzeit nicht genutzt):
   <a class="mob-cta" href="#terminformular" onclick="showTermin(); closeMenu(); return false;">Termin anfragen</a>
+  -->
   <div class="mob-kontakt">
     <div class="mob-kontakt-title">Kontakt</div>
     <a href="tel:0723121641">
@@ -1476,7 +1506,7 @@
   </div>
   <button class="mob-notfall" onclick="closeMenu(); openNotfall();">
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    Notfall?
+    Kontakt aufnehmen
   </button>
 </div>
 
@@ -1797,14 +1827,16 @@
         <p class="contact-note">Gut erreichbar am Sedansplatz. Bei uns sind alle willkommen, Kassen- wie Privatpatienten. Wir sprechen Deutsch, Englisch und Serbisch. Schmerzpatienten erhalten unverzüglich einen Termin.</p>
         <button class="notfall-inline" onclick="openNotfall()">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Notfall? Jetzt anrufen
+          Kontakt aufnehmen
         </button>
       </div>
+      <!-- Termin-Box deaktiviert (Terminformular wird derzeit nicht genutzt):
       <div class="termin-box">
         <h3>Termin anfragen</h3>
         <p>Teilen Sie uns Ihren Wunsch mit. Wir melden uns schnellstmöglich zurück.</p>
         <button class="btn-white-petrol" onclick="showTermin()">Zum Terminformular</button>
       </div>
+      -->
     </div>
   </section>
 
@@ -1991,7 +2023,21 @@
   </div>
 </div>
 
-<!-- ════ TERMIN VIEW ════ -->
+<!-- ════ TERMIN VIEW (DEAKTIVIERT) ════════════════════════════════════
+     Das Online-Terminformular wird derzeit nicht genutzt (Entscheidung
+     des Kunden). Markup und Logik bleiben zur spaeteren Reaktivierung
+     erhalten, sind aber vollstaendig auskommentiert und ohne echte
+     Verbindung (kein Versanddienst, keine echte Empfaengeradresse).
+
+     ZUM REAKTIVIEREN:
+       1. Diesen Kommentarblock aufloesen (Zeile darueber und darunter)
+       2. Im Skript den Block "TERMINFORMULAR (DEAKTIVIERT)" aufloesen
+       3. 'termin-view' wieder in die views-Liste aufnehmen
+       4. Verweise wieder einblenden: .mob-cta im mobilen Menue und
+          .termin-box in der Kontakt-Sektion (beide ebenfalls
+          auskommentiert) sowie die zugehoerigen CSS-Ausblendregeln
+       5. Vor dem Livegang einen echten Versandweg einrichten
+
 <div id="termin-view">
   <div class="form-page-v4">
     <button class="back-btn-v4" onclick="showMain();scrollToKontakt()">&larr; Zurück</button>
@@ -2001,7 +2047,7 @@
       <div class="form-card-v4" id="terminformular">
         <h3>Termin anfragen</h3>
         <p>Teilen Sie uns Ihren Terminwunsch mit. Wir melden uns schnellstmöglich zurück.</p>
-        <div class="form-note-v4">Hinweis: Diese Ansicht ist aktuell nur ein UI-Test. Es werden noch keine echten Terminanfragen an die Praxis übermittelt.</div>
+        <div class="form-note-v4">Hinweis: Es werden noch keine echten Terminanfragen an die Praxis übermittelt.</div>
         <div class="form-group"><label>Name *</label><input type="text" placeholder="Vor- und Nachname" id="t-name" /></div>
         <div class="form-group"><label>Telefonnummer *</label><input type="tel" placeholder="+49 7231 ..." id="t-phone" /></div>
         <div class="form-group"><label>Nachricht</label><textarea placeholder="Teilen Sie uns Ihren Wunsch oder Ihr Anliegen kurz mit..." id="t-message"></textarea></div>
@@ -2014,11 +2060,12 @@
           <div class="form-fields-hint" id="t-fields-hint">Manche Angaben sind falsch oder nicht ausgefüllt.</div>
         </div>
         <button class="form-submit-v4" onclick="submitTerminForm()">Terminanfrage absenden</button>
-        <div class="success-msg test-msg" id="termin-success-msg">Testhinweis: Diese Terminanfrage wurde noch nicht an die Praxis übermittelt.</div>
+        <div class="success-msg test-msg" id="termin-success-msg">Diese Terminanfrage wurde nicht an die Praxis übermittelt.</div>
       </div>
     </div>
   </div>
 </div>
+     ════════════════════════════════════════════════════════════════ -->
 
 <!-- ════ DATENSCHUTZ / IMPRESSUM VIEW ════ -->
 <div id="datenschutz-view">
@@ -2173,24 +2220,33 @@
 </div>
 
 <!-- ════ NOTFALL: schwebender Button + Karte ════ -->
-<button class="notfall-fab" onclick="openNotfall()" aria-label="Zahnärztlicher Notfall">
+<button class="notfall-fab" onclick="openNotfall()" aria-label="Kontakt aufnehmen">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-  Notfall?
+  Kontakt aufnehmen
 </button>
 
-<div class="notfall-modal" id="notfall-modal" role="dialog" aria-modal="true" aria-label="Zahnärztlicher Notfall">
+<div class="notfall-modal" id="notfall-modal" role="dialog" aria-modal="true" aria-label="So erreichen Sie uns">
   <div class="notfall-modal-backdrop" onclick="closeNotfall()"></div>
   <div class="notfall-modal-card">
     <button class="notfall-modal-close" onclick="closeNotfall()" aria-label="Schließen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
     <div class="notfall-modal-icon">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
     </div>
-    <h3>Zahnärztlicher Notfall?</h3>
-    <p>Ich bin jederzeit für Sie erreichbar. Rufen Sie mich gerne an, wir besprechen in Ruhe, worum es geht, und finden gemeinsam eine Lösung.</p>
-    <a class="notfall-tel" href="tel:+491717509980">
+    <h3>So erreichen Sie uns</h3>
+    <p>Rufen Sie uns gerne an oder schreiben Sie uns eine <span class="nbr">E-Mail</span>. Wir melden uns schnellstmöglich bei Ihnen. Schmerzpatienten erhalten unverzüglich einen Termin.</p>
+    <a class="notfall-tel" href="tel:0723121641">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span class="nbr">+49&nbsp;171&nbsp;7509980</span>
+      <span class="nbr">07231&nbsp;21641</span>
     </a>
+    <a class="notfall-mail" href="mailto:info@zahnarzt-schulz-pforzheim.de">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+      info@zahnarzt-schulz-pforzheim.de
+    </a>
+    <div class="notfall-zeiten">
+      <div class="notfall-zeiten-title">Öffnungszeiten</div>
+      <div class="notfall-zeiten-row"><span>Mo &middot; Di &middot; Do</span><span>08:00 – 12:00<br>14:00 – 18:00</span></div>
+      <div class="notfall-zeiten-row"><span>Mi &middot; Fr</span><span>08:00 – 12:00</span></div>
+    </div>
     <p class="notfall-modal-note">Bei akut lebensbedrohlichen Notfällen wählen Sie bitte den Rettungsdienst unter 112.</p>
   </div>
 </div>
@@ -2228,7 +2284,8 @@
   }
 
   /* ── VIEW SWITCHING ── */
-  const views = ['main-page','karriere-view','bewerbung-view','termin-view','datenschutz-view'];
+  /* 'termin-view' ist derzeit deaktiviert und daher nicht enthalten */
+  const views = ['main-page','karriere-view','bewerbung-view','datenschutz-view'];
 
   function showOnly(id) {
     /* Nur bei einem echten Ansichtswechsel nach oben springen.
@@ -2296,11 +2353,33 @@
     }, 150);
   }
 
+  /* ── TERMINFORMULAR (DEAKTIVIERT) ──────────────────────────────────
+     Wird derzeit nicht genutzt. Zum Reaktivieren diesen Block
+     auskommentieren und 'termin-view' wieder in die views-Liste
+     aufnehmen (siehe Hinweis beim auskommentierten Markup).
+
   function showTermin() {
     showOnly('termin-view');
     const s = document.getElementById('termin-success-msg');
     if (s) s.style.display = 'none';
   }
+
+  function submitTerminForm() {
+    const required = ['t-name','t-phone'];
+    let ok = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = '#b84c2a'; ok = false; }
+      else el.style.borderColor = '';
+    });
+    document.getElementById('t-fields-hint').style.display = ok ? 'none' : 'block';
+    const dsgvoOk = checkDsgvo('t');
+    if (!ok || !dsgvoOk) return;
+    document.getElementById('termin-success-msg').style.display = 'block';
+    ['t-name','t-phone','t-message'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('t-dsgvo').checked = false;
+  }
+     ──────────────────────────────────────────────────────────────── */
 
   /* ── ROUTE (Karten-App des Geraets verlinken) ── */
   (function () {
@@ -2374,7 +2453,8 @@
     hint.style.display = 'none';
     return true;
   }
-  ['f', 't'].forEach(p => {
+  /* 't' (Terminformular) ist derzeit deaktiviert */
+  ['f'].forEach(p => {
     document.getElementById(p + '-dsgvo')?.addEventListener('change', function () {
       if (this.checked) document.getElementById(p + '-dsgvo-hint').style.display = 'none';
     });
@@ -2515,21 +2595,8 @@
     }
   }
 
-  function submitTerminForm() {
-    const required = ['t-name','t-phone'];
-    let ok = true;
-    required.forEach(id => {
-      const el = document.getElementById(id);
-      if (!el.value.trim()) { el.style.borderColor = '#b84c2a'; ok = false; }
-      else el.style.borderColor = '';
-    });
-    document.getElementById('t-fields-hint').style.display = ok ? 'none' : 'block';
-    const dsgvoOk = checkDsgvo('t');
-    if (!ok || !dsgvoOk) return;
-    document.getElementById('termin-success-msg').style.display = 'block';
-    ['t-name','t-phone','t-message'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('t-dsgvo').checked = false;
-  }
+  /* submitTerminForm() ist zusammen mit dem Terminformular deaktiviert
+     und steht im Block "TERMINFORMULAR (DEAKTIVIERT)" weiter oben. */
 
   document.getElementById('f-file').addEventListener('change', function() {
     const p = this.closest('.file-upload-v4').querySelector('p');
