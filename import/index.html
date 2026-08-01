@@ -2292,21 +2292,62 @@
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
   });
 
+  /* ── HINTERGRUND-SPERRE ──────────────────────────────────────────
+     Solange ein Fenster oder das Menue offen ist, darf die Seite
+     dahinter nicht scrollen. 'overflow: hidden' allein reicht auf
+     iOS Safari nicht aus, daher wird die Seite zusaetzlich fixiert
+     und die Scroll-Position beim Schliessen wiederhergestellt.
+     Ein Zaehler erlaubt mehrere gleichzeitig offene Ebenen. */
+  let sperrPosition = 0;
+  let sperrZaehler = 0;
+  function sperreHintergrund() {
+    if (sperrZaehler++ > 0) return;
+    sperrPosition = window.scrollY || window.pageYOffset || 0;
+    const b = document.body;
+    /* Breite der Bildlaufleiste ausgleichen, damit nichts springt */
+    const leiste = window.innerWidth - document.documentElement.clientWidth;
+    if (leiste > 0) b.style.paddingRight = leiste + 'px';
+    b.style.position = 'fixed';
+    b.style.top = '-' + sperrPosition + 'px';
+    b.style.left = '0';
+    b.style.right = '0';
+    b.style.width = '100%';
+    b.style.overflow = 'hidden';
+  }
+  function gibHintergrundFrei() {
+    if (sperrZaehler > 0) sperrZaehler--;
+    if (sperrZaehler > 0) return;
+    const b = document.body;
+    b.style.position = '';
+    b.style.top = '';
+    b.style.left = '';
+    b.style.right = '';
+    b.style.width = '';
+    b.style.overflow = '';
+    b.style.paddingRight = '';
+    const root = document.documentElement;
+    const vorher = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, sperrPosition);
+    root.style.scrollBehavior = vorher;
+  }
+
   /* ── MENU ── */
   function closeMenu() {
+    if (!document.getElementById('mobile-menu').classList.contains('open')) return;
     document.getElementById('hamburger').classList.remove('open');
     document.getElementById('mobile-menu').classList.remove('open');
     document.body.classList.remove('menu-offen');
-    document.body.style.overflow = '';
+    gibHintergrundFrei();
   }
   function toggleMenu() {
     const h = document.getElementById('hamburger');
     const m = document.getElementById('mobile-menu');
-    h.classList.toggle('open');
-    m.classList.toggle('open');
-    const offen = m.classList.contains('open');
-    document.body.classList.toggle('menu-offen', offen);
-    document.body.style.overflow = offen ? 'hidden' : '';
+    const oeffnet = !m.classList.contains('open');
+    h.classList.toggle('open', oeffnet);
+    m.classList.toggle('open', oeffnet);
+    document.body.classList.toggle('menu-offen', oeffnet);
+    if (oeffnet) sperreHintergrund(); else gibHintergrundFrei();
   }
 
   /* ── VIEW SWITCHING ── */
@@ -2335,6 +2376,10 @@
       root.style.scrollBehavior = 'auto';
       window.scrollTo(0, 0);
       root.style.scrollBehavior = prev;
+      /* Gemerkte Position verwerfen: Nach einem Ansichtswechsel soll die
+         Seite beim Aufheben der Hintergrund-Sperre oben starten, nicht
+         an der alten Position der vorherigen Ansicht. */
+      sperrPosition = 0;
     }
   }
 
@@ -2458,15 +2503,17 @@
   function openDsgvoModal(prefix) {
     unlockDsgvo(prefix);
     const m = document.getElementById('dsgvo-modal');
+    if (!m.hidden) return;
     m.hidden = false;
     m.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    sperreHintergrund();
   }
   function closeDsgvoModal() {
     const m = document.getElementById('dsgvo-modal');
+    if (m.hidden) return;
     m.classList.remove('open');
     m.hidden = true;
-    document.body.style.overflow = '';
+    gibHintergrundFrei();
   }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeDsgvoModal(); closeLeistungDetail(); closeNotfall(); }
@@ -2509,18 +2556,19 @@
     gtag('config', GA_MESS_ID, { anonymize_ip: true });
   }
 
-  /* ── NOTFALL-KARTE ── */
+  /* ── KONTAKT-KARTE ── */
   function openNotfall() {
     const m = document.getElementById('notfall-modal');
+    if (m.classList.contains('sichtbar')) return;
     m.classList.add('sichtbar');
     requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('open')));
-    document.body.style.overflow = 'hidden';
+    sperreHintergrund();
   }
   function closeNotfall() {
     const m = document.getElementById('notfall-modal');
     if (!m.classList.contains('sichtbar')) return;
     m.classList.remove('open');
-    document.body.style.overflow = '';
+    gibHintergrundFrei();
     setTimeout(() => m.classList.remove('sichtbar'), 350);
   }
   /* Schwebenden Notfall-Button in der Kontakt-Sektion nach rechts einfahren
@@ -2830,17 +2878,18 @@
       wrap.appendChild(hinweis);
     }
     const overlay = document.getElementById('leistung-detail');
+    if (overlay.classList.contains('sichtbar')) return;
     overlay.classList.add('sichtbar');
     overlay.querySelector('.leistung-detail-scroll').scrollTop = 0;
     /* doppelter Frame, damit die Dreh-Zoom-Transition sicher greift */
     requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('open')));
-    document.body.style.overflow = 'hidden';
+    sperreHintergrund();
   }
   function closeLeistungDetail() {
     const overlay = document.getElementById('leistung-detail');
     if (!overlay.classList.contains('sichtbar')) return;
     overlay.classList.remove('open');
-    document.body.style.overflow = '';
+    gibHintergrundFrei();
     setTimeout(() => overlay.classList.remove('sichtbar'), 400);
   }
   /* Klick-Weiterleitung ueber das Grid, damit auch die
