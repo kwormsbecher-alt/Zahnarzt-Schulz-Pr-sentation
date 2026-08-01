@@ -1026,7 +1026,8 @@
     .form-fields-hint { display: none; font-size: 0.8rem; color: #a34d2a; margin-top: 0.75rem; }
 
     /* ── DATENSCHUTZ-OVERLAY ── */
-    .dsgvo-modal { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: 1.25rem; }
+    /* Overlays: Luft zum Bildschirmrand, inkl. iPhone-Einbuchtungen */
+    .dsgvo-modal { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: calc(1.5rem + env(safe-area-inset-top)) 1.25rem calc(1.5rem + env(safe-area-inset-bottom)); }
     .dsgvo-modal.open { display: flex; }
     .dsgvo-modal-backdrop {
       position: absolute; inset: 0;
@@ -1036,7 +1037,10 @@
     .dsgvo-modal-card {
       position: relative;
       background: var(--white); border-radius: 16px;
-      max-width: 640px; width: 100%; max-height: 80vh; overflow-y: auto;
+      max-width: 640px; width: 100%;
+      max-height: 85vh;   /* Fallback fuer aeltere Browser */
+      max-height: 85dvh;  /* beruecksichtigt die Browserleiste auf dem Handy */
+      overflow-y: auto; overscroll-behavior: contain;
       padding: 2.5rem;
       box-shadow: 0 24px 80px rgba(46,51,48,0.28);
     }
@@ -1067,7 +1071,7 @@
     }
 
     /* ── LEISTUNGS-DETAIL (Dreh-Zoom-Overlay) ── */
-    .leistung-detail { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: 0.75rem; }
+    .leistung-detail { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: calc(1.5rem + env(safe-area-inset-top)) 1.25rem calc(1.5rem + env(safe-area-inset-bottom)); }
     .leistung-detail.sichtbar { display: flex; }
     .leistung-detail-backdrop {
       position: absolute; inset: 0;
@@ -1079,7 +1083,9 @@
     .leistung-detail-card {
       position: relative;
       background: var(--white); border-radius: 20px;
-      width: calc(100% - 0.5rem); max-width: 720px; max-height: 92vh;
+      width: 100%; max-width: 720px;
+      max-height: 85vh;   /* Fallback fuer aeltere Browser */
+      max-height: 85dvh;  /* beruecksichtigt die Browserleiste auf dem Handy */
       overflow: hidden;
       box-shadow: 0 30px 90px rgba(46,51,48,0.35);
       transform: perspective(1200px) rotateY(-90deg) scale(0.7);
@@ -1091,7 +1097,9 @@
       opacity: 1;
     }
     .leistung-detail-scroll {
-      overflow-y: auto; max-height: 92vh;
+      overflow-y: auto; overscroll-behavior: contain;
+      max-height: 85vh;
+      max-height: 85dvh;
       padding: 2.25rem 2rem 2.5rem;
     }
     .leistung-detail-close {
@@ -1170,7 +1178,7 @@
     }
     .notfall-inline:hover { background: var(--notfall2); transform: translateY(-2px); }
 
-    .notfall-modal { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: 1.25rem; }
+    .notfall-modal { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: calc(1.5rem + env(safe-area-inset-top)) 1.25rem calc(1.5rem + env(safe-area-inset-bottom)); }
     .notfall-modal.sichtbar { display: flex; }
     .notfall-modal-backdrop {
       position: absolute; inset: 0;
@@ -1181,6 +1189,9 @@
     .notfall-modal-card {
       position: relative; background: var(--white);
       border-radius: 20px; max-width: 460px; width: 100%;
+      max-height: 85vh;   /* Fallback fuer aeltere Browser */
+      max-height: 85dvh;  /* beruecksichtigt die Browserleiste auf dem Handy */
+      overflow-y: auto; overscroll-behavior: contain;
       padding: 2.75rem 2.25rem 2.5rem; text-align: center;
       box-shadow: 0 30px 90px rgba(46,51,48,0.32);
       transform: scale(0.88); opacity: 0;
@@ -1239,7 +1250,30 @@
     .notfall-modal-note { font-size: 0.78rem !important; color: var(--soft) !important; margin: 1.25rem 0 0 !important; }
     @media (max-width: 600px) {
       .notfall-fab { right: 1rem; bottom: 1rem; padding: 0.8rem 1.2rem; font-size: 0.86rem; }
-      .notfall-modal-card { padding: 2.25rem 1.5rem 2rem; }
+      /* Kompakter, damit die Karte auch auf kleinen Handys ohne Scrollen passt */
+      .notfall-modal-card { padding: 1.75rem 1.25rem 1.5rem; }
+      .notfall-modal-icon { width: 48px; height: 48px; margin-bottom: 0.9rem; }
+      .notfall-modal-icon svg { width: 24px; height: 24px; }
+      .notfall-modal-card h3 { font-size: 1.3rem; margin-bottom: 0.7rem; }
+      .notfall-modal-card p { font-size: 0.9rem; margin-bottom: 1.25rem; }
+      .notfall-tel { padding: 0.9rem; font-size: 1.05rem; }
+      .notfall-mail { font-size: 0.85rem; padding: 0.75rem; }
+      .notfall-zeiten { margin-top: 1.1rem; padding-top: 1rem; }
+      .notfall-modal-note { margin-top: 1rem !important; }
+    }
+    /* Sehr flache Bildschirme (kleine Handys, Querformat): noch kompakter,
+       damit die Kontakt-Karte ohne Scrollen hineinpasst */
+    @media (max-height: 720px) {
+      .notfall-modal-card { padding: 1.4rem 1.25rem 1.25rem; }
+      .notfall-modal-icon { width: 42px; height: 42px; margin-bottom: 0.7rem; }
+      .notfall-modal-icon svg { width: 21px; height: 21px; }
+      .notfall-modal-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+      .notfall-modal-card p { font-size: 0.85rem; line-height: 1.55; margin-bottom: 1rem; }
+      .notfall-tel { padding: 0.8rem; font-size: 1rem; }
+      .notfall-mail { margin-top: 0.55rem; padding: 0.65rem; font-size: 0.82rem; }
+      .notfall-zeiten { margin-top: 0.9rem; padding-top: 0.8rem; }
+      .notfall-zeiten-row { padding: 0.2rem 0; font-size: 0.84rem; }
+      .notfall-modal-note { margin-top: 0.8rem !important; font-size: 0.72rem !important; }
     }
 
     /* ── COOKIE-BANNER ── */
