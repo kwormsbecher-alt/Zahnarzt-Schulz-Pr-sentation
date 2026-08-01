@@ -2677,7 +2677,7 @@
      unsichtbar). Kommt das Wischen auf einer Kopie zur Ruhe, wird die
      Position unsichtbar auf die echte Karte umgesetzt — Kopie und
      Original sind pixelgleich, der Sprung ist nicht wahrnehmbar. */
-  function initKarussell(gridSelector, dotsId, effekt) {
+  function initKarussell(gridSelector, dotsId, effekt, anteil) {
     const grid = document.querySelector(gridSelector);
     const dotsWrap = document.getElementById(dotsId);
     if (!grid || !dotsWrap) return;
@@ -2685,6 +2685,7 @@
     const mq = window.matchMedia('(max-width: 600px)');
     const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)');
     let raf = null, ruheTimer = null, letzteNaechste = null, positioniert = false;
+    let letzteScrollPos = -1, springtGerade = false, nullpunkt = 0;
 
     echte.forEach((k, i) => { k.dataset.index = i; });
     function klon(original) {
@@ -2698,8 +2699,51 @@
     echte.slice(0, K).map(klon).forEach(c => grid.appendChild(c));
     const alle = [...grid.children];
 
+    /* Kartenbreite und seitlicher Innenabstand werden ausgerechnet, damit
+       jede Karte mittig stehen kann - auch die aeusserste Kopie ganz links
+       und ganz rechts. Mit Prozentwerten geht das nicht: die Breite bezieht
+       sich auf den Innenbereich, der Abstand auf die volle Breite, und die
+       Differenz laesst sich nicht wegrechnen. Nebeneffekt: alle Karten sind
+       exakt gleich breit und die Rastpunkte liegen auf ganzen Pixeln. */
+    function misstAus() {
+      /* Erst die Luft festlegen, dann die Breite daraus ableiten - so geht
+         die Rechnung ohne Rundungsrest auf und die erste Karte steht bei
+         genau 0, die letzte bei genau dem Maximum. */
+      const luft = Math.ceil(grid.clientWidth * (1 - anteil) / 2);
+      const breite = grid.clientWidth - 2 * luft;
+      alle.forEach(c => { c.style.flex = '0 0 ' + breite + 'px'; });
+      /* Die Luecke zwischen den Karten auf ganze Pixel bringen: 0.9rem sind
+         14,4 px, und diese Bruchteile summieren sich ueber alle Zwischen-
+         raeume zu einem sichtbaren Versatz bei den letzten Karten. */
+      grid.style.columnGap = Math.round(parseFloat(getComputedStyle(grid).columnGap) || 0) + 'px';
+      grid.style.paddingLeft = luft + 'px';
+      grid.style.paddingRight = luft + 'px';
+      /* 'offsetLeft' zaehlt je nach Karussell ab einem anderen Bezugspunkt.
+         Diesen Versatz einmal messen, damit alle Rechnungen unten wirklich
+         die Lage innerhalb des Streifens meinen. */
+      nullpunkt = alle[0].offsetLeft - luft;
+    }
+
+    /* Linke Kante der Karte innerhalb des Streifens */
+    function links(karte) { return karte.offsetLeft - nullpunkt; }
+
+    /* Einrasten voruebergehend abschalten bzw. wieder zulassen */
+    let rastetNicht = false;
+    function rastenAus() { rastetNicht = true; grid.style.scrollSnapType = 'none'; }
+    function rastenAn() {
+      if (!rastetNicht) return;
+      rastetNicht = false;
+      grid.style.scrollSnapType = '';
+    }
+
+    function mittigePosition(karte) {
+      const max = Math.max(0, grid.scrollWidth - grid.clientWidth);
+      const ziel = links(karte) - (grid.clientWidth - karte.offsetWidth) / 2;
+      return Math.max(0, Math.min(max, ziel));
+    }
     function zentriere(karte, sanft) {
-      const ziel = karte.offsetLeft - (grid.clientWidth - karte.clientWidth) / 2;
+      rastenAn();
+      const ziel = mittigePosition(karte);
       if (sanft) grid.scrollTo({ left: ziel, behavior: 'smooth' });
       else grid.scrollLeft = ziel;
     }
@@ -2717,10 +2761,10 @@
       const mitte = grid.scrollLeft + grid.clientWidth / 2;
       let naechsteDist = Infinity;
       alle.forEach(card => {
-        const dist = card.offsetLeft + card.clientWidth / 2 - mitte;
+        const dist = links(card) + card.offsetWidth / 2 - mitte;
         if (Math.abs(dist) < naechsteDist) { naechsteDist = Math.abs(dist); letzteNaechste = card; }
         if (ruhig.matches) return;
-        const o = Math.max(-1.5, Math.min(1.5, dist / card.clientWidth));
+        const o = Math.max(-1.5, Math.min(1.5, dist / card.offsetWidth));
         const a = Math.abs(o);
         if (effekt === 'coverflow') {
           /* Kraeftiger 3D-Coverflow: seitliche Karten drehen sich zur Mitte */
@@ -2739,34 +2783,79 @@
 
     /* Ruht das Wischen auf einer Kopie, unsichtbar zum Original springen */
     function springeWennKlon() {
+      ruheTimer = null;
       if (!letzteNaechste || !letzteNaechste.classList.contains('karussell-klon')) return;
+      /* Nur umsetzen, wenn die Kopie auch wirklich mittig steht. Sonst
+         laeuft die Bewegung noch und der Sprung waere sichtbar. */
+      const versatz = links(letzteNaechste) + letzteNaechste.offsetWidth / 2
+                      - (grid.scrollLeft + grid.clientWidth / 2);
+      if (Math.abs(versatz) > letzteNaechste.offsetWidth * 0.25) {
+        ruheTimer = setTimeout(springeWennKlon, 180);
+        return;
+      }
+      /* Zielposition absolut setzen statt die aktuelle Lage zu verschieben:
+         so steht die echte Karte danach garantiert mittig und eine
+         eventuelle Schieflage wird dabei begradigt. */
       const original = echte[parseInt(letzteNaechste.dataset.index, 10)];
-      grid.scrollLeft += original.offsetLeft - letzteNaechste.offsetLeft;
+      springtGerade = true;
+      /* Fuer das Umsetzen das Einrasten abschalten - und erst wieder
+         einschalten, wenn der Finger das naechste Mal das Karussell
+         beruehrt. Sonst deutet der Browser den gesetzten Sprung als
+         Bewegung mit Richtung und zieht anschliessend von selbst zum
+         naechsten Rastpunkt weiter; dieser Nachlauf hat eine Karte
+         uebersprungen und einen zweiten Umsprung ausgeloest. */
+      rastenAus();
+      grid.scrollLeft = mittigePosition(original);
+      letzteScrollPos = grid.scrollLeft;
+      letzteNaechste = original;
+      setTimeout(() => { springtGerade = false; }, 60);
       anfordern();
     }
 
     function toggle() {
       if (mq.matches) {
+        const vorher = letzteNaechste;
+        misstAus();
         if (!positioniert) {
           positioniert = true;
           requestAnimationFrame(() => { zentriere(echte[0], false); anfordern(); });
-        } else { anfordern(); }
+        } else {
+          /* Nach einer Groessenaenderung stimmen die alten Positionen nicht
+             mehr - die zuletzt sichtbare Karte wieder in die Mitte holen. */
+          requestAnimationFrame(() => { if (vorher) zentriere(vorher, false); anfordern(); });
+        }
       } else {
-        alle.forEach(c => { c.style.transform = ''; c.style.opacity = ''; });
+        alle.forEach(c => { c.style.transform = ''; c.style.opacity = ''; c.style.flex = ''; });
+        grid.style.paddingLeft = '';
+        grid.style.paddingRight = '';
+        grid.style.columnGap = '';
       }
     }
+    /* Beruehrt der Nutzer das Karussell, darf wieder eingerastet werden */
+    ['touchstart', 'pointerdown', 'wheel'].forEach(ev =>
+      grid.addEventListener(ev, rastenAn, { passive: true }));
+
     grid.addEventListener('scroll', () => {
       if (!mq.matches) return;
       anfordern();
+      if (springtGerade) return;
+      /* Beim Einrasten zappelt die Position um ein Pixel hin und her.
+         Solche Mini-Bewegungen zaehlen als Ruhe - sonst wuerde der
+         Zeitgeber staendig neu starten und nie ablaufen, und der
+         Wechsel von der Kopie zur echten Karte bliebe aus. */
+      const jetzt = grid.scrollLeft;
+      if (Math.abs(jetzt - letzteScrollPos) < 2) return;
+      letzteScrollPos = jetzt;
       clearTimeout(ruheTimer);
-      ruheTimer = setTimeout(springeWennKlon, 120);
+      ruheTimer = setTimeout(springeWennKlon, 180);
     }, { passive: true });
     window.addEventListener('resize', toggle);
     mq.addEventListener('change', toggle);
     toggle();
   }
-  initKarussell('.leistungen-grid', 'leistungen-dots', 'coverflow');
-  initKarussell('.stimmen-grid', 'stimmen-dots', 'faecher');
+  /* Letzter Wert = Anteil der Kartenbreite an der Karussell-Breite */
+  initKarussell('.leistungen-grid', 'leistungen-dots', 'coverflow', 0.78);
+  initKarussell('.stimmen-grid', 'stimmen-dots', 'faecher', 0.82);
 
   /* ── LEISTUNGS-DETAILS (Mehr erfahren) ──
      Inhalte je Karte. Die Texte sind Entwuerfe auf Basis ueblicher
