@@ -1100,6 +1100,28 @@
       transition: color 0.15s;
     }
     .leistung-detail-close:hover { color: var(--text); }
+
+    /* ╔═══ TEMPORÄRE PRÜF-MARKIERUNG — VOR DEM LAUNCH ENTFERNEN (2/3) ═══╗
+       Auffaelliger Balken im Detailfenster fuer noch nicht freigegebene
+       Leistungen. Diesen ganzen Block loeschen, dann ist die Gestaltung
+       weg (das Markup verschwindet ueber Block 1/3 und 3/3). */
+    .pruefen-balken {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+      margin: -0.25rem 2.5rem 1.25rem 0;
+      padding: 0.75rem 1rem;
+      background: #FFF4E5; border: 2px solid #E8833A; border-left-width: 6px;
+      border-radius: 8px;
+    }
+    .pruefen-balken[hidden] { display: none; }
+    .pruefen-balken-wort {
+      font-family: 'Inter', sans-serif; font-size: 1.05rem; font-weight: 700;
+      letter-spacing: 0.14em; color: #B4530F;
+    }
+    .pruefen-balken-text {
+      font-size: 0.82rem; font-weight: 500; color: #8A4410; line-height: 1.4;
+    }
+    /* ╚═══ ENDE PRÜF-MARKIERUNG (2/3) ═══════════════════════════════════╝ */
+
     .leistung-detail-kopf {
       display: flex; align-items: center; gap: 1rem;
       margin-bottom: 1.5rem; padding-right: 2.5rem;
@@ -2211,6 +2233,16 @@
   <div class="leistung-detail-card">
     <button class="leistung-detail-close" onclick="closeLeistungDetail()" aria-label="Schließen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
     <div class="leistung-detail-scroll">
+      <!-- ╔═══ TEMPORÄRE PRÜF-MARKIERUNG — VOR DEM LAUNCH ENTFERNEN (1/3) ═══╗
+           Nur für die Abstimmung mit dem Kunden. Zum Entfernen genügt es,
+           die Liste PRUEFEN im Skript zu leeren; sauberer ist es, alle drei
+           mit "PRÜF-MARKIERUNG" beschrifteten Blöcke zu löschen
+           (dieser hier, der CSS-Block und der Block im Skript). -->
+      <div class="pruefen-balken" id="pruefen-balken" hidden>
+        <span class="pruefen-balken-wort">PRÜFEN</span>
+        <span class="pruefen-balken-text">Diese Leistung wurde noch nicht fachlich freigegeben.</span>
+      </div>
+      <!-- ╚═══ ENDE PRÜF-MARKIERUNG (1/3) ═══════════════════════════════════╝ -->
       <div class="leistung-detail-kopf">
         <div class="leistung-icon" id="ld-icon"></div>
         <h3 id="ld-titel"></h3>
@@ -2864,11 +2896,20 @@
      HINWEIS FUER DEN LAUNCH (auf Zuruf von Kevin, NICHT vorher):
      Alle Platzhalter-Bilder der Seite mit grossem rotem
      'Bitte austauschen'-Hinweis versehen, bis echte Fotos da sind. */
+  /* ╔═══ TEMPORÄRE PRÜF-MARKIERUNG — VOR DEM LAUNCH ENTFERNEN (3/3) ═══╗
+     Zu diesen Leistungen liegt noch keine fachliche Freigabe vor. Sie
+     bekommen im Detailfenster einen auffaelligen Balken.
+     SCHNELL AUSSCHALTEN: die Liste leeren -> const PRUEFEN = [];
+     GANZ ENTFERNEN: diesen Block, den CSS-Block (2/3) und das Markup
+     (1/3) loeschen, sowie den kurzen if-Abschnitt in openLeistungDetail. */
+  const PRUEFEN = ['Parodontologie', 'Aligner-Therapie', 'Kinder & Angstpatienten'];
+  /* ╚═══ ENDE PRÜF-MARKIERUNG (3/3) ═══════════════════════════════════╝ */
+
   const LEISTUNG_DETAILS = [
     { titel: 'Vorsorge & Prophylaxe', icon: '&#129470;', bild: 'images/leistung_vorsorge.webp', richtwerte: true,
       absaetze: [
         'Regelmäßige Untersuchungen, professionelle Zahnreinigung und Kinderprophylaxe für langfristige Gesundheit.',
-        'Kosten & Krankenkasse: Die halbjährliche Kontrolluntersuchung übernimmt Ihre Krankenkasse vollständig. Die professionelle Zahnreinigung ist in der Regel eine Privatleistung, viele Kassen beteiligen sich aber mit einem Zuschuss. Die Kinderprophylaxe ist bis zum 18. Geburtstag Kassenleistung.',
+        'Kosten & Krankenkasse: Die halbjährliche Kontrolluntersuchung übernimmt Ihre Krankenkasse vollständig. Die professionelle Zahnreinigung ist in der Regel eine Privatleistung und kostet durchschnittlich etwa 100 Euro, viele Kassen beteiligen sich aber mit einem Zuschuss. Die Kinderprophylaxe ist bis zum 18. Geburtstag Kassenleistung.',
         'Behandlungsdauer: Eine Kontrolluntersuchung dauert etwa 15 bis 20 Minuten, die professionelle Zahnreinigung je nach Zahnstatus 45 bis 60 Minuten. Beides ist an einem Termin erledigt.',
         'Gut zu wissen: Wer die Vorsorge regelmäßig im Bonusheft dokumentiert, sichert sich bei späterem Zahnersatz deutlich höhere Zuschüsse der Kasse.'
       ] },
@@ -2877,14 +2918,15 @@
         'Unser Spezialgebiet: fest verankerter Zahnersatz auf Implantaten, präzise geplant und schonend umgesetzt.',
         'Kosten & Krankenkasse: Das Setzen des Implantats ist eine Privatleistung. Für die Krone darauf zahlt die Kasse denselben Festzuschuss wie bei klassischem Zahnersatz. Vor Beginn erhalten Sie von uns einen transparenten Heil- und Kostenplan.',
         'Dauer bis zum Ergebnis: Nach dem Eingriff heilt das Implantat in der Regel drei bis sechs Monate fest in den Kiefer ein, danach wird die endgültige Krone befestigt.',
-        'Behandlungsdauer: Das Setzen eines einzelnen Implantats dauert meist 45 bis 90 Minuten und erfolgt unter örtlicher Betäubung.'
+        'Behandlungsdauer: Das Setzen eines einzelnen Implantats dauert meist 30 bis 60 Minuten und erfolgt unter örtlicher Betäubung.',
+        'Gut zu wissen: Auf Wunsch ist der Eingriff auch in Narkose möglich. Sprechen Sie uns einfach darauf an, wir besprechen in Ruhe, was für Sie am angenehmsten ist.'
       ] },
     { titel: 'Zahnersatz & Prothetik', icon: '&#128081;', bild: 'images/leistung_zahnersatz.jpg', richtwerte: true,
       absaetze: [
         'Kronen, Brücken und Prothesen: hochwertige, individuelle Lösungen, präzise und schonend.',
         'Kosten & Krankenkasse: Gesetzliche Kassen zahlen einen Festzuschuss von 60 Prozent der Regelversorgung, mit gepflegtem Bonusheft bis zu 75 Prozent. Ihren Eigenanteil kennen Sie vorab aus dem Heil- und Kostenplan.',
-        'Dauer bis zum Ergebnis: Vom ersten Termin bis zum Einsetzen vergehen je nach Aufwand ein bis drei Wochen, in denen das Labor Ihren Zahnersatz individuell anfertigt.',
-        'Behandlungsdauer: Für eine Krone planen Sie zwei bis drei Termine ein, die Vorbereitung mit Abformung etwa 60 Minuten, das Einsetzen rund 30 Minuten.'
+        'Dauer bis zum Ergebnis: Vom ersten Termin bis zum Einsetzen vergehen in der Regel ein bis zwei Wochen, in denen das Labor Ihren Zahnersatz individuell anfertigt.',
+        'Behandlungsdauer: Für eine Krone sind in der Regel zwei Termine nötig, die Vorbereitung mit Abformung etwa 60 Minuten, das Einsetzen rund 30 Minuten.'
       ] },
     { titel: 'Parodontologie', icon: '&#127807;', bild: 'images/leistung_parodontologie.jpg', richtwerte: true,
       absaetze: [
@@ -2896,9 +2938,10 @@
     { titel: 'Füllungen & Endodontie', icon: '&#128300;', bild: 'images/leistung_endodontie.jpg', richtwerte: true,
       absaetze: [
         'Professionelle Füllungen, Wurzelbehandlungen und Knirscherschienen (Bruxismus), zahnerhaltend und sorgfältig.',
-        'Kosten & Krankenkasse: Füllungen sind Kassenleistung, für besonders hochwertige Kunststofffüllungen im Seitenzahnbereich kann eine Zuzahlung anfallen. Wurzelbehandlungen übernimmt die Kasse bei erhaltungswürdigen Zähnen, die Knirscherschiene ist in der Regel ebenfalls Kassenleistung.',
-        'Behandlungsdauer: Eine Füllung ist meist in 30 bis 60 Minuten erledigt. Eine Wurzelbehandlung braucht je nach Zahn ein bis drei Sitzungen von je 45 bis 90 Minuten.',
-        'Dauer bis zum Ergebnis: Für die Knirscherschiene nehmen wir einen Abdruck, etwa ein bis zwei Wochen später sitzt die fertige Schiene.'
+        'Kosten bei Füllungen: Füllungen sind grundsätzlich Kassenleistung. Im Seitenzahnbereich arbeiten wir mit zahnfarbenem Kunststoff, der in mehreren dünnen Schichten eingebracht und einzeln ausgehärtet wird. Diese Sorgfalt braucht deutlich mehr Zeit als eine einfache Füllung und hält dafür länger, sieht natürlich aus und schont den Zahn. Für diese hochwertige Versorgung fällt eine Zuzahlung an, die wir Ihnen vorher genau nennen.',
+        'Wurzelbehandlung: Sie haben bei uns zwei Möglichkeiten. Die hochwertige Variante arbeitet mit modernen Materialien und sterilen Einmalprodukten, die für jede Behandlung frisch verwendet werden; hierfür fällt eine Zuzahlung an. Daneben bieten wir die konventionelle Wurzelbehandlung an, die Ihre Krankenkasse übernimmt. Wir erklären Ihnen beide Wege in Ruhe, damit Sie selbst entscheiden können.',
+        'Behandlungsdauer: Eine Füllung ist meist in bis zu 30 Minuten erledigt. Eine Wurzelbehandlung braucht je nach Zahn ein bis drei Sitzungen von je etwa 30 Minuten.',
+        'Knirscherschiene: Die Schiene bei nächtlichem Zähneknirschen ist in der Regel Kassenleistung. Wir nehmen einen Abdruck, etwa ein bis zwei Wochen später sitzt die fertige Schiene.'
       ] },
     { titel: 'Aligner-Therapie', icon: '&#128513;', bild: 'images/leistung_aligner.webp', richtwerte: true,
       absaetze: [
@@ -2911,6 +2954,7 @@
       absaetze: [
         'Bleaching, Veneers und Schmelzflecken-Entfernung für ein strahlendes, natürliches Lächeln.',
         'Kosten & Krankenkasse: Ästhetische Behandlungen sind Privatleistungen. Was Ihr Wunschergebnis kostet, besprechen wir offen in einer Beratung, bevor irgendetwas beginnt.',
+        'Schmelzflecken: Weiße oder bräunliche Flecken im Zahnschmelz (Zahnfluorosen) entfernen wir mit einer speziellen Ätztechnik. Damit erzielen wir hervorragende Ergebnisse, ganz ohne den Zahn abzuschleifen.',
         'Behandlungsdauer: Ein Bleaching in der Praxis dauert etwa 60 bis 90 Minuten, das Ergebnis sehen Sie sofort. Veneers benötigen meist zwei bis drei Termine innerhalb von zwei bis drei Wochen.',
         'Gut zu wissen: Vor jeder ästhetischen Behandlung prüfen wir, ob Zähne und Zahnfleisch gesund sind. Das ist die Basis für ein schönes und haltbares Ergebnis.'
       ] },
@@ -2923,6 +2967,7 @@
       ] }
   ];
 
+  let ausblendTimer = null;
   function openLeistungDetail(i) {
     const d = LEISTUNG_DETAILS[i];
     if (!d) return;
@@ -2930,6 +2975,9 @@
     document.getElementById('ld-titel').textContent = d.titel;
     const img = document.getElementById('ld-bild');
     img.src = d.bild; img.alt = d.titel;
+    /* PRÜF-MARKIERUNG (temporaer, siehe Block 3/3 weiter oben) */
+    const balken = document.getElementById('pruefen-balken');
+    if (balken) balken.hidden = PRUEFEN.indexOf(d.titel) === -1;
     const wrap = document.getElementById('ld-text');
     wrap.innerHTML = '';
     d.absaetze.forEach(text => {
@@ -2959,7 +3007,13 @@
       wrap.appendChild(hinweis);
     }
     const overlay = document.getElementById('leistung-detail');
-    if (overlay.classList.contains('sichtbar')) return;
+    /* Laeuft noch das Ausblenden vom letzten Schliessen, abbrechen. Sonst
+       wuerde es kurz darauf das gerade geoeffnete Fenster wieder verstecken. */
+    clearTimeout(ausblendTimer);
+    if (overlay.classList.contains('sichtbar')) {
+      overlay.classList.add('open');
+      return;
+    }
     overlay.classList.add('sichtbar');
     overlay.querySelector('.leistung-detail-scroll').scrollTop = 0;
     /* doppelter Frame, damit die Dreh-Zoom-Transition sicher greift */
@@ -2971,7 +3025,8 @@
     if (!overlay.classList.contains('sichtbar')) return;
     overlay.classList.remove('open');
     gibHintergrundFrei();
-    setTimeout(() => overlay.classList.remove('sichtbar'), 400);
+    clearTimeout(ausblendTimer);
+    ausblendTimer = setTimeout(() => overlay.classList.remove('sichtbar'), 400);
   }
   /* Klick-Weiterleitung ueber das Grid, damit auch die
      Endlos-Schleifen-Kopien der Karten funktionieren */
