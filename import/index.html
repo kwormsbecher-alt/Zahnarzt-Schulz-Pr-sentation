@@ -2335,7 +2335,11 @@
     b.style.overflow = 'hidden';
   }
   function gibHintergrundFrei() {
-    if (sperrZaehler > 0) sperrZaehler--;
+    /* Ist gar nichts gesperrt, hier sofort aussteigen. Sonst wuerde die
+       Seite unten an eine laengst veraltete Position zurueckspringen und
+       sich anfuehlen, als liesse sie sich nicht scrollen. */
+    if (sperrZaehler === 0) return;
+    sperrZaehler--;
     if (sperrZaehler > 0) return;
     const b = document.body;
     b.style.position = '';
@@ -3011,7 +3015,12 @@
        wuerde es kurz darauf das gerade geoeffnete Fenster wieder verstecken. */
     clearTimeout(ausblendTimer);
     if (overlay.classList.contains('sichtbar')) {
+      /* Fenster war noch am Ausblenden. Das Schliessen hat die Sperre
+         schon freigegeben, also hier wieder sperren - sonst scrollt die
+         Seite hinter dem offenen Fenster. */
       overlay.classList.add('open');
+      overlay.querySelector('.leistung-detail-scroll').scrollTop = 0;
+      sperreHintergrund();
       return;
     }
     overlay.classList.add('sichtbar');
