@@ -276,7 +276,10 @@
       color: var(--text);
       background: var(--bg);
       line-height: 1.65;
-      overflow-x: hidden;
+      /* Kein 'overflow-x: hidden' hier! Steht es gleichzeitig auf html und
+         body, macht Safari auf dem iPhone den body zum Scrollbereich und
+         die Seite laesst sich unter Umstaenden gar nicht mehr scrollen.
+         Das seitliche Abschneiden uebernimmt allein das html-Element. */
       overscroll-behavior-y: none;
     }
     img { max-width: 100%; display: block; }
@@ -1373,8 +1376,10 @@
       font-size: 0.72rem; font-weight: 300;
       color: rgba(255,255,255,0.4); margin-top: 0.3rem; letter-spacing: 0.04em;
     }
-    .footer-right { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
-    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-right { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; max-width: 100%; }
+    /* Auf schmalen Handys muessen die Links umbrechen duerfen, sonst
+       ragen sie seitlich aus der Seite heraus. */
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; max-width: 100%; }
     .footer-links a {
       font-size: 0.84rem; font-weight: 300;
       color: rgba(255,255,255,0.55);
@@ -2721,7 +2726,7 @@
     const mq = window.matchMedia('(max-width: 600px)');
     const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)');
     let raf = null, ruheTimer = null, letzteNaechste = null, positioniert = false;
-    let letzteScrollPos = -1, springtGerade = false, nullpunkt = 0;
+    let letzteScrollPos = -1, springtGerade = false, nullpunkt = 0, letzteBreite = -1;
 
     echte.forEach((k, i) => { k.dataset.index = i; });
     function klon(original) {
@@ -2850,17 +2855,25 @@
 
     function toggle() {
       if (mq.matches) {
+        /* Auf dem Handy loest schon das Ein- und Ausblenden der Browser-
+           leiste beim Scrollen ein resize aus. Ohne diese Bremse wuerde
+           bei jedem solchen Ereignis neu vermessen und das Karussell neu
+           ausgerichtet - das macht das Scrollen der Seite zaeh. Ist die
+           Breite unveraendert, ist also nichts zu tun. */
+        if (grid.clientWidth === letzteBreite) { anfordern(); return; }
+        letzteBreite = grid.clientWidth;
         const vorher = letzteNaechste;
         misstAus();
         if (!positioniert) {
           positioniert = true;
           requestAnimationFrame(() => { zentriere(echte[0], false); anfordern(); });
         } else {
-          /* Nach einer Groessenaenderung stimmen die alten Positionen nicht
-             mehr - die zuletzt sichtbare Karte wieder in die Mitte holen. */
+          /* Nach einer echten Breitenaenderung stimmen die alten Positionen
+             nicht mehr - die zuletzt sichtbare Karte wieder mittig holen. */
           requestAnimationFrame(() => { if (vorher) zentriere(vorher, false); anfordern(); });
         }
       } else {
+        letzteBreite = -1;
         alle.forEach(c => { c.style.transform = ''; c.style.opacity = ''; c.style.flex = ''; });
         grid.style.paddingLeft = '';
         grid.style.paddingRight = '';
