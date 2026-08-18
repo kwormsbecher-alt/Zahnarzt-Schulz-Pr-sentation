@@ -1496,7 +1496,83 @@
       .form-row-v4 { grid-template-columns: 1fr; }
       .ueber-values { grid-template-columns: 1fr; }
     }
+
+    /* ╔═══ EINBLENDEN BEIM SCROLLEN (1/2: Gestaltung) ═══════════════════╗
+       Jeder Baustein taucht beim ersten Vorbeiscrollen einmal auf und
+       bleibt danach stehen. Jeder Abschnitt hat eine eigene Spielart,
+       alle mit derselben Dauer und Kurve, damit es wie eine Familie wirkt.
+
+       Sicherheitsnetz: Alles haengt an der Klasse 'anim-an' am
+       html-Element. Die setzt das Skript ganz zu Beginn. Laeuft kein
+       JavaScript, greift keine einzige Regel hier und die Seite ist
+       sofort vollstaendig sichtbar - es kann nichts unsichtbar bleiben.
+
+       Zum Entfernen: diesen Block und den Skriptblock "EINBLENDEN (2/2)"
+       loeschen. Sonst aendert sich nichts an der Seite. */
+    @media (prefers-reduced-motion: no-preference) {
+
+      /* Ausgangszustand: unsichtbar, aber Platz bleibt reserviert */
+      html.anim-an #main-page .a-auf,
+      html.anim-an #main-page .a-ruhig,
+      html.anim-an #main-page .a-links,
+      html.anim-an #main-page .a-rechts,
+      html.anim-an #main-page .a-zoom,
+      html.anim-an #main-page .a-karte,
+      html.anim-an #main-page .a-blende { opacity: 0; }
+
+      /* Die sechs Spielarten. Gleiche Dauer, gleiche Kurve, nur die
+         Richtung unterscheidet sich - so wirkt es wie eine Familie. */
+      html.anim-an #main-page .a-auf.a-da    { animation: a-auf    0.75s cubic-bezier(0.22,0.8,0.32,1) both; }
+      html.anim-an #main-page .a-ruhig.a-da  { animation: a-ruhig  0.75s cubic-bezier(0.22,0.8,0.32,1) both; }
+      html.anim-an #main-page .a-links.a-da  { animation: a-links  0.75s cubic-bezier(0.22,0.8,0.32,1) both; }
+      html.anim-an #main-page .a-rechts.a-da { animation: a-rechts 0.75s cubic-bezier(0.22,0.8,0.32,1) both; }
+      html.anim-an #main-page .a-zoom.a-da   { animation: a-zoom   0.85s cubic-bezier(0.22,0.8,0.32,1) both; }
+      html.anim-an #main-page .a-karte.a-da  { animation: a-karte  0.75s cubic-bezier(0.22,0.8,0.32,1) both; }
+      /* nur weich aufhellen, ohne Verschiebung - fuer die Karussells,
+         damit ihre eigene 3D-Darstellung nicht gestoert wird */
+      html.anim-an #main-page .a-blende.a-da { animation: a-blende 0.9s ease both; }
+
+      @keyframes a-auf    { from { opacity: 0; transform: translateY(24px); }            to { opacity: 1; transform: none; } }
+      @keyframes a-ruhig  { from { opacity: 0; transform: scale(0.985); }                to { opacity: 1; transform: none; } }
+      @keyframes a-links  { from { opacity: 0; transform: translateX(-22px); }           to { opacity: 1; transform: none; } }
+      @keyframes a-rechts { from { opacity: 0; transform: translateX(22px); }            to { opacity: 1; transform: none; } }
+      @keyframes a-zoom   { from { opacity: 0; transform: scale(0.93); }                 to { opacity: 1; transform: none; } }
+      @keyframes a-karte  { from { opacity: 0; transform: translateY(26px) scale(0.97); } to { opacity: 1; transform: none; } }
+      @keyframes a-blende { from { opacity: 0; } to { opacity: 1; } }
+
+      /* Nacheinander statt gleichzeitig, damit Reihen lebendig wirken */
+      html.anim-an #main-page .a-takt-1 { animation-delay: 0.09s; }
+      html.anim-an #main-page .a-takt-2 { animation-delay: 0.18s; }
+      html.anim-an #main-page .a-takt-3 { animation-delay: 0.27s; }
+      html.anim-an #main-page .a-takt-4 { animation-delay: 0.36s; }
+      html.anim-an #main-page .a-takt-5 { animation-delay: 0.45s; }
+
+      /* Ist die Bewegung vorbei, wird die Animation abgeworfen. Sonst
+         wuerde ihr Endzustand die eigenen Hover-Effekte der Karten
+         ueberschreiben. Danach gilt wieder ganz normales CSS. */
+      html.anim-an #main-page .a-fertig { animation: none !important; opacity: 1 !important; }
+    }
+    /* Reihen aus gleichartigen Kacheln erscheinen nacheinander */
+    @media (prefers-reduced-motion: no-preference) {
+      html.anim-an #main-page .ueber-value:nth-child(2),
+      html.anim-an #main-page .team-card-v4:nth-child(2),
+      html.anim-an #main-page .gal-v4:nth-child(2)  { animation-delay: 0.09s; }
+      html.anim-an #main-page .ueber-value:nth-child(3),
+      html.anim-an #main-page .team-card-v4:nth-child(3),
+      html.anim-an #main-page .gal-v4:nth-child(3)  { animation-delay: 0.18s; }
+      html.anim-an #main-page .ueber-value:nth-child(4),
+      html.anim-an #main-page .team-card-v4:nth-child(4),
+      html.anim-an #main-page .gal-v4:nth-child(4)  { animation-delay: 0.27s; }
+      html.anim-an #main-page .gal-v4:nth-child(5)  { animation-delay: 0.36s; }
+      html.anim-an #main-page .gal-v4:nth-child(6)  { animation-delay: 0.45s; }
+    }
+    /* ╚═══ ENDE EINBLENDEN (1/2) ═══════════════════════════════════════╝ */
   </style>
+  <script>
+    /* Muss VOR dem Seiteninhalt laufen, sonst blitzt der Inhalt kurz auf,
+       bevor er sich versteckt. Gehoert zum Block "EINBLENDEN". */
+    document.documentElement.classList.add('anim-an');
+  </script>
 </head>
 <body>
 
@@ -1552,10 +1628,10 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-text-col">
-      <p class="eyebrow-v4">Zahnarztpraxis in Pforzheim</p>
-      <h1 class="hero-h1">Ihr Lächeln ist<br><em>unsere Leidenschaft</em></h1>
-      <p class="hero-sub">Familiengeführt seit über <span class="nbr">40&nbsp;Jahren</span>: moderne Zahnmedizin mit persönlicher Betreuung, direkt <span class="nbr">am&nbsp;Sedansplatz</span>. Wir nehmen uns <span class="nbr">Zeit&nbsp;für&nbsp;Sie</span>.</p>
-      <div class="hero-mobile-visual image-slot">
+      <p class="eyebrow-v4 a-ruhig">Zahnarztpraxis in Pforzheim</p>
+      <h1 class="hero-h1 a-auf a-takt-1">Ihr Lächeln ist<br><em>unsere Leidenschaft</em></h1>
+      <p class="hero-sub a-auf a-takt-2">Familiengeführt seit über <span class="nbr">40&nbsp;Jahren</span>: moderne Zahnmedizin mit persönlicher Betreuung, direkt <span class="nbr">am&nbsp;Sedansplatz</span>. Wir nehmen uns <span class="nbr">Zeit&nbsp;für&nbsp;Sie</span>.</p>
+      <div class="hero-mobile-visual image-slot a-zoom a-takt-3">
         <!-- HERO-BILD MOBILE VERSION: Hier deinen eigenen mobilen Bildpfad einsetzen -->
         <img src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim mobile" loading="eager" decoding="async">
         <div class="image-slot-note">
@@ -1563,7 +1639,7 @@
           <small>Nur src im img-Tag ändern</small>
         </div>
       </div>
-      <div class="hero-cta-row">
+      <div class="hero-cta-row a-auf a-takt-4">
         <a class="hero-cta-tel" href="tel:0723121641">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           07231 21641
@@ -1573,13 +1649,13 @@
           Route zur Praxis
         </a>
       </div>
-      <div class="hero-trust">
+      <div class="hero-trust a-auf a-takt-5">
         <a class="hero-trust-item" href="https://maps.app.goo.gl/a6EErPNJfFF2p9xK6" target="_blank" rel="noopener"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>4,7 bei Google</a>
         <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Kassen- &amp; Privatpatienten</span>
         <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Für Angstpatienten geeignet</span>
       </div>
     </div>
-    <div class="hero-img-col image-slot">
+    <div class="hero-img-col image-slot a-zoom a-takt-2">
       <!-- HERO-BILD WEBVERSION: Diesen src-Pfad für das Desktop-Bild verwenden -->
       <img class="hero-img-desktop" src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim" loading="eager" decoding="async">
       <div class="image-slot-note">
@@ -1591,12 +1667,12 @@
 
   <!-- KARRIERE-BANNER -->
   <section class="karriere-banner">
-    <div>
+    <div class="a-links">
       <p class="karriere-banner-eyebrow">Karriere bei uns</p>
       <h2>Zum Zahnarzt gehen ist gut. <em>Im Team arbeiten ist besser.</em></h2>
       <p class="karriere-banner-text">Ob ZFA, Ausbildung oder Empfang: Dich erwartet ein familiäres, eingespieltes Team, eine moderne Praxis <span class="nbr">am&nbsp;Sedansplatz</span> und Arbeit, die jeden Tag Menschen zum <span class="nbr">Lächeln&nbsp;bringt</span>.</p>
     </div>
-    <button class="karriere-banner-btn" onclick="showKarriere()">
+    <button class="karriere-banner-btn a-rechts a-takt-2" onclick="showKarriere()">
       Bewirb dich jetzt
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
     </button>
@@ -1604,10 +1680,10 @@
 
   <!-- LEISTUNGEN -->
   <section id="leistungen" class="section-wrap bgwhite">
-    <p class="eyebrow-v4">Was wir bieten</p>
-    <h2 class="h2-serif">Unsere Leistungen</h2>
-    <p class="lead-text">Von der Vorsorge bis zur ästhetischen Behandlung: immer mit Ruhe, Sorgfalt und einem persönlichen Blick auf den Menschen. Schmerzpatienten erhalten bei uns unverzüglich einen Termin.</p>
-    <div class="leistungen-grid">
+    <p class="eyebrow-v4 a-ruhig">Was wir bieten</p>
+    <h2 class="h2-serif a-auf a-takt-1">Unsere Leistungen</h2>
+    <p class="lead-text a-auf a-takt-2">Von der Vorsorge bis zur ästhetischen Behandlung: immer mit Ruhe, Sorgfalt und einem persönlichen Blick auf den Menschen. Schmerzpatienten erhalten bei uns unverzüglich einen Termin.</p>
+    <div class="leistungen-grid a-blende a-takt-3">
       <div class="leistung-card">
         <div class="leistung-icon">&#129470;</div>
         <h3>Vorsorge &amp; Prophylaxe</h3>
@@ -1662,33 +1738,33 @@
 
   <!-- UEBER DIE PRAXIS -->
   <section id="ueber" class="section-wrap bg2">
-    <p class="eyebrow-v4">Wer wir sind</p>
-    <h2 class="h2-serif">Über die Praxis</h2>
+    <p class="eyebrow-v4 a-ruhig">Wer wir sind</p>
+    <h2 class="h2-serif a-auf a-takt-1">Über die Praxis</h2>
     <div class="ueber-layout">
-      <div class="ueber-text">
+      <div class="ueber-text a-links a-takt-2">
         <p class="ueber-lead">Seit über <span class="nbr">40&nbsp;Jahren</span> familiengeführt: moderne Zahnmedizin <span class="nbr">am&nbsp;Sedansplatz</span> in Pforzheim, persönlich, ruhig und mit einem klaren Blick für das, was für Sie wirklich sinnvoll ist.</p>
         <p class="ueber-compact-copy">Im Oktober 2025 hat Michael Schulz die Praxis von seinem Vater Dr. Hans Joachim Schulz übernommen. Die Erfahrung aus über 40 Jahren bleibt dem Team dabei erhalten. Bei uns steht der Patient im Vordergrund: Wir sind hilfsbereit, locker und ruhig und gehen auf jeden Menschen individuell ein. Aus etlichen Angstpatienten sind so Patienten geworden, die heute gerne zum Zahnarzt kommen. Sein Studium absolvierte Michael Schulz an der Rheinischen Friedrich-Wilhelms-Universität Bonn.</p>
         <p class="ueber-compact-copy">Wir verbinden neueste Zahnmedizin und moderne Technik mit bewährten konventionellen Methoden. Darüber hinaus betreuen wir Altenheime und machen Hausbesuche. Wir sprechen Deutsch, Englisch und Serbisch.</p>
         <div class="ueber-values">
-          <div class="ueber-value">
+          <div class="ueber-value a-karte">
             <span class="ueber-value-num">I</span>
             <div class="ueber-value-text"><h4>Persönlich</h4><p>Ruhige Betreuung mit Zeit für Fragen und individuelle Anliegen.</p></div>
           </div>
-          <div class="ueber-value">
+          <div class="ueber-value a-karte">
             <span class="ueber-value-num">II</span>
             <div class="ueber-value-text"><h4>Modern</h4><p>Aktuelle Technik für präzise Diagnostik und schonende Behandlung.</p></div>
           </div>
-          <div class="ueber-value">
+          <div class="ueber-value a-karte">
             <span class="ueber-value-num">III</span>
             <div class="ueber-value-text"><h4>Transparent</h4><p>Klare Erklärungen statt unnötiger Schritte oder Unsicherheit.</p></div>
           </div>
-          <div class="ueber-value">
+          <div class="ueber-value a-karte">
             <span class="ueber-value-num">IV</span>
             <div class="ueber-value-text"><h4>Zentral</h4><p>Dillsteiner Str. 7 am Sedansplatz, gut erreichbar in Pforzheim.</p></div>
           </div>
         </div>
       </div>
-      <div class="ueber-img-wrap image-slot">
+      <div class="ueber-img-wrap image-slot a-rechts a-takt-3">
         <img src="images/arzt_template.png" alt="Zahnarzt Michael Schulz Pforzheim" loading="lazy" decoding="async">
         <div class="image-slot-note">
           <span>Porträt- oder Praxisbild hier einsetzen</span>
@@ -1700,11 +1776,11 @@
 
   <!-- TEAM -->
   <section id="team" class="section-wrap bgwhite">
-    <p class="eyebrow-v4">Menschen hinter der Praxis</p>
-    <h2 class="h2-serif">Unser Team</h2>
-    <p class="lead-text">Ein eingespieltes Team, das jeden Tag für Ihre Zahngesundheit da ist, vom ersten Hallo am Empfang bis zur Behandlung.</p>
+    <p class="eyebrow-v4 a-ruhig">Menschen hinter der Praxis</p>
+    <h2 class="h2-serif a-auf a-takt-1">Unser Team</h2>
+    <p class="lead-text a-auf a-takt-2">Ein eingespieltes Team, das jeden Tag für Ihre Zahngesundheit da ist, vom ersten Hallo am Empfang bis zur Behandlung.</p>
     <div class="team-grid-v4">
-      <div class="team-card-v4 featured">
+      <div class="a-karte team-card-v4 featured">
         <div class="team-photo-v4 image-slot">
           <img src="images/portraet_arzt_template.png" alt="Michael Schulz Zahnarzt" loading="lazy" decoding="async">
           <div class="image-slot-note"><span>Porträtfoto einsetzen</span><small>src ändern</small></div>
@@ -1712,7 +1788,7 @@
         <div class="team-name-v4">Michael Schulz</div>
         <div class="team-role-v4">Zahnarzt &amp; Inhaber</div>
       </div>
-      <div class="team-card-v4">
+      <div class="a-karte team-card-v4">
         <div class="team-photo-v4 image-slot">
           <img src="images/arzt_template.png" alt="Dr. Hans Joachim Schulz Zahnarzt" loading="lazy" decoding="async">
           <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
@@ -1720,7 +1796,7 @@
         <div class="team-name-v4">Dr. Hans Joachim Schulz</div>
         <div class="team-role-v4">Ehem. Inhaber &middot; Implantologie-Experte</div>
       </div>
-      <div class="team-card-v4">
+      <div class="a-karte team-card-v4">
         <div class="team-photo-v4 image-slot">
           <img src="images/empfangsdame_template.png" alt="Stephanie Schulz Empfang" loading="lazy" decoding="async">
           <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
@@ -1728,7 +1804,7 @@
         <div class="team-name-v4">Stephanie Schulz</div>
         <div class="team-role-v4">Empfang, Management &amp; Prophylaxe</div>
       </div>
-      <div class="team-card-v4">
+      <div class="a-karte team-card-v4">
         <div class="team-photo-v4 image-slot">
           <img src="images/MFA_template.png" alt="Mirvet Simonovic Assistenz" loading="lazy" decoding="async">
           <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
@@ -1745,9 +1821,9 @@
 
   <!-- PATIENTENSTIMMEN -->
   <section id="stimmen" class="section-wrap bg2">
-    <p class="eyebrow-v4">Was Patienten sagen</p>
-    <h2 class="h2-serif">Stimmen aus <em>der Praxis</em></h2>
-    <div class="stimmen-grid">
+    <p class="eyebrow-v4 a-ruhig">Was Patienten sagen</p>
+    <h2 class="h2-serif a-auf a-takt-1">Stimmen aus <em>der Praxis</em></h2>
+    <div class="stimmen-grid a-blende a-takt-3">
       <div class="stimme-card">
         <div class="stimme-quote-mark">&ldquo;</div>
         <p class="stimme-text">Sehr freundliche und kompetente Praxis. Das Team nimmt sich Zeit, erklärt jeden Schritt und macht auch ängstlichen Patienten die Behandlung angenehm. Ich bin seit Jahren Patientin und kann die Praxis nur wärmstens empfehlen!</p>
@@ -1793,36 +1869,36 @@
 
   <!-- GALERIE -->
   <section id="galerie" class="section-wrap bgwhite">
-    <p class="eyebrow-v4">Einblicke</p>
-    <h2 class="h2-serif">Unsere Praxis</h2>
-    <p class="lead-text">Ruhig, modern und einladend: ein Ort, an dem Sie sich von Anfang an wohl fühlen sollen.</p>
+    <p class="eyebrow-v4 a-ruhig">Einblicke</p>
+    <h2 class="h2-serif a-auf a-takt-1">Unsere Praxis</h2>
+    <p class="lead-text a-auf a-takt-2">Ruhig, modern und einladend: ein Ort, an dem Sie sich von Anfang an wohl fühlen sollen.</p>
     <div class="galerie-mosaic-v4">
-      <div class="gal-v4 g7 image-slot">
+      <div class="a-zoom gal-v4 g7 image-slot">
         <img src="images/empfang_template.png" alt="Empfangsbereich der Zahnarztpraxis Michael Schulz in Pforzheim" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Empfangsbereich</span><small>hell &middot; einladend</small></div>
       </div>
-      <div class="gal-v4 g5 image-slot">
+      <div class="a-zoom gal-v4 g5 image-slot">
         <img src="images/zimmer_template.png" alt="Modern ausgestattetes Behandlungszimmer der Zahnarztpraxis Schulz" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Behandlungszimmer</span><small>modern ausgestattet</small></div>
       </div>
-      <div class="gal-v4 g4 image-slot">
+      <div class="a-zoom gal-v4 g4 image-slot">
         <img src="images/gerate_template.png" alt="Moderne zahnmedizinische Geräte der Praxis" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Moderne Geräte</span></div>
       </div>
-      <div class="gal-v4 g4b image-slot">
+      <div class="a-zoom gal-v4 g4b image-slot">
         <img src="images/behandlung_template.png" alt="Zahnärztliche Behandlung in der Zahnarztpraxis Schulz" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Im Alltag</span></div>
       </div>
-      <div class="gal-v4 g4c image-slot">
+      <div class="a-zoom gal-v4 g4c image-slot">
         <img src="images/team_template.png" alt="Das Team der Zahnarztpraxis Michael Schulz" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Unser Team</span></div>
       </div>
-      <div class="gal-v4 g12 image-slot">
+      <div class="a-zoom gal-v4 g12 image-slot">
         <img src="images/warte_template.png" alt="Wartezimmer der Zahnarztpraxis Michael Schulz in Pforzheim" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
         <div class="gal-label-v4"><span>Atmosphäre</span><small>angenehm &middot; entspannt</small></div>
@@ -1832,7 +1908,7 @@
 
   <!-- KONTAKT & TERMIN -->
   <section id="kontakt" class="section-wrap bg3">
-    <h2 class="h2-serif">Wir freuen uns auf Sie</h2>
+    <h2 class="h2-serif a-auf">Wir freuen uns auf Sie</h2>
     <div class="kontakt-layout">
       <div>
         <div class="kontakt-col-title">Öffnungszeiten</div>
@@ -1906,7 +1982,7 @@
     <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
     <p class="eyebrow-v4">Werden Sie Teil unseres Teams</p>
     <h2 class="h2-serif">Karriere bei uns</h2>
-    <p class="lead-text">Offene Stellen nach Aufgabenbereich. Bewerbung direkt über das Formular.</p>
+    <p class="lead-text a-auf a-takt-2">Offene Stellen nach Aufgabenbereich. Bewerbung direkt über das Formular.</p>
     <div class="karriere-layout-v4">
       <div>
         <div class="stellen-v4">
@@ -2104,7 +2180,7 @@
     <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
     <p class="eyebrow-v4">Rechtliches</p>
     <h2 class="h2-serif">Datenschutzerklärung</h2>
-    <p class="lead-text">Informationen über die Erhebung personenbezogener Daten auf unserer Webseite (auf Grundlage des Mustertextes der Landeszahnärztekammer Baden-Württemberg). Das Impressum finden Sie im Anschluss.</p>
+    <p class="lead-text a-auf a-takt-2">Informationen über die Erhebung personenbezogener Daten auf unserer Webseite (auf Grundlage des Mustertextes der Landeszahnärztekammer Baden-Württemberg). Das Impressum finden Sie im Anschluss.</p>
     <div class="impressum-grid-v4">
       <div class="impressum-box-v4 full-v4">
         <h3>1. Verantwortlicher</h3>
@@ -2905,6 +2981,92 @@
   /* Letzter Wert = Anteil der Kartenbreite an der Karussell-Breite */
   initKarussell('.leistungen-grid', 'leistungen-dots', 'coverflow', 0.78);
   initKarussell('.stimmen-grid', 'stimmen-dots', 'faecher', 0.82);
+
+  /* ╔═══ EINBLENDEN BEIM SCROLLEN (2/2: Ablauf) ══════════════════════╗
+     Jeder markierte Baustein wird beim ersten Erscheinen einmal
+     eingeblendet und danach nicht mehr beobachtet - beim Zurueckscrollen
+     passiert also nichts mehr, alles bleibt einfach stehen.
+     Zum Entfernen: diesen Block, den CSS-Block (1/2), das kleine Skript
+     im Kopf der Seite und die a-... Klassen im Markup loeschen. */
+  (function () {
+    const bausteine = document.querySelectorAll(
+      '#main-page .a-auf, #main-page .a-ruhig, #main-page .a-links, ' +
+      '#main-page .a-rechts, #main-page .a-zoom, #main-page .a-karte, ' +
+      '#main-page .a-blende');
+    if (!bausteine.length) return;
+
+    /* Kein IntersectionObserver (sehr alte Browser) oder Nutzer moechte
+       weniger Bewegung: alles sofort und ohne Animation zeigen. */
+    const wenigerBewegung = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!('IntersectionObserver' in window) || wenigerBewegung) {
+      bausteine.forEach(el => el.classList.add('a-da', 'a-fertig'));
+      return;
+    }
+
+    function zeigen(el) {
+      if (el.classList.contains('a-da')) return;
+      el.classList.add('a-da');
+      /* Nach der Bewegung die Animation abwerfen, damit sie die eigenen
+         Hover-Effekte der Karten nicht dauerhaft ueberschreibt. */
+      el.addEventListener('animationend', () => el.classList.add('a-fertig'), { once: true });
+    }
+
+    const beobachter = new IntersectionObserver((eintraege, selbst) => {
+      eintraege.forEach(e => {
+        if (!e.isIntersecting) return;
+        zeigen(e.target);
+        selbst.unobserve(e.target);
+        offen.delete(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+
+    const offen = new Set();
+    bausteine.forEach(el => {
+      /* Auf dieser Bildschirmgroesse gar nicht dargestellt (z. B. das
+         Handy-Bild auf dem Desktop)? Dann sofort als erledigt abhaken.
+         Sonst bliebe es unsichtbar, sobald das Geraet gedreht wird. */
+      if (!el.getClientRects().length) { el.classList.add('a-da', 'a-fertig'); return; }
+      offen.add(el);
+      beobachter.observe(el);
+    });
+
+    /* Sicherheitsnetz: Der Beobachter meldet bei schnellem Scrollen nicht
+       immer jeden Baustein. Deshalb wird beim Scrollen zusaetzlich
+       nachgesehen, ob noch etwas Unsichtbares im Bild steht. Die Liste
+       wird dabei kleiner und der Zuhoerer haengt sich am Ende selbst ab -
+       so kann kein Baustein dauerhaft unsichtbar bleiben. */
+    let geplant = false;
+    function nachsehen() {
+      geplant = false;
+      offen.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom <= 0) {
+          /* Schon nach oben aus dem Bild gescrollt, ohne je sichtbar
+             gewesen zu sein - etwa nach einem Sprung zu einem Abschnitt.
+             Dann ohne Bewegung einfach dauerhaft zeigen. */
+          el.classList.add('a-da', 'a-fertig');
+        } else if (r.top < window.innerHeight * 0.95) {
+          zeigen(el);
+        } else {
+          return;
+        }
+        beobachter.unobserve(el); offen.delete(el);
+      });
+      if (!offen.size) {
+        window.removeEventListener('scroll', anstossen);
+        window.removeEventListener('resize', anstossen);
+      }
+    }
+    function anstossen() {
+      if (geplant) return;
+      geplant = true;
+      requestAnimationFrame(nachsehen);
+    }
+    window.addEventListener('scroll', anstossen, { passive: true });
+    window.addEventListener('resize', anstossen);
+    anstossen();
+  })();
+  /* ╚═══ ENDE EINBLENDEN (2/2) ═══════════════════════════════════════╝ */
 
   /* ── LEISTUNGS-DETAILS (Mehr erfahren) ──
      Inhalte je Karte. Die Texte sind Entwuerfe auf Basis ueblicher
