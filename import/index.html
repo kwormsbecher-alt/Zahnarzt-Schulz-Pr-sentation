@@ -1187,7 +1187,9 @@
       border: none; border-radius: 999px;
       font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(162,74,46,0.38);
+      /* salbeigruener Schatten (vorher rotbraun, ein Rest vom alten roten
+         Notfall-Knopf, der als rosa Schimmer unter dem Knopf zu sehen war) */
+      box-shadow: 0 10px 30px rgba(107,127,104,0.38);
       transition: background 0.18s, transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s;
     }
     .notfall-fab:hover { background: var(--notfall2); transform: translateY(-2px); }
@@ -1200,6 +1202,29 @@
     /* Bei geoeffnetem Menue verschwindet der schwebende Button (im Menue
        gibt es dann einen eigenen Notfall-Button ganz unten) */
     body.menu-offen .notfall-fab { opacity: 0; pointer-events: none; transform: translateX(160%); }
+
+    /* ── ZURUECK NACH OBEN ──
+       Runder Knopf im Stil des Kontakt-Knopfs, rechtsbuendig darueber.
+       Erscheint erst, wenn "Ueber die Praxis" (zweiter Menuepunkt) erreicht
+       ist. Faehrt der Kontakt-Knopf im Kontakt-Abschnitt weg, rutscht er an
+       dessen Platz. Versteckt sich bei offenem Menue und Cookie-Hinweis. */
+    .nach-oben {
+      position: fixed; right: 1.5rem; z-index: 240;
+      bottom: calc(1.5rem + 45px + 0.75rem);
+      width: 45px; height: 45px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--notfall); color: #fff; border: none; cursor: pointer;
+      box-shadow: 0 10px 30px rgba(107,127,104,0.38);
+      opacity: 0; pointer-events: none; transform: translateY(14px) scale(0.9);
+      transition: background 0.18s, opacity 0.35s, bottom 0.4s cubic-bezier(0.4,0,0.2,1),
+                  transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nach-oben.sichtbar { opacity: 1; pointer-events: auto; transform: none; }
+    .nach-oben.sichtbar:hover { background: var(--notfall2); transform: translateY(-2px); }
+    .nach-oben svg { flex-shrink: 0; }
+    .notfall-fab.eingefahren ~ .nach-oben { bottom: 1.5rem; }
+    body.menu-offen .nach-oben,
+    body.cookie-offen .nach-oben { opacity: 0; pointer-events: none; transform: translateY(14px) scale(0.9); }
 
     .notfall-modal { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: calc(1.5rem + env(safe-area-inset-top)) 1.25rem calc(1.5rem + env(safe-area-inset-bottom)); }
     .notfall-modal.sichtbar { display: flex; }
@@ -1304,6 +1329,8 @@
       /* Nur der schwebende Button wird auf schmalen Bildschirmen naeher an
          den Rand gerueckt; die Karte selbst rechnet sich fliessend aus. */
       .notfall-fab { right: 1rem; bottom: 1rem; padding: 0.8rem 1.2rem; font-size: 0.86rem; }
+      .nach-oben { right: 1rem; bottom: calc(1rem + 44px + 0.75rem); width: 44px; height: 44px; }
+      .notfall-fab.eingefahren ~ .nach-oben { bottom: 1rem; }
     }
 
     /* ── COOKIE-BANNER ── */
@@ -2367,6 +2394,11 @@
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
   Kontakt aufnehmen
 </button>
+<!-- Zurueck nach oben: muss direkt hinter dem Kontakt-Knopf stehen, damit er
+     an dessen Platz rutschen kann, wenn der Kontakt-Knopf wegfaehrt -->
+<button class="nach-oben" id="nach-oben" type="button" aria-label="Zurück nach oben" tabindex="-1">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
 
 <div class="notfall-modal" id="notfall-modal" role="dialog" aria-modal="true" aria-label="So erreichen Sie uns">
   <div class="notfall-modal-backdrop" onclick="closeNotfall()"></div>
@@ -2715,6 +2747,36 @@
       entries.forEach(e => fab.classList.toggle('eingefahren', e.isIntersecting));
     }, { threshold: 0 });
     obs.observe(kontakt);
+  })();
+
+  /* ── ZURUECK NACH OBEN ──
+     Startseite: erscheint, sobald "Ueber die Praxis" (der zweite
+     Menuepunkt) die Bildschirmmitte erreicht hat. Auf den Unterseiten
+     (Karriere, Datenschutz) nach gut eineinhalb Bildschirmhoehen. */
+  (function () {
+    const knopf = document.getElementById('nach-oben');
+    const ueber = document.getElementById('ueber');
+    const start = document.getElementById('main-page');
+    if (!knopf || !ueber || !start) return;
+    let geplant = false;
+    function pruefen() {
+      geplant = false;
+      const aufStartseite = start.getClientRects().length > 0;
+      const zeigen = aufStartseite
+        ? ueber.getBoundingClientRect().top < window.innerHeight * 0.5
+        : window.scrollY > window.innerHeight * 1.5;
+      knopf.classList.toggle('sichtbar', zeigen);
+      knopf.tabIndex = zeigen ? 0 : -1;   /* unsichtbar = auch per Tastatur nicht erreichbar */
+    }
+    function anstossen() { if (!geplant) { geplant = true; requestAnimationFrame(pruefen); } }
+    window.addEventListener('scroll', anstossen, { passive: true });
+    window.addEventListener('resize', anstossen);
+    knopf.addEventListener('click', () => {
+      const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: ruhig ? 'auto' : 'smooth' });
+      knopf.blur();
+    });
+    anstossen();
   })();
 
   function zeigeCookieBanner() {
