@@ -606,13 +606,13 @@
     }
     .leistung-icon img { width: 100%; height: 100%; display: block; }
 
-    /* Kleines Icon ueber dem Kopf einiger Abschnitte (Ueber uns, Team,
-       Kontakt). Steht in derselben linken Flucht wie Kennzeile und
+    /* Kleines Icon ueber dem Kopf einiger Abschnitte (Team, Galerie
+       "Unsere Praxis", Kontakt). Steht in derselben linken Flucht wie Kennzeile und
        Ueberschrift und begleitet sie, statt neben ihr Platz zu nehmen.
        Unter ca. 40 px werden die feinen Linien der Instrumente blass. */
     .abschnitt-icon { display: block; width: 44px; height: 44px; margin-bottom: 0.9rem; }
-    /* Standort-Pin, zur Probe an drei Stellen (siehe PIN-PROBE 1-3) */
-    .pin-probe { flex-shrink: 0; }
+    /* Standort-Pin in der Adresszeile und bei "Route zu uns" */
+    .standort-pin { flex-shrink: 0; }
     .leistung-card h3 {
       font-family: 'Fraunces', serif;
       font-size: 1.1rem; font-weight: 400;
@@ -1653,8 +1653,7 @@
           07231 21641
         </a>
         <a class="hero-cta route-link" id="route-btn" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-          <!-- PIN-PROBE 3/3 (Hero-Knopf) - bisher Pfeil-SVG, 16 px -->
-          <img src="images/icons/standort-pin.svg" alt="" width="22" height="22" decoding="async" class="pin-probe">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
           Route zur Praxis
         </a>
       </div>
@@ -1747,7 +1746,6 @@
 
   <!-- UEBER DIE PRAXIS -->
   <section id="ueber" class="section-wrap bg2">
-    <img class="abschnitt-icon a-zoom" src="images/icons/instrumente.svg" alt="" width="44" height="44" decoding="async">
     <p class="eyebrow-v4 a-ruhig">Wer wir sind</p>
     <h2 class="h2-serif a-auf a-takt-1">Über die Praxis</h2>
     <div class="ueber-layout">
@@ -1880,6 +1878,7 @@
 
   <!-- GALERIE -->
   <section id="galerie" class="section-wrap bgwhite">
+    <img class="abschnitt-icon a-zoom" src="images/icons/instrumente.svg" alt="" width="44" height="44" decoding="async">
     <p class="eyebrow-v4 a-ruhig">Einblicke</p>
     <h2 class="h2-serif a-auf a-takt-1">Unsere Praxis</h2>
     <p class="lead-text a-auf a-takt-2">Ruhig, modern und einladend: ein Ort, an dem Sie sich von Anfang an wohl fühlen sollen.</p>
@@ -1940,8 +1939,7 @@
           <span class="nbr">07231&nbsp;21641</span>
         </a>
         <a class="contact-row-v4" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-          <!-- PIN-PROBE 1/3 (Adresszeile) - nach Kevins Wahl behalten oder zurueck auf &#128205; -->
-          <span class="contact-icon-v4"><img src="images/icons/standort-pin.svg" alt="" width="28" height="28" decoding="async" class="pin-probe"></span>
+          <span class="contact-icon-v4"><img src="images/icons/standort-pin.svg" alt="" width="28" height="28" decoding="async" class="standort-pin"></span>
           Dillsteiner Str. 7, 75173 Pforzheim
         </a>
         <a class="contact-row-v4" href="mailto:info@zahnarzt-schulz-pforzheim.de">
@@ -2376,8 +2374,7 @@
     <!-- Route: oeffnet Apple Karten auf iPhone/Mac, sonst Google Maps
          (der Adresstausch passiert weiter unten im Skript ueber .route-link) -->
     <a class="notfall-route route-link" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-      <!-- PIN-PROBE 2/3 (Route im Fenster) - bisher Pfeil-SVG, 18 px -->
-      <img src="images/icons/standort-pin.svg" alt="" width="26" height="26" decoding="async" class="pin-probe">
+      <img src="images/icons/standort-pin.svg" alt="" width="26" height="26" decoding="async" class="standort-pin">
       <span class="notfall-route-text">
         <span class="notfall-route-label">Route zu uns</span>
         <span class="notfall-route-adresse">Dillsteiner Str.&nbsp;7, 75173&nbsp;Pforzheim</span>
