@@ -611,6 +611,8 @@
        Ueberschrift und begleitet sie, statt neben ihr Platz zu nehmen.
        Unter ca. 40 px werden die feinen Linien der Instrumente blass. */
     .abschnitt-icon { display: block; width: 44px; height: 44px; margin-bottom: 0.9rem; }
+    /* Standort-Pin, zur Probe an drei Stellen (siehe PIN-PROBE 1-3) */
+    .pin-probe { flex-shrink: 0; }
     .leistung-card h3 {
       font-family: 'Fraunces', serif;
       font-size: 1.1rem; font-weight: 400;
@@ -1651,7 +1653,8 @@
           07231 21641
         </a>
         <a class="hero-cta route-link" id="route-btn" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          <!-- PIN-PROBE 3/3 (Hero-Knopf) - bisher Pfeil-SVG, 16 px -->
+          <img src="images/icons/standort-pin.svg" alt="" width="22" height="22" decoding="async" class="pin-probe">
           Route zur Praxis
         </a>
       </div>
@@ -1937,7 +1940,8 @@
           <span class="nbr">07231&nbsp;21641</span>
         </a>
         <a class="contact-row-v4" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-          <span class="contact-icon-v4">&#128205;</span>
+          <!-- PIN-PROBE 1/3 (Adresszeile) - nach Kevins Wahl behalten oder zurueck auf &#128205; -->
+          <span class="contact-icon-v4"><img src="images/icons/standort-pin.svg" alt="" width="28" height="28" decoding="async" class="pin-probe"></span>
           Dillsteiner Str. 7, 75173 Pforzheim
         </a>
         <a class="contact-row-v4" href="mailto:info@zahnarzt-schulz-pforzheim.de">
@@ -2372,7 +2376,8 @@
     <!-- Route: oeffnet Apple Karten auf iPhone/Mac, sonst Google Maps
          (der Adresstausch passiert weiter unten im Skript ueber .route-link) -->
     <a class="notfall-route route-link" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+      <!-- PIN-PROBE 2/3 (Route im Fenster) - bisher Pfeil-SVG, 18 px -->
+      <img src="images/icons/standort-pin.svg" alt="" width="26" height="26" decoding="async" class="pin-probe">
       <span class="notfall-route-text">
         <span class="notfall-route-label">Route zu uns</span>
         <span class="notfall-route-adresse">Dillsteiner Str.&nbsp;7, 75173&nbsp;Pforzheim</span>
