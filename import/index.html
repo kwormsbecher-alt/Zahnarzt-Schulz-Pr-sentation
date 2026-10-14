@@ -547,6 +547,16 @@
       align-items: center;
       gap: 3rem;
     }
+    /* Koffer-Icon im Karriere-Banner. Das Banner ist in genau dem
+       Salbeigruen gefuellt, aus dem der Koffergriff besteht - ohne helle
+       Kachel dahinter verschwaende der Griff. Weiss und Rundung wie beim
+       Knopf "Bewirb dich jetzt". Die Grafik selbst bleibt unveraendert. */
+    .karriere-banner-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 58px; height: 58px; border-radius: 12px;
+      background: var(--white); margin-bottom: 1rem;
+    }
+    .karriere-banner-icon img { width: 44px; height: 44px; display: block; }
     .karriere-banner-eyebrow {
       font-size: 0.68rem; font-weight: 600;
       letter-spacing: 0.2em; text-transform: uppercase;
@@ -607,7 +617,7 @@
     .leistung-icon img { width: 100%; height: 100%; display: block; }
 
     /* Kleines Icon ueber dem Kopf einiger Abschnitte (Leistungen, Ueber die
-       Praxis, Team, Stimmen, Galerie, Kontakt, Karriere-Seite). Steht in derselben linken Flucht wie Kennzeile und
+       Praxis, Team, Stimmen, Galerie, Kontakt). Steht in derselben linken Flucht wie Kennzeile und
        Ueberschrift und begleitet sie, statt neben ihr Platz zu nehmen.
        Unter ca. 40 px werden die feinen Linien der Instrumente blass. */
     .abschnitt-icon { display: block; width: 44px; height: 44px; margin-bottom: 0.9rem; }
@@ -1676,6 +1686,7 @@
   <!-- KARRIERE-BANNER -->
   <section class="karriere-banner">
     <div class="a-links">
+      <span class="karriere-banner-icon"><img src="images/icons/koffer.svg" alt="" width="44" height="44" decoding="async"></span>
       <p class="karriere-banner-eyebrow">Karriere bei uns</p>
       <h2>Zum Zahnarzt gehen ist gut. <em>Im Team arbeiten ist besser.</em></h2>
       <p class="karriere-banner-text">Ob ZFA, Ausbildung oder Empfang: Dich erwartet ein familiäres, eingespieltes Team, eine moderne Praxis <span class="nbr">am&nbsp;Sedansplatz</span> und Arbeit, die jeden Tag Menschen zum <span class="nbr">Lächeln&nbsp;bringt</span>.</p>
@@ -1994,7 +2005,6 @@
 <div id="karriere-view">
   <div class="karriere-v4">
     <button class="back-btn-v4" onclick="showMain()">&larr; Zurück zur Website</button>
-    <img class="abschnitt-icon" src="images/icons/koffer.svg" alt="" width="44" height="44" decoding="async">
     <p class="eyebrow-v4">Werden Sie Teil unseres Teams</p>
     <h2 class="h2-serif">Karriere bei uns</h2>
     <p class="lead-text a-auf a-takt-2">Offene Stellen nach Aufgabenbereich. Bewerbung direkt über das Formular.</p>
