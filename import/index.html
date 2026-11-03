@@ -263,6 +263,14 @@
       --petrol2:   #6B7F68;
       --petrol-bg: #E8F0EC;
       --petrol-mid:#C2D2C8;
+      /* Textfarben mit ausreichendem Kontrast (WCAG): mindestens 4,5:1
+         fuer Fliesstext und kleine Texte, 3:1 fuer Ueberschriften ab 24px,
+         jeweils auch auf der dunkelsten hellen Flaeche (Hero #E4EDE6).
+         Nur fuer Schrift. Flaechen, Rahmen, Icons und Knoepfe behalten
+         --petrol / --petrol2 / --soft. */
+      --text-leise:       #606B67;   /* statt --soft   (#8A9691) */
+      --text-gruen:       #5B6D59;   /* statt --petrol2 (#6B7F68) bei kleiner Schrift */
+      --text-gruen-gross: #6F8872;   /* statt --petrol (#8DA290) bei grosser Schrift */
       --border:    rgba(46,51,48,0.09);
       --border2:   rgba(141,162,144,0.22);
       /* Kontakt-Button (frueher Notfall): normale Salbei-Akzentfarbe */
@@ -297,11 +305,11 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 0.3rem; padding: 1rem; text-align: center;
       background: var(--bg2);
-      color: var(--soft);
+      color: var(--text-leise);
       border: 1.5px dashed var(--petrol-mid);
       font-size: 0.8rem; font-family: 'Inter', sans-serif; line-height: 1.5;
     }
-    .image-slot-note small { font-size: 0.68rem; color: var(--soft); opacity: 0.7; }
+    .image-slot-note small { font-size: 0.68rem; color: var(--text-leise); }
     .image-slot.has-image .image-slot-note { display: none; }
 
     /* ── NAV ── */
@@ -328,7 +336,7 @@
       display: block;
       font-family: 'Inter', sans-serif;
       font-size: 0.65rem; font-weight: 400;
-      color: var(--petrol2); letter-spacing: 0.1em;
+      color: var(--text-gruen); letter-spacing: 0.1em;
       text-transform: uppercase; margin-top: 0.1rem;
     }
     .nav-links {
@@ -392,8 +400,8 @@
       text-decoration: none; border-bottom: 1px solid var(--border); cursor: pointer;
       transition: color 0.15s;
     }
-    .mobile-menu a:hover { color: var(--petrol2); }
-    .mobile-menu .mob-sub { font-size: 0.95rem; font-weight: 400; color: var(--petrol2); padding-left: 1.25rem; }
+    .mobile-menu a:hover { color: var(--text-gruen); }
+    .mobile-menu .mob-sub { font-size: 0.95rem; font-weight: 400; color: var(--text-gruen); padding-left: 1.25rem; }
     /* Kontakt-Button ganz unten im mobilen Menue. Er oeffnet die
        Kontakt-Karte ueber dem Menue, das Menue bleibt darunter offen. */
     .mob-notfall {
@@ -435,7 +443,7 @@
     .eyebrow-v4 {
       font-size: 0.68rem; font-weight: 600;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--petrol2); margin-bottom: 1rem;
+      color: var(--text-gruen); margin-bottom: 1rem;
     }
     .h2-serif {
       font-family: 'Fraunces', serif;
@@ -444,7 +452,7 @@
       line-height: 1.2; letter-spacing: -0.01em;
       margin-bottom: 1.25rem;
     }
-    .h2-serif em { font-style: italic; color: var(--petrol); }
+    .h2-serif em { font-style: italic; color: var(--text-gruen-gross); }
     .lead-text {
       font-size: 1rem; color: var(--mid);
       line-height: 1.75; max-width: 520px; font-weight: 300;
@@ -476,7 +484,7 @@
       letter-spacing: -0.02em;
       margin-bottom: 1.5rem;
     }
-    .hero-h1 em { font-style: italic; color: var(--petrol); }
+    .hero-h1 em { font-style: italic; color: var(--text-gruen-gross); }
     .hero-sub {
       font-size: 1.05rem; color: var(--mid);
       line-height: 1.75; font-weight: 300;
@@ -506,7 +514,7 @@
       cursor: pointer; text-decoration: none;
       transition: border-color 0.18s, color 0.18s, transform 0.15s;
     }
-    .hero-cta-tel:hover { border-color: var(--petrol2); color: var(--petrol2); transform: translateY(-2px); }
+    .hero-cta-tel:hover { border-color: var(--petrol2); color: var(--text-gruen); transform: translateY(-2px); }
     .hero-cta-tel svg { flex-shrink: 0; color: var(--petrol2); }
     .hero-trust {
       display: flex; flex-direction: column; align-items: flex-start; gap: 0.85rem;
@@ -524,7 +532,7 @@
     }
     .hero-trust-check svg { display: block; }
     a.hero-trust-item { text-decoration: none; transition: color 0.15s; }
-    a.hero-trust-item:hover { color: var(--petrol2); text-decoration: underline; text-underline-offset: 3px; }
+    a.hero-trust-item:hover { color: var(--text-gruen); text-decoration: underline; text-underline-offset: 3px; }
     /* Portraet als Brustbild: gezeigt werden die oberen 68 % des Fotos,
        der Schnitt liegt knapp oberhalb der Haende und sitzt buendig auf
        der Unterkante der Sektion. So kann Michael deutlich groesser stehen.
@@ -603,7 +611,7 @@
     .karriere-banner-btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
       padding: 1.15rem 2.8rem;
-      background: var(--white); color: var(--petrol2);
+      background: var(--white); color: var(--text-gruen);
       border: none; border-radius: 8px;
       font-family: 'Inter', sans-serif;
       font-size: 1rem; font-weight: 600;
@@ -674,7 +682,7 @@
     .leistung-link {
       display: inline-flex; align-items: center; gap: 0.35rem;
       margin-top: 1.25rem; font-size: 0.8rem; font-weight: 500;
-      color: var(--petrol2); text-decoration: none; cursor: pointer;
+      color: var(--text-gruen); text-decoration: none; cursor: pointer;
       transition: gap 0.15s;
     }
     .leistung-link:hover { gap: 0.55rem; }
@@ -719,8 +727,8 @@
     }
     .ueber-value-num {
       font-family: 'Fraunces', serif;
-      font-size: 0.8rem; color: var(--petrol2);
-      opacity: 0.75; flex-shrink: 0; width: 1.1rem;
+      font-size: 0.8rem; color: var(--text-gruen);
+      flex-shrink: 0; width: 1.1rem;
       margin-top: 0.08rem;
     }
     .ueber-value-text h4 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; line-height: 1.3; }
@@ -764,7 +772,7 @@
     }
     .team-role-v4 {
       font-size: 0.72rem; font-weight: 500;
-      color: var(--petrol2); letter-spacing: 0.08em;
+      color: var(--text-gruen); letter-spacing: 0.08em;
       text-transform: uppercase;
     }
     .team-karriere-cta {
@@ -777,7 +785,7 @@
       padding: 0.75rem 1.75rem;
       border: 1.5px solid var(--petrol);
       border-radius: 6px; background: transparent;
-      color: var(--petrol);
+      color: var(--text-gruen);
       font-family: 'Inter', sans-serif;
       font-size: 0.85rem; font-weight: 500;
       cursor: pointer; text-decoration: none;
@@ -830,7 +838,7 @@
       color: var(--text); text-decoration: none;
       transition: all 0.18s;
     }
-    .btn-google-v4:hover { border-color: var(--petrol); color: var(--petrol); }
+    .btn-google-v4:hover { border-color: var(--petrol); color: var(--text-gruen); }
 
     /* ── KONTAKT & TERMIN ── */
     #kontakt {}
@@ -869,28 +877,28 @@
     .kontakt-col-title {
       font-size: 0.68rem; font-weight: 600;
       letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--petrol2); margin-bottom: 1.25rem;
+      color: var(--text-gruen); margin-bottom: 1.25rem;
       padding-bottom: 1rem; border-bottom: 1px solid var(--border2);
     }
     .hours-list-v4 { display: flex; flex-direction: column; gap: 0.55rem; }
     .hours-row-v4 { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
     .hours-day-v4 { font-size: 0.88rem; color: var(--mid); font-weight: 400; }
     .hours-time-v4 { font-size: 0.84rem; color: var(--text); font-weight: 500; text-align: right; }
-    .hours-closed-v4 { font-size: 0.84rem; color: var(--soft); }
+    .hours-closed-v4 { font-size: 0.84rem; color: var(--text-leise); }
     .contact-row-v4 {
       display: flex; align-items: center; gap: 0.85rem;
       font-size: 0.9rem; font-weight: 500; color: var(--text);
       text-decoration: none; margin-bottom: 0.9rem;
       transition: color 0.15s;
     }
-    .contact-row-v4:hover { color: var(--petrol); }
+    .contact-row-v4:hover { color: var(--text-gruen); }
     .contact-icon-v4 {
       width: 36px; height: 36px; border-radius: 8px;
       background: var(--petrol-bg);
       display: flex; align-items: center; justify-content: center;
       font-size: 0.88rem; flex-shrink: 0; color: var(--petrol);
     }
-    .contact-note { font-size: 0.8rem; color: var(--soft); line-height: 1.6; margin-top: 1rem; font-weight: 300; }
+    .contact-note { font-size: 0.8rem; color: var(--text-leise); line-height: 1.6; margin-top: 1rem; font-weight: 300; }
     .termin-box {
       background: var(--petrol);
       border-radius: 12px;
@@ -905,7 +913,7 @@
     .termin-box p { font-size: 0.88rem; color: rgba(255,255,255,0.72); line-height: 1.7; font-weight: 300; margin-bottom: 1.75rem; flex: 1; }
     .btn-white-petrol {
       display: block; text-align: center;
-      padding: 0.85rem; background: white; color: var(--petrol);
+      padding: 0.85rem; background: white; color: var(--text-gruen);
       border-radius: 6px; font-family: 'Inter', sans-serif;
       font-size: 0.88rem; font-weight: 600;
       border: none; cursor: pointer; transition: background 0.15s;
@@ -959,13 +967,13 @@
       display: flex; align-items: center; justify-content: center;
       font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500;
       letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--petrol2);
+      color: var(--text-gruen);
     }
     /* Beschriftung ohne dunklen Verlauf (der wirkt auf der hellen Flaeche
        wie ein Schmutzrand), dafuer in dunkler Schrift */
     .gal-leer .gal-label-v4 { background: none; }
     .gal-leer .gal-label-v4 span { color: var(--text); }
-    .gal-leer .gal-label-v4 small { color: var(--soft); }
+    .gal-leer .gal-label-v4 small { color: var(--text-leise); }
 
     /* ── GALERIE-GROSSANSICHT ── */
     .gal-ansicht {
@@ -1006,12 +1014,12 @@
     }
     .gal-ansicht-bild figcaption small {
       display: block; margin-top: 0.15rem;
-      color: rgba(255,255,255,0.7); font-size: 0.68rem; font-weight: 400;
+      color: rgba(255,255,255,0.85); font-size: 0.68rem; font-weight: 400;
       letter-spacing: 0.12em; text-transform: uppercase;
     }
     .gal-ansicht-zahl {
       display: block; margin-top: 0.5rem;
-      color: rgba(255,255,255,0.55); font-size: 0.75rem; font-weight: 400;
+      color: rgba(255,255,255,0.75); font-size: 0.75rem; font-weight: 400;
       font-variant-numeric: tabular-nums;
     }
     .gal-ansicht-knopf {
@@ -1041,13 +1049,16 @@
     @media (prefers-reduced-motion: reduce) {
       .gal-ansicht-bild { transform: none; transition: opacity 0.2s; }
     }
+    /* Dunkler Verlauf nur als Lesehilfe unter der Schrift (keine
+       Farbflaeche): kraeftig genug, dass weisse Schrift auch auf hellen
+       Fotos mindestens 4,5:1 erreicht, oben weich auslaufend */
     .gal-label-v4 {
       position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 0.85rem 1.1rem;
-      background: linear-gradient(0deg, rgba(31,31,31,0.65) 0%, transparent 100%);
+      padding: 2.25rem 1.1rem 0.85rem;
+      background: linear-gradient(0deg, rgba(24,28,26,0.78) 0%, rgba(24,28,26,0.70) 45%, rgba(24,28,26,0) 100%);
     }
     .gal-label-v4 span { color: white; font-size: 0.82rem; font-weight: 500; }
-    .gal-label-v4 small { display: block; color: rgba(255,255,255,0.65); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.1rem; }
+    .gal-label-v4 small { display: block; color: rgba(255,255,255,0.92); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.1rem; }
 
     /* ── KARRIERE ── (als eigene View) */
     #karriere-view { display: none; padding-top: 72px; min-height: 100vh; background: var(--bg); }
@@ -1070,10 +1081,10 @@
     }
     .stelle-v4-header:hover { background: var(--bg); }
     .stelle-v4-title { font-size: 0.95rem; font-weight: 600; color: var(--text); }
-    .stelle-v4-meta { font-size: 0.78rem; color: var(--soft); margin-top: 0.18rem; }
+    .stelle-v4-meta { font-size: 0.78rem; color: var(--text-leise); margin-top: 0.18rem; }
     .stelle-v4-right { display: flex; align-items: center; gap: 0.7rem; flex-shrink: 0; }
     .stelle-v4-tag {
-      background: var(--petrol-bg); color: var(--petrol2);
+      background: var(--petrol-bg); color: var(--text-gruen);
       font-size: 0.68rem; font-weight: 600;
       padding: 0.22rem 0.65rem; border-radius: 4px; letter-spacing: 0.04em;
     }
@@ -1085,7 +1096,7 @@
     }
     .stelle-v4.open .stelle-v4-body { display: block; }
     .stelle-v4-body p { font-size: 0.88rem; color: var(--mid); line-height: 1.75; margin: 1rem 0 0.75rem; }
-    .anf-label-v4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--petrol2); margin-bottom: 0.6rem; }
+    .anf-label-v4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-gruen); margin-bottom: 0.6rem; }
     .anf-list-v4 { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
     .anf-list-v4 li { font-size: 0.85rem; color: var(--mid); display: flex; align-items: baseline; gap: 0.6rem; }
     .anf-list-v4 li::before { content: ''; display: block; width: 14px; height: 1px; background: var(--petrol); flex-shrink: 0; margin-top: 0.55rem; opacity: 0.6; }
@@ -1102,7 +1113,7 @@
       background: var(--petrol-bg); border-radius: 10px; padding: 1.5rem;
       border: 1px solid var(--border2);
     }
-    .benefits-v4 h4 { font-size: 0.82rem; font-weight: 600; color: var(--petrol2); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+    .benefits-v4 h4 { font-size: 0.82rem; font-weight: 600; color: var(--text-gruen); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
     .benefits-v4 ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
     .benefits-v4 li { font-size: 0.85rem; color: var(--mid); display: flex; align-items: baseline; gap: 0.6rem; }
     .benefits-v4 li::before { content: ''; display: block; width: 14px; height: 1px; background: var(--petrol); flex-shrink: 0; margin-top: 0.55rem; opacity: 0.5; }
@@ -1113,7 +1124,7 @@
     .cta-petrol-box p { font-size: 0.84rem; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 1.25rem; font-weight: 300; }
     .btn-white-sm {
       display: block; text-align: center; width: 100%;
-      padding: 0.75rem; background: white; color: var(--petrol);
+      padding: 0.75rem; background: white; color: var(--text-gruen);
       border: none; border-radius: 6px;
       font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600;
       cursor: pointer; transition: background 0.15s;
@@ -1132,7 +1143,7 @@
       font-size: 0.8rem; font-weight: 500; padding: 0.5rem 1rem;
       cursor: pointer; transition: all 0.15s; margin-bottom: 2rem;
     }
-    .back-btn-v4:hover { border-color: var(--petrol); color: var(--petrol); }
+    .back-btn-v4:hover { border-color: var(--petrol); color: var(--text-gruen); }
     .form-card-v4 {
       background: var(--white); border-radius: 16px;
       padding: 2.5rem; border: 1px solid var(--border);
@@ -1147,11 +1158,12 @@
     .form-note-v4 {
       background: var(--petrol-bg); border: 1px solid var(--border2);
       border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1.5rem;
-      font-size: 0.83rem; color: var(--petrol2); line-height: 1.65;
+      font-size: 0.83rem; color: var(--text-gruen); line-height: 1.65;
     }
     .form-group { margin-bottom: 1rem; }
     .form-row-v4 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     label { display: block; font-size: 0.72rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    input::placeholder, textarea::placeholder { color: var(--text-leise); opacity: 1; }
     input, select, textarea {
       width: 100%; padding: 0.72rem 1rem;
       border: 1.5px solid var(--border); border-radius: 6px;
@@ -1170,11 +1182,11 @@
     .file-upload-v4 input { display: none; }
     .file-upload-v4 .upload-icon { font-size: 1.4rem; display: block; margin-bottom: 0.35rem; }
     .file-upload-v4 p { font-size: 0.82rem; color: var(--mid); }
-    .form-or-v4 { text-align: center; color: var(--soft); font-size: 0.78rem; margin: 1rem 0 0; }
+    .form-or-v4 { text-align: center; color: var(--text-leise); font-size: 0.78rem; margin: 1rem 0 0; }
     .btn-mail-v4 {
       display: block; text-align: center; margin-top: 0.75rem;
       background: transparent; border: 1.5px solid var(--border);
-      color: var(--petrol2); padding: 0.75rem; border-radius: 6px;
+      color: var(--text-gruen); padding: 0.75rem; border-radius: 6px;
       font-family: 'Inter', sans-serif; font-size: 0.88rem;
       cursor: pointer; text-decoration: none; transition: all 0.18s;
     }
@@ -1188,7 +1200,7 @@
     .form-submit-v4:hover { background: var(--petrol2); }
     .success-msg {
       display: none; background: var(--petrol-bg); border: 1px solid var(--border2);
-      border-radius: 8px; padding: 1rem 1.25rem; color: var(--petrol2);
+      border-radius: 8px; padding: 1rem 1.25rem; color: var(--text-gruen);
       font-size: 0.88rem; margin-top: 1rem; text-align: center;
     }
     .success-msg.test-msg { background: #fff8e8; border-color: #e8d8a0; color: #8b6a14; }
@@ -1212,8 +1224,8 @@
     }
     .dsgvo-label input[type="checkbox"]:disabled { opacity: 0.4; cursor: not-allowed; }
     .dsgvo-label:has(input:disabled) { cursor: not-allowed; }
-    .dsgvo-link { color: var(--petrol2); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
-    .dsgvo-link:hover { color: var(--petrol); }
+    .dsgvo-link { color: var(--text-gruen); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
+    .dsgvo-link:hover { color: var(--text); }
     .dsgvo-hint { display: none; font-size: 0.78rem; color: #a34d2a; margin-top: 0.4rem; }
     .form-fields-hint { display: none; font-size: 0.8rem; color: #a34d2a; margin-top: 0.75rem; }
 
@@ -1342,10 +1354,10 @@
       font-size: 0.95rem; color: var(--mid);
       line-height: 1.8; font-weight: 300; margin-bottom: 1rem;
     }
-    .leistung-detail-text p em { color: var(--soft); }
+    .leistung-detail-text p em { color: var(--text-leise); }
     .leistung-detail-text p strong { color: var(--text); font-weight: 600; }
     .leistung-detail-hinweis {
-      font-size: 0.78rem !important; color: var(--soft) !important;
+      font-size: 0.78rem !important; color: var(--text-leise) !important;
       border-top: 1px solid var(--border);
       padding-top: 1rem; margin-top: 1.5rem;
     }
@@ -1465,7 +1477,7 @@
       display: flex; align-items: center; justify-content: center; gap: 0.55rem;
       margin-top: clamp(0.55rem, 1.2vh, 0.75rem); padding: clamp(0.65rem, 1.4vh, 0.85rem);
       border: 1.5px solid var(--border); border-radius: 10px;
-      color: var(--petrol2); text-decoration: none;
+      color: var(--text-gruen); text-decoration: none;
       font-size: clamp(0.8rem, 1.5vh, 0.92rem); font-weight: 500;
       transition: border-color 0.18s, background 0.18s;
       overflow-wrap: anywhere;
@@ -1476,7 +1488,7 @@
       display: flex; align-items: center; justify-content: center; gap: 0.7rem;
       margin-top: clamp(0.55rem, 1.2vh, 0.75rem); padding: clamp(0.65rem, 1.4vh, 0.85rem);
       border: 1.5px solid var(--border); border-radius: 10px;
-      color: var(--petrol2); text-decoration: none; text-align: left;
+      color: var(--text-gruen); text-decoration: none; text-align: left;
       transition: border-color 0.18s, background 0.18s;
     }
     .notfall-route:hover { border-color: var(--petrol); background: var(--petrol-bg); }
@@ -1485,7 +1497,7 @@
     .notfall-route-label { font-size: clamp(0.8rem, 1.5vh, 0.92rem); font-weight: 600; }
     .notfall-route-adresse {
       font-size: clamp(0.72rem, 1.3vh, 0.8rem); font-weight: 400;
-      color: var(--soft); line-height: 1.35;
+      color: var(--text-leise); line-height: 1.35;
     }
     .notfall-zeiten {
       margin-top: clamp(0.9rem, 2.2vh, 1.5rem); padding-top: clamp(0.8rem, 1.8vh, 1.25rem);
@@ -1493,7 +1505,7 @@
     }
     .notfall-zeiten-title {
       font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--petrol2); margin-bottom: clamp(0.4rem, 1vh, 0.6rem);
+      text-transform: uppercase; color: var(--text-gruen); margin-bottom: clamp(0.4rem, 1vh, 0.6rem);
     }
     .notfall-zeiten-row {
       display: flex; justify-content: space-between; align-items: baseline;
@@ -1502,7 +1514,7 @@
     }
     .notfall-zeiten-row span:last-child { color: var(--text); text-align: right; line-height: 1.5; }
     .notfall-modal-note {
-      font-size: clamp(0.72rem, 1.3vh, 0.78rem) !important; color: var(--soft) !important;
+      font-size: clamp(0.72rem, 1.3vh, 0.78rem) !important; color: var(--text-leise) !important;
       margin: clamp(0.8rem, 1.8vh, 1.25rem) 0 0 !important;
     }
     @media (max-width: 600px) {
@@ -1527,7 +1539,7 @@
     #cookie-banner.sichtbar { display: flex; }
     #cookie-banner.open { transform: translateY(0); opacity: 1; }
     .cookie-text { font-size: 0.84rem; color: var(--mid); line-height: 1.6; font-weight: 300; }
-    .cookie-text a { color: var(--petrol2); text-decoration: underline; text-underline-offset: 2px; }
+    .cookie-text a { color: var(--text-gruen); text-decoration: underline; text-underline-offset: 2px; }
     .cookie-buttons { display: flex; gap: 0.6rem; flex-shrink: 0; }
     .cookie-btn-ja {
       padding: 0.65rem 1.4rem;
@@ -1564,16 +1576,16 @@
       border-radius: 8px;
       padding: 0.9rem 1.1rem;
       margin-top: 0.75rem;
-      font-size: 0.83rem; color: var(--petrol2);
+      font-size: 0.83rem; color: var(--text-gruen);
       line-height: 1.65; font-style: italic;
     }
     .impressum-v4 { padding: 6rem 4rem; }
     .impressum-grid-v4 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
     .impressum-box-v4 { background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid var(--border); }
     .impressum-box-v4.full-v4 { grid-column: 1 / -1; }
-    .impressum-box-v4 h3 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--petrol2); margin-bottom: 1rem; }
+    .impressum-box-v4 h3 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-gruen); margin-bottom: 1rem; }
     .impressum-box-v4 p { font-size: 0.88rem; color: var(--mid); line-height: 1.85; font-weight: 300; }
-    .impressum-box-v4 a { color: var(--petrol2); text-decoration: none; }
+    .impressum-box-v4 a { color: var(--text-gruen); text-decoration: none; }
     .impressum-box-v4 a:hover { text-decoration: underline; }
 
     /* ── MAIN PAGE wrapper ── */
@@ -1599,7 +1611,7 @@
     .footer-brand small {
       display: block; font-family: 'Inter', sans-serif;
       font-size: 0.72rem; font-weight: 300;
-      color: rgba(255,255,255,0.4); margin-top: 0.3rem; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.6); margin-top: 0.3rem; letter-spacing: 0.04em;   /* 5,7:1 auf dem dunklen Footer */
     }
     .footer-right { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; max-width: 100%; }
     /* Auf schmalen Handys muessen die Links umbrechen duerfen, sonst
@@ -1619,7 +1631,7 @@
     }
     .footer-soc-btn:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
     .footer-copy {
-      font-size: 0.75rem; color: rgba(255,255,255,0.25);
+      font-size: 0.75rem; color: rgba(255,255,255,0.6);
       margin-top: 1.75rem; padding-top: 1.25rem;
       border-top: 1px solid rgba(255,255,255,0.06);
       text-align: center;
