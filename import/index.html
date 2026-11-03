@@ -51,6 +51,9 @@
   <link rel="shortcut icon" href="favicon/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="manifest" href="favicon/site.webmanifest">
+  <!-- Ladereihenfolge: das Hero-Portraet ist das groesste Element im
+       ersten Bildschirm und wird deshalb vorab mit Vorrang angefordert -->
+  <link rel="preload" as="image" href="images/hero-schulz-frei.webp" type="image/webp" fetchpriority="high">
   <meta name="apple-mobile-web-app-title" content="Praxis Schulz">
 
   <style>
@@ -544,6 +547,22 @@
       width: auto; max-width: none; max-height: none;
       height: min(calc(100vh - 72px - 1.5rem), calc((50vw - 2rem) * 1.1958));
     }
+    /* Gleichgewicht Text : Portraet (nur Desktop). Die Textspalte waechst
+       mit der Bildschirmbreite mit, damit neben dem grossen Portraet keine
+       leere Mitte entsteht. Rechter Innenabstand schmaler auf kleineren
+       Desktops, damit "unsere Leidenschaft" auf einer Zeile bleibt und
+       die Knoepfe nebeneinander passen. */
+    @media (min-width: 901px) {
+      .hero-text-col { padding: 6rem clamp(2rem, 4vw, 5rem) 6rem 4rem; }
+      .hero-h1 { font-size: clamp(2.8rem, 4.6vw, 5.6rem); }
+      .hero-sub { max-width: clamp(400px, 30vw, 540px); font-size: clamp(1.05rem, 0.35vw + 0.75rem, 1.2rem); }
+    }
+    @media (min-width: 1600px) {
+      .hero-h1 { font-size: clamp(5.6rem, 5vw, 6.4rem); }
+      .hero-sub { font-size: 1.25rem; max-width: 580px; }
+      .hero-trust-item { font-size: 1.05rem; }
+      .hero-cta, .hero-cta-tel { font-size: 1rem; padding: 1.05rem 2.4rem; }
+    }
 
     /* ── KARRIERE-BANNER ── */
     .karriere-banner {
@@ -723,19 +742,21 @@
     }
     .team-card-v4 { text-align: center; }
     .team-photo-v4 {
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 4 / 5;   /* echtes Hochformat wie die Fotos */
       border-radius: 12px;
       overflow: hidden;
       background: var(--bg2);
       margin-bottom: 1rem;
       position: relative;
     }
+    /* Rahmen als Ring aussen statt als Rand innen: so ist das Foto genau
+       so gross wie die anderen drei und die Koepfe sitzen auf einer Hoehe */
     .team-card-v4.featured .team-photo-v4 {
-      border: 2px solid var(--petrol-mid);
+      box-shadow: 0 0 0 2px var(--petrol-mid);
     }
-    /* Fotos sind 4:5, der Rahmen ist quadratisch: oben ansetzen,
-       damit Kopf und Gesicht vollstaendig im Bild bleiben */
-    .team-photo-v4 img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+    /* Oben verankert: weicht ein Foto leicht vom 4:5-Format ab, wird
+       unten beschnitten, nie am Kopf */
+    .team-photo-v4 img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
     .team-name-v4 {
       font-family: 'Fraunces', serif;
       font-size: 0.95rem; font-weight: 400; color: var(--text);
@@ -815,10 +836,36 @@
     #kontakt {}
     .kontakt-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr auto;
+      grid-template-areas: "zeiten wege foto";
       gap: 3rem;
       margin-top: 3.5rem;
     }
+    .kontakt-zeiten { grid-area: zeiten; }
+    .kontakt-wege { grid-area: wege; }
+    .kontakt-layout.ohne-foto { grid-template-columns: 1fr 1fr; grid-template-areas: "zeiten wege"; }
+    /* Rundes Foto: begleitet den Abschnitt, bleibt dezent */
+    .kontakt-foto {
+      grid-area: foto; position: relative; margin: 0;
+      width: 176px; height: 176px; align-self: start;
+      margin-top: 0.4rem;
+    }
+    .kontakt-foto img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
+      border-radius: 50%; display: block;
+      border: 5px solid var(--white);
+      box-shadow: 0 0 0 1px var(--border2), 0 14px 36px rgba(46,51,48,0.10);
+      background: var(--bg2);
+    }
+    .kontakt-foto-ruf {
+      position: absolute; right: 4px; bottom: 8px;
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--petrol); color: #fff;
+      border: 3px solid var(--white);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .kontakt-foto-ruf:hover { background: var(--petrol2); transform: scale(1.06); }
     .kontakt-col-title {
       font-size: 0.68rem; font-weight: 600;
       letter-spacing: 0.18em; text-transform: uppercase;
@@ -874,11 +921,13 @@
       margin-top: 3.5rem;
     }
     .gal-v4 {
+      margin: 0;
       border-radius: 10px; overflow: hidden;
       background: var(--bg2); position: relative;
+      cursor: zoom-in;
     }
     /* Die Kachelgroessen kommen fest aus dem Raster, nicht aus dem Foto.
-       So sind alle Kacheln gleich gross, auch die ohne Bild ("Bild folgt"),
+       So bleiben alle Kacheln gleich gross, auch wenn ein Bild fehlt,
        und ein spaeter eingesetztes Foto verschiebt nichts. */
     .gal-v4 img {
       position: absolute; inset: 0;
@@ -886,12 +935,26 @@
       transition: transform 0.5s ease;
     }
     .gal-v4:hover img { transform: scale(1.04); }
-    .gal-v4.g7 { grid-column: span 7; aspect-ratio: 16 / 9; }
-    .gal-v4.g5 { grid-column: span 5; }          /* uebernimmt die Hoehe von g7 */
-    .gal-v4.g4, .gal-v4.g4b, .gal-v4.g4c { grid-column: span 4; aspect-ratio: 4 / 3; }
-    .gal-v4.g12 { grid-column: 1 / -1; aspect-ratio: 4 / 1; }
-    /* Kachel ohne Foto: helle Hausfarbe, mittig "Bild folgt" */
-    .gal-leer-text {
+    /* Raster, gespiegelt: breit+mittel / klein klein klein / mittel+breit */
+    .gal-v4.gal-breit  { grid-column: span 7; aspect-ratio: 16 / 9; }
+    .gal-v4.gal-mittel { grid-column: span 5; }   /* uebernimmt die Hoehe der breiten Kachel daneben */
+    .gal-v4.gal-klein  { grid-column: span 4; aspect-ratio: 4 / 3; }
+    /* Kleines Vergroessern-Zeichen oben rechts, erscheint beim Ueberfahren */
+    .gal-v4::after {
+      content: ''; position: absolute; top: 0.8rem; right: 0.8rem;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,0.9) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7F68' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cpolyline points='9 21 3 21 3 15'/%3E%3Cline x1='21' y1='3' x2='14' y2='10'/%3E%3Cline x1='3' y1='21' x2='10' y2='14'/%3E%3C/svg%3E") center / 16px no-repeat;
+      opacity: 0; transform: scale(0.8);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+    }
+    .gal-v4:hover::after, .gal-v4:focus-visible::after { opacity: 1; transform: none; }
+    .gal-v4:focus-visible { outline: 2px solid var(--petrol2); outline-offset: 3px; }
+    /* Kachel ohne Foto (Datei fehlt noch): helle Hausfarbe, mittig "Bild folgt" */
+    .gal-v4.gal-leer { cursor: default; }
+    .gal-v4.gal-leer img, .gal-v4.gal-leer::after { display: none; }
+    .gal-v4.gal-leer::before {
+      content: 'Bild folgt';
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
       font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500;
@@ -903,6 +966,81 @@
     .gal-leer .gal-label-v4 { background: none; }
     .gal-leer .gal-label-v4 span { color: var(--text); }
     .gal-leer .gal-label-v4 small { color: var(--soft); }
+
+    /* ── GALERIE-GROSSANSICHT ── */
+    .gal-ansicht {
+      position: fixed; inset: 0; z-index: 320;
+      display: flex; align-items: center; justify-content: center;
+      padding: calc(4.5rem + env(safe-area-inset-top)) 5rem calc(3rem + env(safe-area-inset-bottom));
+    }
+    .gal-ansicht[hidden] { display: none; }
+    .gal-ansicht-hinter {
+      position: absolute; inset: 0;
+      background: rgba(31,36,33,0.86);
+      backdrop-filter: blur(4px);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gal-ansicht.offen .gal-ansicht-hinter { opacity: 1; }
+    .gal-ansicht-bild {
+      position: relative; margin: 0;
+      display: flex; flex-direction: column; align-items: center;
+      max-width: 100%; max-height: 100%;
+      opacity: 0; transform: scale(0.96);
+      transition: opacity 0.3s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .gal-ansicht.offen .gal-ansicht-bild { opacity: 1; transform: none; }
+    .gal-ansicht-bild img {
+      display: block; width: auto; height: auto;
+      max-width: min(1200px, calc(100vw - 10rem));
+      max-height: calc(100vh - 12rem);
+      max-height: calc(100dvh - 12rem);
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.35);
+      transition: opacity 0.2s;
+    }
+    .gal-ansicht-bild img.wechselt { opacity: 0; }
+    .gal-ansicht-bild figcaption {
+      margin-top: 1rem; text-align: center; color: #fff;
+      font-size: 0.92rem; font-weight: 500;
+    }
+    .gal-ansicht-bild figcaption small {
+      display: block; margin-top: 0.15rem;
+      color: rgba(255,255,255,0.7); font-size: 0.68rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .gal-ansicht-zahl {
+      display: block; margin-top: 0.5rem;
+      color: rgba(255,255,255,0.55); font-size: 0.75rem; font-weight: 400;
+      font-variant-numeric: tabular-nums;
+    }
+    .gal-ansicht-knopf {
+      position: absolute; z-index: 2;
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer;
+      background: rgba(255,255,255,0.12); color: #fff;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .gal-ansicht-knopf:hover { background: rgba(255,255,255,0.24); }
+    .gal-ansicht-knopf:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .gal-ansicht-zu { top: calc(1rem + env(safe-area-inset-top)); right: 1rem; }
+    .gal-ansicht-zurueck { left: 1.25rem; top: 50%; transform: translateY(-50%); }
+    .gal-ansicht-vor { right: 1.25rem; top: 50%; transform: translateY(-50%); }
+    .gal-ansicht-zurueck:hover { transform: translateY(-50%) translateX(-2px); }
+    .gal-ansicht-vor:hover { transform: translateY(-50%) translateX(2px); }
+    @media (max-width: 600px) {
+      .gal-ansicht { padding: calc(4rem + env(safe-area-inset-top)) 0.75rem calc(5.5rem + env(safe-area-inset-bottom)); }
+      .gal-ansicht-bild img { max-width: calc(100vw - 1.5rem); max-height: calc(100dvh - 13rem); border-radius: 8px; }
+      /* Pfeile auf dem Handy unten, damit sie das Foto nicht verdecken (Wischen geht auch) */
+      .gal-ansicht-zurueck, .gal-ansicht-vor { top: auto; bottom: calc(1.25rem + env(safe-area-inset-bottom)); transform: none; }
+      .gal-ansicht-zurueck { left: calc(50% - 60px); }
+      .gal-ansicht-vor { right: calc(50% - 60px); }
+      .gal-ansicht-zurueck:hover, .gal-ansicht-vor:hover { transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .gal-ansicht-bild { transform: none; transition: opacity 0.2s; }
+    }
     .gal-label-v4 {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 0.85rem 1.1rem;
@@ -1495,7 +1633,8 @@
        ohne Termin-Box auf zwei Spalten. */
     .mobile-menu .mob-cta { display: none; }
     .termin-box { display: none; }
-    .kontakt-layout { grid-template-columns: 1fr 1fr; }
+    /* Spalten der Kontakt-Sektion: siehe .kontakt-layout weiter oben
+       (Oeffnungszeiten | Erreichbarkeit | rundes Foto) */
 
     /* ── KARUSSELL-PUNKTE (nur Handy sichtbar) ── */
     .karussell-dots { display: none; }
@@ -1512,8 +1651,7 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .leistungen-grid { grid-template-columns: repeat(2, 1fr); }
-      .team-grid-v4 { grid-template-columns: repeat(3, 1fr); }
-      .kontakt-layout { grid-template-columns: 1fr 1fr; }
+      .team-grid-v4 { gap: 1rem; }
     }
     @media (max-width: 900px) {
       #main-nav { padding: 0 1.5rem; }
@@ -1539,9 +1677,18 @@
       .ueber-layout { grid-template-columns: 1fr; gap: 2rem; }
       .ueber-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .stimmen-grid { grid-template-columns: 1fr; }
-      .kontakt-layout { grid-template-columns: 1fr; }
-      .galerie-mosaic-v4 { grid-template-columns: 1fr; }
-      .gal-v4.g7, .gal-v4.g5, .gal-v4.g4, .gal-v4.g4b, .gal-v4.g4c, .gal-v4.g12 { grid-column: span 1; aspect-ratio: 4 / 3; }
+      .kontakt-layout { grid-template-columns: 1fr 1fr; grid-template-areas: "foto foto" "zeiten wege"; gap: 2rem 2.5rem; }
+      .kontakt-layout.ohne-foto { grid-template-areas: "zeiten wege"; }
+      .kontakt-foto { width: 112px; height: 112px; margin-top: 0; }
+      .kontakt-foto img { border-width: 4px; }
+      .kontakt-foto-ruf { width: 36px; height: 36px; right: -2px; bottom: 2px; border-width: 2px; }
+      .kontakt-foto-ruf svg { width: 15px; height: 15px; }
+      /* Galerie: zwei Spalten; Kachel 1, 4 und 7 ueber die volle Breite,
+         dazwischen je zwei quadratische. Kuerzer als sieben Bilder
+         untereinander und wirkt wie ein Mosaik. */
+      .galerie-mosaic-v4 { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .gal-v4.gal-breit, .gal-v4.gal-mittel, .gal-v4.gal-klein { grid-column: span 1; aspect-ratio: 1 / 1; }
+      .gal-v4:nth-child(3n+1) { grid-column: 1 / -1; aspect-ratio: 3 / 2; }
       .team-grid-v4 { grid-template-columns: repeat(2, 1fr); }
       .karriere-layout-v4 { grid-template-columns: 1fr; }
       .impressum-grid-v4 { grid-template-columns: 1fr; }
@@ -1551,6 +1698,14 @@
       .karriere-v4, .form-page-v4, .impressum-v4 { padding: 4rem 1.5rem; }
     }
     @media (max-width: 600px) {
+      .kontakt-layout { grid-template-columns: 1fr; grid-template-areas: "foto" "zeiten" "wege"; }
+      .kontakt-layout.ohne-foto { grid-template-columns: 1fr; grid-template-areas: "zeiten" "wege"; }
+      .kontakt-foto { width: 96px; height: 96px; }
+      /* Galerie: kleinere Beschriftung in den halben Kacheln */
+      .galerie-mosaic-v4 { gap: 0.6rem; }
+      .gal-v4:not(:nth-child(3n+1)) .gal-label-v4 { padding: 0.6rem 0.75rem; }
+      .gal-v4:not(:nth-child(3n+1)) .gal-label-v4 span { font-size: 0.76rem; }
+      .gal-v4:not(:nth-child(3n+1)) .gal-label-v4 small { display: none; }
       /* ── KARUSSELLS (nur Handy): wischbar mit Einrasten ── */
       .leistungen-grid, .stimmen-grid {
         display: flex;
@@ -1651,6 +1806,7 @@
       html.anim-an #main-page .gal-v4:nth-child(4)  { animation-delay: 0.27s; }
       html.anim-an #main-page .gal-v4:nth-child(5)  { animation-delay: 0.36s; }
       html.anim-an #main-page .gal-v4:nth-child(6)  { animation-delay: 0.45s; }
+      html.anim-an #main-page .gal-v4:nth-child(7)  { animation-delay: 0.54s; }
     }
     /* ╚═══ ENDE EINBLENDEN (1/2) ═══════════════════════════════════════╝ */
   </style>
@@ -1852,7 +2008,7 @@
         </div>
       </div>
       <div class="ueber-img-wrap image-slot a-rechts a-takt-3">
-        <img src="images/ueber-uns.jpg" alt="Zahnarzt Michael Schulz lächelnd am Behandlungsplatz seiner Zahnarztpraxis in Pforzheim" width="1600" height="1600" loading="lazy" decoding="async">
+        <img src="images/ueber-uns.jpg" alt="Michael Schulz und Dr. Hans Joachim Schulz besprechen eine Röntgenaufnahme in der Zahnarztpraxis in Pforzheim" width="1600" height="1600" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -1954,31 +2110,39 @@
     <p class="eyebrow-v4 a-ruhig">Einblicke</p>
     <h2 class="h2-serif a-auf a-takt-1">Unsere Praxis</h2>
     <p class="lead-text a-auf a-takt-2">Ruhig, modern und einladend: ein Ort, an dem Sie sich von Anfang an wohl fühlen sollen.</p>
+    <!-- Raster (Desktop): breit+mittel / drei kleine / mittel+breit.
+         Handy und Tablet: jede dritte Kachel ueber die volle Breite,
+         dazwischen je zwei quadratische. Fehlt eine Bilddatei, zeigt die
+         Kachel automatisch "Bild folgt". Klick oeffnet die Grossansicht. -->
     <div class="galerie-mosaic-v4">
-      <div class="a-zoom gal-v4 g7 image-slot">
-        <img src="images/galerie-empfang.jpg" alt="Mitarbeiterin telefoniert am Empfang der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async">
-        <div class="gal-label-v4"><span>Empfangsbereich</span><small>hell &middot; einladend</small></div>
-      </div>
-      <div class="a-zoom gal-v4 g5 image-slot">
-        <img src="images/galerie-behandlungszimmer.jpg" alt="Behandlungsstuhl im hellen Behandlungszimmer der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async">
-        <div class="gal-label-v4"><span>Behandlungszimmer</span><small>modern ausgestattet</small></div>
-      </div>
-      <div class="a-zoom gal-v4 g4 image-slot">
-        <img src="images/galerie-geraete.jpg" alt="Röntgengerät und Bildschirm mit Röntgenaufnahme in der Zahnarztpraxis Michael Schulz" width="1600" height="1200" loading="lazy" decoding="async">
-        <div class="gal-label-v4"><span>Moderne Geräte</span></div>
-      </div>
-      <div class="a-zoom gal-v4 g4b image-slot">
-        <img src="images/galerie-beratung.jpg" alt="Zwei Zahnärzte besprechen ein Röntgenbild in der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async">
-        <div class="gal-label-v4"><span>Im Alltag</span></div>
-      </div>
-      <div class="a-zoom gal-v4 g4c gal-leer">
-        <span class="gal-leer-text">Bild folgt</span>
-        <div class="gal-label-v4"><span>Unser Team</span></div>
-      </div>
-      <div class="a-zoom gal-v4 g12 gal-leer">
-        <span class="gal-leer-text">Bild folgt</span>
-        <div class="gal-label-v4"><span>Atmosphäre</span><small>angenehm &middot; entspannt</small></div>
-      </div>
+      <figure class="a-zoom gal-v4 gal-breit">
+        <img src="images/galerie-empfang.jpg" alt="Empfangstresen der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <figcaption class="gal-label-v4"><span>Empfangsbereich</span><small>hell &middot; einladend</small></figcaption>
+      </figure>
+      <figure class="a-zoom gal-v4 gal-mittel">
+        <img src="images/galerie-behandlungszimmer.jpg" alt="Behandlungsstuhl im hellen Behandlungszimmer der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <figcaption class="gal-label-v4"><span>Behandlungszimmer</span><small>modern ausgestattet</small></figcaption>
+      </figure>
+      <figure class="a-zoom gal-v4 gal-klein">
+        <img src="images/galerie-geraete.jpg" alt="Röntgengerät und Bildschirm mit Röntgenaufnahme in der Zahnarztpraxis Michael Schulz" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <figcaption class="gal-label-v4"><span>Moderne Geräte</span></figcaption>
+      </figure>
+      <figure class="a-zoom gal-v4 gal-klein">
+        <img src="images/galerie-team.jpg" alt="Das Team der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <figcaption class="gal-label-v4"><span>Hand in Hand</span><small>ein eingespieltes Team</small></figcaption>
+      </figure>
+      <figure class="a-zoom gal-v4 gal-klein">
+        <img src="images/galerie-technik.jpg" alt="Zahnmedizinische Technik in der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <figcaption class="gal-label-v4"><span>Präzise Technik</span><small>für schonende Behandlung</small></figcaption>
+      </figure>
+      <figure class="a-zoom gal-v4 gal-mittel">
+        <img src="images/galerie-beratung.jpg" alt="Zwei Zahnärzte betrachten gemeinsam eine Aufnahme am Monitor, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <figcaption class="gal-label-v4"><span>Im Alltag</span></figcaption>
+      </figure>
+      <figure class="a-zoom gal-v4 gal-breit">
+        <img src="images/galerie-moment.jpg" alt="Ein Moment aus dem Praxisalltag der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <figcaption class="gal-label-v4"><span>Zeit für Sie</span><small>persönlich &middot; in Ruhe</small></figcaption>
+      </figure>
     </div>
   </section>
 
@@ -1987,7 +2151,14 @@
     <img class="abschnitt-icon a-zoom" src="images/icons/sprechblase.svg" alt="" width="44" height="44" loading="lazy" decoding="async">
     <h2 class="h2-serif a-auf">Wir freuen uns auf Sie</h2>
     <div class="kontakt-layout">
-      <div>
+      <!-- Rundes Foto: Desktop rechts neben den beiden Spalten, Tablet und
+           Handy klein ueber dem Text. Fehlt die Datei, verschwindet es
+           ganz und die Spalten ruecken zusammen. -->
+      <figure class="kontakt-foto a-zoom a-takt-2">
+        <img src="images/kontakt-portrait.jpg" alt="Mitarbeiterin der Zahnarztpraxis Michael Schulz in Pforzheim am Telefon" width="800" height="800" loading="lazy" decoding="async" onerror="this.closest('.kontakt-layout').classList.add('ohne-foto');this.closest('.kontakt-foto').remove()">
+        <a class="kontakt-foto-ruf" href="tel:0723121641" aria-label="Praxis anrufen: 07231 21641"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+      </figure>
+      <div class="kontakt-zeiten">
         <div class="kontakt-col-title">Öffnungszeiten</div>
         <div class="hours-list-v4">
           <div class="hours-row-v4"><span class="hours-day-v4">Montag</span><span class="hours-time-v4">08:00 – 12:00 &middot; 14:00 – 18:00</span></div>
@@ -1998,7 +2169,7 @@
           <div class="hours-row-v4"><span class="hours-day-v4">Samstag &amp; Sonntag</span><span class="hours-closed-v4">Geschlossen</span></div>
         </div>
       </div>
-      <div>
+      <div class="kontakt-wege">
         <div class="kontakt-col-title">So erreichen Sie uns</div>
         <a class="contact-row-v4" href="tel:0723121641">
           <span class="contact-icon-v4">&#128222;</span>
@@ -2385,6 +2556,18 @@
   </div>
 </div>
 
+<!-- ════ GALERIE-GROSSANSICHT ════ -->
+<div class="gal-ansicht" id="gal-ansicht" hidden role="dialog" aria-modal="true" aria-label="Praxisfotos in Großansicht">
+  <div class="gal-ansicht-hinter" onclick="schliesseGalerie()"></div>
+  <figure class="gal-ansicht-bild">
+    <img id="gal-ansicht-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" width="1600" height="1200" loading="lazy" decoding="async">
+    <figcaption><span id="gal-ansicht-titel"></span><small id="gal-ansicht-unter"></small><span class="gal-ansicht-zahl" id="gal-ansicht-zahl"></span></figcaption>
+  </figure>
+  <button class="gal-ansicht-knopf gal-ansicht-zu" onclick="schliesseGalerie()" aria-label="Großansicht schließen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
+  <button class="gal-ansicht-knopf gal-ansicht-zurueck" onclick="blaettereGalerie(-1)" aria-label="Vorheriges Foto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"/></svg></button>
+  <button class="gal-ansicht-knopf gal-ansicht-vor" onclick="blaettereGalerie(1)" aria-label="Nächstes Foto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
+</div>
+
 <!-- ════ LEISTUNGS-DETAIL-OVERLAY ════ -->
 <div class="leistung-detail" id="leistung-detail" role="dialog" aria-modal="true" aria-label="Leistungs-Details">
   <div class="leistung-detail-backdrop" onclick="closeLeistungDetail()"></div>
@@ -2703,7 +2886,7 @@
     gibHintergrundFrei();
   }
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeDsgvoModal(); closeLeistungDetail(); closeNotfall(); }
+    if (e.key === 'Escape') { closeDsgvoModal(); closeLeistungDetail(); closeNotfall(); schliesseGalerie(); }
   });
   /* Pflicht-Pruefung: true = zugestimmt, sonst Hinweis anzeigen */
   function checkDsgvo(prefix) {
@@ -3336,6 +3519,87 @@
     const card = link.closest('.leistung-card');
     if (card && card.dataset.index !== undefined) openLeistungDetail(parseInt(card.dataset.index, 10));
   });
+
+  /* ── GALERIE-GROSSANSICHT ──
+     Klick (oder Enter) auf ein Foto oeffnet es gross. Blaettern mit den
+     Pfeilen, den Pfeiltasten oder per Wischen. Kacheln ohne Foto
+     ("Bild folgt") werden uebersprungen. */
+  const galKacheln = [...document.querySelectorAll('#galerie .gal-v4')];
+  const galAnsicht = document.getElementById('gal-ansicht');
+  const galBild = document.getElementById('gal-ansicht-img');
+  let galListe = [], galPos = 0, galAusloeser = null, galTimer = null;
+  function galZeige(pos) {
+    galPos = (pos + galListe.length) % galListe.length;
+    const k = galListe[galPos], img = k.querySelector('img');
+    galBild.classList.add('wechselt');
+    const fertig = () => galBild.classList.remove('wechselt');
+    setTimeout(() => {
+      galBild.src = img.currentSrc || img.src;
+      galBild.alt = img.alt;
+      if (galBild.complete) fertig(); else galBild.onload = fertig;
+    }, galAnsicht.classList.contains('offen') ? 160 : 0);
+    document.getElementById('gal-ansicht-titel').textContent = k.querySelector('.gal-label-v4 span')?.textContent || '';
+    document.getElementById('gal-ansicht-unter').textContent = k.querySelector('.gal-label-v4 small')?.textContent || '';
+    document.getElementById('gal-ansicht-zahl').textContent = (galPos + 1) + ' / ' + galListe.length;
+    const mehrere = galListe.length > 1;
+    galAnsicht.querySelector('.gal-ansicht-zurueck').hidden = !mehrere;
+    galAnsicht.querySelector('.gal-ansicht-vor').hidden = !mehrere;
+  }
+  function oeffneGalerie(kachel) {
+    galListe = galKacheln.filter(k => !k.classList.contains('gal-leer'));
+    const pos = galListe.indexOf(kachel);
+    if (pos < 0) return;
+    clearTimeout(galTimer);
+    galAusloeser = kachel;
+    const warOffen = !galAnsicht.hidden;
+    galAnsicht.hidden = false;
+    galZeige(pos);
+    if (!warOffen) sperreHintergrund();
+    requestAnimationFrame(() => requestAnimationFrame(() => galAnsicht.classList.add('offen')));
+    galAnsicht.querySelector('.gal-ansicht-zu').focus({ preventScroll: true });
+  }
+  function schliesseGalerie() {
+    if (galAnsicht.hidden) return;
+    galAnsicht.classList.remove('offen');
+    clearTimeout(galTimer);
+    galTimer = setTimeout(() => { galAnsicht.hidden = true; galBild.src = PLATZHALTER_GIF; }, 300);
+    gibHintergrundFrei();
+    if (galAusloeser) galAusloeser.focus({ preventScroll: true });
+  }
+  function blaettereGalerie(schritt) { if (!galAnsicht.hidden) galZeige(galPos + schritt); }
+  const PLATZHALTER_GIF = galBild.getAttribute('src');
+  galKacheln.forEach(k => {
+    if (!k.classList.contains('gal-leer')) {
+      k.tabIndex = 0;
+      k.setAttribute('role', 'button');
+      k.setAttribute('aria-label', 'Foto vergrößern: ' + (k.querySelector('.gal-label-v4 span')?.textContent || ''));
+    }
+    k.addEventListener('click', () => { if (!k.classList.contains('gal-leer')) oeffneGalerie(k); });
+    k.addEventListener('keydown', e => {
+      if ((e.key === 'Enter' || e.key === ' ') && !k.classList.contains('gal-leer')) { e.preventDefault(); oeffneGalerie(k); }
+    });
+  });
+  document.addEventListener('keydown', e => {
+    if (galAnsicht.hidden) return;
+    if (e.key === 'ArrowLeft') blaettereGalerie(-1);
+    if (e.key === 'ArrowRight') blaettereGalerie(1);
+    /* Tab bleibt in der Grossansicht */
+    if (e.key === 'Tab') {
+      const knoepfe = [...galAnsicht.querySelectorAll('button:not([hidden])')];
+      const i = knoepfe.indexOf(document.activeElement);
+      e.preventDefault();
+      knoepfe[(i + (e.shiftKey ? -1 : 1) + knoepfe.length) % knoepfe.length].focus();
+    }
+  });
+  /* Wischen auf dem Handy */
+  let galWischX = null, galWischY = null;
+  galAnsicht.addEventListener('touchstart', e => { galWischX = e.touches[0].clientX; galWischY = e.touches[0].clientY; }, { passive: true });
+  galAnsicht.addEventListener('touchend', e => {
+    if (galWischX === null) return;
+    const dx = e.changedTouches[0].clientX - galWischX, dy = e.changedTouches[0].clientY - galWischY;
+    galWischX = null;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) blaettereGalerie(dx < 0 ? 1 : -1);
+  }, { passive: true });
 
   /* ── IMAGE SLOTS ── */
   const PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
