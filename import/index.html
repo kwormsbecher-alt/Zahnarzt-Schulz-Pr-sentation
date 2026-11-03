@@ -765,6 +765,12 @@
     /* Oben verankert: weicht ein Foto leicht vom 4:5-Format ab, wird
        unten beschnitten, nie am Kopf */
     .team-photo-v4 img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    /* Ausgleich nur fuer dieses Foto: Es ist tiefer geschnitten (Augen bei
+       ca. 50 % statt 45 % der Hoehe wie bei den anderen drei). Leicht
+       vergroessert und vom unteren Rand aus angehoben, damit alle vier
+       Koepfe auf einer Hoehe sitzen. Wird die Datei neu zugeschnitten,
+       diese Regel einfach loeschen. */
+    .team-photo-v4 img[src$="team-mirvet-simonovic.jpg"] { transform: scale(1.09); transform-origin: center bottom; }
     .team-name-v4 {
       font-family: 'Fraunces', serif;
       font-size: 0.95rem; font-weight: 400; color: var(--text);
@@ -858,12 +864,19 @@
       width: 176px; height: 176px; align-self: start;
       margin-top: 0.4rem;
     }
-    .kontakt-foto img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
-      border-radius: 50%; display: block;
+    .kontakt-foto-rund {
+      display: block; width: 100%; height: 100%;
+      border-radius: 50%; overflow: hidden; isolation: isolate;
       border: 5px solid var(--white);
       box-shadow: 0 0 0 1px var(--border2), 0 14px 36px rgba(46,51,48,0.10);
       background: var(--bg2);
+    }
+    /* Das Foto zeigt die ganze Empfangsszene. Im kleinen Kreis wird auf
+       Kopf, Telefon und Schultern herangezoomt, damit man die Person
+       erkennt (Gesicht liegt bei etwa 55 % / 40 % des Fotos). */
+    .kontakt-foto-rund img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transform: scale(1.75); transform-origin: 55% 40%;
     }
     .kontakt-foto-ruf {
       position: absolute; right: 4px; bottom: 8px;
@@ -1692,7 +1705,7 @@
       .kontakt-layout { grid-template-columns: 1fr 1fr; grid-template-areas: "foto foto" "zeiten wege"; gap: 2rem 2.5rem; }
       .kontakt-layout.ohne-foto { grid-template-areas: "zeiten wege"; }
       .kontakt-foto { width: 112px; height: 112px; margin-top: 0; }
-      .kontakt-foto img { border-width: 4px; }
+      .kontakt-foto-rund { border-width: 4px; }
       .kontakt-foto-ruf { width: 36px; height: 36px; right: -2px; bottom: 2px; border-width: 2px; }
       .kontakt-foto-ruf svg { width: 15px; height: 15px; }
       /* Galerie: zwei Spalten; Kachel 1, 4 und 7 ueber die volle Breite,
@@ -2020,7 +2033,7 @@
         </div>
       </div>
       <div class="ueber-img-wrap image-slot a-rechts a-takt-3">
-        <img src="images/ueber-uns.jpg" alt="Michael Schulz und Dr. Hans Joachim Schulz besprechen eine Röntgenaufnahme in der Zahnarztpraxis in Pforzheim" width="1600" height="1600" loading="lazy" decoding="async">
+        <img src="images/ueber-uns.jpg" alt="Michael Schulz und Dr. Hans Joachim Schulz besprechen eine Röntgenaufnahme in der Zahnarztpraxis in Pforzheim" width="1600" height="1408" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -2128,7 +2141,7 @@
          Kachel automatisch "Bild folgt". Klick oeffnet die Grossansicht. -->
     <div class="galerie-mosaic-v4">
       <figure class="a-zoom gal-v4 gal-breit">
-        <img src="images/galerie-empfang.jpg" alt="Empfangstresen der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <img src="images/galerie-empfang.jpg" alt="Patientin und Mitarbeiterin am Empfangstresen der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
         <figcaption class="gal-label-v4"><span>Empfangsbereich</span><small>hell &middot; einladend</small></figcaption>
       </figure>
       <figure class="a-zoom gal-v4 gal-mittel">
@@ -2140,19 +2153,19 @@
         <figcaption class="gal-label-v4"><span>Moderne Geräte</span></figcaption>
       </figure>
       <figure class="a-zoom gal-v4 gal-klein">
-        <img src="images/galerie-team.jpg" alt="Das Team der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <img src="images/galerie-team.jpg" alt="Zahnarzt und Mitarbeiterin im Gespräch mit einer lachenden Patientin am Behandlungsstuhl, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
         <figcaption class="gal-label-v4"><span>Hand in Hand</span><small>ein eingespieltes Team</small></figcaption>
       </figure>
       <figure class="a-zoom gal-v4 gal-klein">
-        <img src="images/galerie-technik.jpg" alt="Zahnmedizinische Technik in der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <img src="images/galerie-technik.jpg" alt="Intraoralscanner für digitale Abdrücke, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
         <figcaption class="gal-label-v4"><span>Präzise Technik</span><small>für schonende Behandlung</small></figcaption>
       </figure>
       <figure class="a-zoom gal-v4 gal-mittel">
-        <img src="images/galerie-beratung.jpg" alt="Zwei Zahnärzte betrachten gemeinsam eine Aufnahme am Monitor, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <img src="images/galerie-beratung.jpg" alt="Zwei Zahnärzte besprechen eine Röntgenaufnahme am Monitor, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
         <figcaption class="gal-label-v4"><span>Im Alltag</span></figcaption>
       </figure>
       <figure class="a-zoom gal-v4 gal-breit">
-        <img src="images/galerie-moment.jpg" alt="Ein Moment aus dem Praxisalltag der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+        <img src="images/galerie-moment.jpg" alt="Zahnarzt Michael Schulz lacht im Gespräch am Behandlungsplatz, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
         <figcaption class="gal-label-v4"><span>Zeit für Sie</span><small>persönlich &middot; in Ruhe</small></figcaption>
       </figure>
     </div>
@@ -2167,7 +2180,7 @@
            Handy klein ueber dem Text. Fehlt die Datei, verschwindet es
            ganz und die Spalten ruecken zusammen. -->
       <figure class="kontakt-foto a-zoom a-takt-2">
-        <img src="images/kontakt-portrait.jpg" alt="Mitarbeiterin der Zahnarztpraxis Michael Schulz in Pforzheim am Telefon" width="800" height="800" loading="lazy" decoding="async" onerror="this.closest('.kontakt-layout').classList.add('ohne-foto');this.closest('.kontakt-foto').remove()">
+        <span class="kontakt-foto-rund"><img src="images/kontakt-portrait.jpg" alt="Mitarbeiterin der Zahnarztpraxis Michael Schulz in Pforzheim am Telefon" width="800" height="800" loading="lazy" decoding="async" onerror="this.closest('.kontakt-layout').classList.add('ohne-foto');this.closest('.kontakt-foto').remove()"></span>
         <a class="kontakt-foto-ruf" href="tel:0723121641" aria-label="Praxis anrufen: 07231 21641"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
       </figure>
       <div class="kontakt-zeiten">
