@@ -445,14 +445,16 @@
     }
 
     /* ── HERO ── */
-    /* Hero in reinem Weiss, damit der weisse Foto-Hintergrund
-       unsichtbar mit der Flaeche verschmilzt */
+    /* Hero: freigestelltes Portraet auf heller Hausfarbe, damit sich die
+       Freistellung absetzt. Die Flaeche steht nur hier in --hero-flaeche. */
     #hero {
+      --hero-flaeche: var(--bg2);
       padding-top: 72px;
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background: var(--white);
+      background: var(--hero-flaeche);
+      overflow: hidden;   /* das Portraet steigt beim Laden von unterhalb der Kante auf */
     }
     .hero-text-col {
       display: flex; flex-direction: column; justify-content: center;
@@ -472,10 +474,6 @@
       font-size: 1.05rem; color: var(--mid);
       line-height: 1.75; font-weight: 300;
       max-width: 400px; margin-bottom: 3rem;
-    }
-    .hero-mobile-visual {
-      display: none;
-      background: transparent;
     }
     .hero-cta {
       display: inline-flex; align-items: center; gap: 0.6rem;
@@ -520,23 +518,19 @@
     .hero-trust-check svg { display: block; }
     a.hero-trust-item { text-decoration: none; transition: color 0.15s; }
     a.hero-trust-item:hover { color: var(--petrol2); text-decoration: underline; text-underline-offset: 3px; }
-    .hero-img-col {
-      position: relative; overflow: hidden;
-      background: transparent;
+    /* Das Portraet endet an der Huefte und steht deshalb buendig auf der
+       Unterkante der Sektion. Hoehe und Breite skalieren gemeinsam, damit
+       nichts verzerrt wird; die Hoehe ist auf den Bildschirm begrenzt. */
+    .hero-bild {
+      display: flex; align-items: flex-end; justify-content: center;
+      padding: 2.5rem 2rem 0;
     }
-    /* Foto laeuft unten sanft ins Weiss aus, statt hart am
-       Karriere-Band abgeschnitten zu werden */
-    .hero-img-col::after {
-      content: '';
-      position: absolute; left: 0; right: 0; bottom: 0;
-      height: 110px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--white) 92%);
-      pointer-events: none;
+    .hero-bild picture { display: block; line-height: 0; }
+    .hero-bild img {
+      display: block;
+      width: auto; height: auto; max-width: 100%;
+      max-height: calc(100vh - 72px - 2.5rem);
     }
-    .hero-img-col .image-slot { height: 100%; }
-    .hero-img-col .image-slot img { height: 100%; object-fit: cover; object-position: center top; }
-    .hero-img-desktop { display: block; }
-    .hero-img-mobile { display: none; }
 
     /* ── KARRIERE-BANNER ── */
     .karriere-banner {
@@ -711,7 +705,9 @@
     .team-card-v4.featured .team-photo-v4 {
       border: 2px solid var(--petrol-mid);
     }
-    .team-photo-v4 img { width: 100%; height: 100%; object-fit: cover; }
+    /* Fotos sind 4:5, der Rahmen ist quadratisch: oben ansetzen,
+       damit Kopf und Gesicht vollstaendig im Bild bleiben */
+    .team-photo-v4 img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
     .team-name-v4 {
       font-family: 'Fraunces', serif;
       font-size: 0.95rem; font-weight: 400; color: var(--text);
@@ -853,14 +849,32 @@
       border-radius: 10px; overflow: hidden;
       background: var(--bg2); position: relative;
     }
-    .gal-v4 img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    /* Die Kachelgroessen kommen fest aus dem Raster, nicht aus dem Foto.
+       So sind alle Kacheln gleich gross, auch die ohne Bild ("Bild folgt"),
+       und ein spaeter eingesetztes Foto verschiebt nichts. */
+    .gal-v4 img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
     .gal-v4:hover img { transform: scale(1.04); }
-    .gal-v4.g7 { grid-column: span 7; min-height: 320px; }
-    .gal-v4.g5 { grid-column: span 5; min-height: 320px; }
-    .gal-v4.g4 { grid-column: span 4; min-height: 230px; }
-    .gal-v4.g4b { grid-column: span 4; min-height: 230px; }
-    .gal-v4.g4c { grid-column: span 4; min-height: 230px; }
-    .gal-v4.g12 { grid-column: 1 / -1; min-height: 180px; }
+    .gal-v4.g7 { grid-column: span 7; aspect-ratio: 16 / 9; }
+    .gal-v4.g5 { grid-column: span 5; }          /* uebernimmt die Hoehe von g7 */
+    .gal-v4.g4, .gal-v4.g4b, .gal-v4.g4c { grid-column: span 4; aspect-ratio: 4 / 3; }
+    .gal-v4.g12 { grid-column: 1 / -1; aspect-ratio: 4 / 1; }
+    /* Kachel ohne Foto: helle Hausfarbe, mittig "Bild folgt" */
+    .gal-leer-text {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--petrol2);
+    }
+    /* Beschriftung ohne dunklen Verlauf (der wirkt auf der hellen Flaeche
+       wie ein Schmutzrand), dafuer in dunkler Schrift */
+    .gal-leer .gal-label-v4 { background: none; }
+    .gal-leer .gal-label-v4 span { color: var(--text); }
+    .gal-leer .gal-label-v4 small { color: var(--soft); }
     .gal-label-v4 {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 0.85rem 1.1rem;
@@ -1484,15 +1498,11 @@
       /* Titel etwas kleiner, damit "unsere Leidenschaft" in eine Zeile passt */
       .hero-h1 { font-size: clamp(1.95rem, 7.4vw, 2.6rem); }
       .hero-h1 em { white-space: nowrap; }
-      .hero-mobile-visual {
-        display: block;
-        min-height: 320px;
-        margin: 2.25rem 0 1.75rem;
-        background: transparent;
-      }
-      .hero-mobile-visual img { object-position: center top; }
-      .hero-img-col { display: none; }
-      .hero-img-desktop { display: none; }
+      /* Handy: Text oben, Portraet darunter. Hoehe auf etwa 55 % des
+         Bildschirms begrenzt (svh = bei sichtbarer Browserleiste, damit es
+         beim Scrollen nicht springt; vh als Rueckfall fuer aeltere Browser). */
+      .hero-bild { padding: 0 1.5rem; }
+      .hero-bild img { max-height: 55vh; max-height: 55svh; }
       .karriere-banner { grid-template-columns: 1fr; padding: 3.5rem 1.5rem; gap: 2rem; }
       .karriere-banner-btn { width: 100%; }
       .ueber-layout { grid-template-columns: 1fr; gap: 2rem; }
@@ -1500,7 +1510,7 @@
       .stimmen-grid { grid-template-columns: 1fr; }
       .kontakt-layout { grid-template-columns: 1fr; }
       .galerie-mosaic-v4 { grid-template-columns: 1fr; }
-      .gal-v4.g7, .gal-v4.g5, .gal-v4.g4, .gal-v4.g4b, .gal-v4.g4c, .gal-v4.g12 { grid-column: span 1; min-height: 220px; }
+      .gal-v4.g7, .gal-v4.g5, .gal-v4.g4, .gal-v4.g4b, .gal-v4.g4c, .gal-v4.g12 { grid-column: span 1; aspect-ratio: 4 / 3; }
       .team-grid-v4 { grid-template-columns: repeat(2, 1fr); }
       .karriere-layout-v4 { grid-template-columns: 1fr; }
       .impressum-grid-v4 { grid-template-columns: 1fr; }
@@ -1676,14 +1686,6 @@
       <p class="eyebrow-v4 a-ruhig">Zahnarztpraxis in Pforzheim</p>
       <h1 class="hero-h1 a-auf a-takt-1">Ihr Lächeln ist<br><em>unsere Leidenschaft</em></h1>
       <p class="hero-sub a-auf a-takt-2">Familiengeführt seit über <span class="nbr">40&nbsp;Jahren</span>: moderne Zahnmedizin mit persönlicher Betreuung, direkt <span class="nbr">am&nbsp;Sedansplatz</span>. Wir nehmen uns <span class="nbr">Zeit&nbsp;für&nbsp;Sie</span>.</p>
-      <div class="hero-mobile-visual image-slot a-zoom a-takt-3">
-        <!-- HERO-BILD MOBILE VERSION: Hier deinen eigenen mobilen Bildpfad einsetzen -->
-        <img src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim mobile" loading="eager" decoding="async">
-        <div class="image-slot-note">
-          <span>Mobiles Hero-Bild hier einsetzen</span>
-          <small>Nur src im img-Tag ändern</small>
-        </div>
-      </div>
       <div class="hero-cta-row a-auf a-takt-4">
         <a class="hero-cta-tel" href="tel:0723121641">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -1700,20 +1702,18 @@
         <span class="hero-trust-item"><span class="hero-trust-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Für Angstpatienten geeignet</span>
       </div>
     </div>
-    <div class="hero-img-col image-slot a-zoom a-takt-2">
-      <!-- HERO-BILD WEBVERSION: Diesen src-Pfad für das Desktop-Bild verwenden -->
-      <img class="hero-img-desktop" src="images/arzt_template_startseite_mobil.png" alt="Zahnarztpraxis Michael Schulz Pforzheim" loading="eager" decoding="async">
-      <div class="image-slot-note">
-        <span>Praxisbild oder Porträtfoto hier einsetzen</span>
-        <small>Nur src im img-Tag ändern</small>
-      </div>
+    <div class="hero-bild a-auf a-takt-2">
+      <picture>
+        <source srcset="images/hero-schulz-frei.webp" type="image/webp">
+        <img src="images/hero-schulz-frei.png" alt="Michael Schulz, Zahnarzt und Inhaber der Praxis in Pforzheim" width="853" height="1500" fetchpriority="high" decoding="async">
+      </picture>
     </div>
   </section>
 
   <!-- KARRIERE-BANNER -->
   <section class="karriere-banner">
     <div class="a-links">
-      <span class="karriere-banner-icon"><img src="images/icons/koffer.svg" alt="" width="44" height="44" decoding="async"></span>
+      <span class="karriere-banner-icon"><img src="images/icons/koffer.svg" alt="" width="44" height="44" loading="lazy" decoding="async"></span>
       <p class="karriere-banner-eyebrow">Karriere bei uns</p>
       <h2>Zum Zahnarzt gehen ist gut. <em>Im Team arbeiten ist besser.</em></h2>
       <p class="karriere-banner-text">Ob ZFA, Ausbildung oder Empfang: Dich erwartet ein familiäres, eingespieltes Team, eine moderne Praxis <span class="nbr">am&nbsp;Sedansplatz</span> und Arbeit, die jeden Tag Menschen zum <span class="nbr">Lächeln&nbsp;bringt</span>.</p>
@@ -1726,55 +1726,55 @@
 
   <!-- LEISTUNGEN -->
   <section id="leistungen" class="section-wrap bgwhite">
-    <img class="abschnitt-icon a-zoom" src="images/icons/lupe.svg" alt="" width="44" height="44" decoding="async">
+    <img class="abschnitt-icon a-zoom" src="images/icons/lupe.svg" alt="" width="44" height="44" loading="lazy" decoding="async">
     <p class="eyebrow-v4 a-ruhig">Was wir bieten</p>
     <h2 class="h2-serif a-auf a-takt-1">Unsere Leistungen</h2>
     <p class="lead-text a-auf a-takt-2">Von der Vorsorge bis zur ästhetischen Behandlung: immer mit Ruhe, Sorgfalt und einem persönlichen Blick auf den Menschen. Schmerzpatienten erhalten bei uns unverzüglich einen Termin.</p>
     <div class="leistungen-grid a-blende a-takt-3">
       <div class="leistung-card">
-        <div class="leistung-icon"><img src="images/icons/prophylaxe.svg" alt="" width="48" height="48" decoding="async"></div>
+        <div class="leistung-icon"><img src="images/icons/prophylaxe.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></div>
         <h3>Vorsorge &amp; Prophylaxe</h3>
         <p>Regelmäßige Untersuchungen, professionelle Zahnreinigung und Kinderprophylaxe für langfristige Gesundheit.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
-        <div class="leistung-icon"><img src="images/icons/implantologie.svg" alt="" width="48" height="48" decoding="async"></div>
+        <div class="leistung-icon"><img src="images/icons/implantologie.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></div>
         <h3>Implantologie</h3>
         <p>Unser Spezialgebiet: fest verankerter Zahnersatz auf Implantaten, präzise geplant und schonend umgesetzt.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
-        <div class="leistung-icon"><img src="images/icons/zahnersatz.svg" alt="" width="48" height="48" decoding="async"></div>
+        <div class="leistung-icon"><img src="images/icons/zahnersatz.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></div>
         <h3>Zahnersatz &amp; Prothetik</h3>
         <p>Kronen, Brücken und Prothesen: hochwertige, individuelle Lösungen, präzise und schonend.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
-        <div class="leistung-icon"><img src="images/icons/parodontologie.svg" alt="" width="48" height="48" decoding="async"></div>
+        <div class="leistung-icon"><img src="images/icons/parodontologie.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></div>
         <h3>Parodontologie</h3>
         <p>Systematische Parodontitisbehandlung für gesundes Zahnfleisch und einen stabilen Zahnhalt.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
-        <div class="leistung-icon"><img src="images/icons/fuellungen.svg" alt="" width="48" height="48" decoding="async"></div>
+        <div class="leistung-icon"><img src="images/icons/fuellungen.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></div>
         <h3>Füllungen &amp; Endodontie</h3>
         <p>Professionelle Füllungen, Wurzelbehandlungen und Knirscherschienen (Bruxismus), zahnerhaltend und sorgfältig.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
-        <div class="leistung-icon"><img src="images/icons/aligner.svg" alt="" width="48" height="48" decoding="async"></div>
+        <div class="leistung-icon"><img src="images/icons/aligner.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></div>
         <h3>Aligner-Therapie</h3>
         <p>Sanfte Zahnkorrektur mit transparenten Schienen, nahezu unsichtbar im Alltag.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
-        <div class="leistung-icon"><img src="images/icons/aesthetik.svg" alt="" width="48" height="48" decoding="async"></div>
+        <div class="leistung-icon"><img src="images/icons/aesthetik.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></div>
         <h3>Ästhetische Zahnheilkunde</h3>
         <p>Bleaching, Veneers und Schmelzflecken-Entfernung für ein strahlendes, natürliches Lächeln.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </div>
       <div class="leistung-card">
-        <div class="leistung-icon"><img src="images/icons/kinder.svg" alt="" width="48" height="48" decoding="async"></div>
+        <div class="leistung-icon"><img src="images/icons/kinder.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></div>
         <h3>Kinder &amp; Angstpatienten</h3>
         <p>Kinderzahnheilkunde mit Ruhe und Geduld, dazu einfühlsame Begleitung für Angstpatienten.</p>
         <span class="leistung-link">Mehr erfahren <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
@@ -1785,7 +1785,7 @@
 
   <!-- UEBER DIE PRAXIS -->
   <section id="ueber" class="section-wrap bg2">
-    <img class="abschnitt-icon a-zoom" src="images/icons/bildschirm.svg" alt="" width="44" height="44" decoding="async">
+    <img class="abschnitt-icon a-zoom" src="images/icons/bildschirm.svg" alt="" width="44" height="44" loading="lazy" decoding="async">
     <p class="eyebrow-v4 a-ruhig">Wer wir sind</p>
     <h2 class="h2-serif a-auf a-takt-1">Über die Praxis</h2>
     <div class="ueber-layout">
@@ -1813,50 +1813,42 @@
         </div>
       </div>
       <div class="ueber-img-wrap image-slot a-rechts a-takt-3">
-        <img src="images/arzt_template.png" alt="Zahnarzt Michael Schulz Pforzheim" loading="lazy" decoding="async">
-        <div class="image-slot-note">
-          <span>Porträt- oder Praxisbild hier einsetzen</span>
-          <small>Nur src im img-Tag ändern</small>
-        </div>
+        <img src="images/ueber-uns.jpg" alt="Zahnarzt Michael Schulz lächelnd am Behandlungsplatz seiner Zahnarztpraxis in Pforzheim" width="1600" height="1600" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
 
   <!-- TEAM -->
   <section id="team" class="section-wrap bgwhite">
-    <img class="abschnitt-icon a-zoom" src="images/icons/hand-mit-zahn.svg" alt="" width="44" height="44" decoding="async">
+    <img class="abschnitt-icon a-zoom" src="images/icons/hand-mit-zahn.svg" alt="" width="44" height="44" loading="lazy" decoding="async">
     <p class="eyebrow-v4 a-ruhig">Menschen hinter der Praxis</p>
     <h2 class="h2-serif a-auf a-takt-1">Unser Team</h2>
     <p class="lead-text a-auf a-takt-2">Ein eingespieltes Team, das jeden Tag für Ihre Zahngesundheit da ist, vom ersten Hallo am Empfang bis zur Behandlung.</p>
     <div class="team-grid-v4">
       <div class="a-karte team-card-v4 featured">
         <div class="team-photo-v4 image-slot">
-          <img src="images/portraet_arzt_template.png" alt="Michael Schulz Zahnarzt" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Porträtfoto einsetzen</span><small>src ändern</small></div>
+          <img src="images/team-michael-schulz.jpg" alt="Porträt von Michael Schulz, Zahnarzt und Inhaber der Zahnarztpraxis in Pforzheim" width="800" height="1000" loading="lazy" decoding="async">
         </div>
         <div class="team-name-v4">Michael Schulz</div>
         <div class="team-role-v4">Zahnarzt &amp; Inhaber</div>
       </div>
       <div class="a-karte team-card-v4">
         <div class="team-photo-v4 image-slot">
-          <img src="images/arzt_template.png" alt="Dr. Hans Joachim Schulz Zahnarzt" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
+          <img src="images/team-hans-joachim-schulz.jpg" alt="Porträt von Dr. Hans Joachim Schulz, ehemaliger Inhaber und Experte für Implantologie" width="800" height="1000" loading="lazy" decoding="async">
         </div>
         <div class="team-name-v4">Dr. Hans Joachim Schulz</div>
         <div class="team-role-v4">Ehem. Inhaber &middot; Implantologie-Experte</div>
       </div>
       <div class="a-karte team-card-v4">
         <div class="team-photo-v4 image-slot">
-          <img src="images/empfangsdame_template.png" alt="Stephanie Schulz Empfang" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
+          <img src="images/team-stephanie-schulz.jpg" alt="Porträt von Stephanie Schulz, zuständig für Empfang, Management und Prophylaxe" width="800" height="1000" loading="lazy" decoding="async">
         </div>
         <div class="team-name-v4">Stephanie Schulz</div>
         <div class="team-role-v4">Empfang, Management &amp; Prophylaxe</div>
       </div>
       <div class="a-karte team-card-v4">
         <div class="team-photo-v4 image-slot">
-          <img src="images/MFA_template.png" alt="Mirvet Simonovic Assistenz" loading="lazy" decoding="async">
-          <div class="image-slot-note"><span>Teamfoto einsetzen</span><small>src ändern</small></div>
+          <img src="images/team-mirvet-simonovic.jpg" alt="Porträt von Mirvet Simonovic, Stuhlassistenz und Prophylaxe" width="800" height="1000" loading="lazy" decoding="async">
         </div>
         <div class="team-name-v4">Mirvet Simonovic</div>
         <div class="team-role-v4">Stuhlassistenz &amp; Prophylaxe</div>
@@ -1870,7 +1862,7 @@
 
   <!-- PATIENTENSTIMMEN -->
   <section id="stimmen" class="section-wrap bg2">
-    <img class="abschnitt-icon a-zoom" src="images/icons/zwei-sprechblasen.svg" alt="" width="44" height="44" decoding="async">
+    <img class="abschnitt-icon a-zoom" src="images/icons/zwei-sprechblasen.svg" alt="" width="44" height="44" loading="lazy" decoding="async">
     <p class="eyebrow-v4 a-ruhig">Was Patienten sagen</p>
     <h2 class="h2-serif a-auf a-takt-1">Stimmen aus <em>der Praxis</em></h2>
     <div class="stimmen-grid a-blende a-takt-3">
@@ -1919,39 +1911,33 @@
 
   <!-- GALERIE -->
   <section id="galerie" class="section-wrap bgwhite">
-    <img class="abschnitt-icon a-zoom" src="images/icons/instrumente.svg" alt="" width="44" height="44" decoding="async">
+    <img class="abschnitt-icon a-zoom" src="images/icons/instrumente.svg" alt="" width="44" height="44" loading="lazy" decoding="async">
     <p class="eyebrow-v4 a-ruhig">Einblicke</p>
     <h2 class="h2-serif a-auf a-takt-1">Unsere Praxis</h2>
     <p class="lead-text a-auf a-takt-2">Ruhig, modern und einladend: ein Ort, an dem Sie sich von Anfang an wohl fühlen sollen.</p>
     <div class="galerie-mosaic-v4">
       <div class="a-zoom gal-v4 g7 image-slot">
-        <img src="images/empfang_template.png" alt="Empfangsbereich der Zahnarztpraxis Michael Schulz in Pforzheim" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
+        <img src="images/galerie-empfang.jpg" alt="Mitarbeiterin telefoniert am Empfang der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async">
         <div class="gal-label-v4"><span>Empfangsbereich</span><small>hell &middot; einladend</small></div>
       </div>
       <div class="a-zoom gal-v4 g5 image-slot">
-        <img src="images/zimmer_template.png" alt="Modern ausgestattetes Behandlungszimmer der Zahnarztpraxis Schulz" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
+        <img src="images/galerie-behandlungszimmer.jpg" alt="Behandlungsstuhl im hellen Behandlungszimmer der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async">
         <div class="gal-label-v4"><span>Behandlungszimmer</span><small>modern ausgestattet</small></div>
       </div>
       <div class="a-zoom gal-v4 g4 image-slot">
-        <img src="images/gerate_template.png" alt="Moderne zahnmedizinische Geräte der Praxis" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
+        <img src="images/galerie-geraete.jpg" alt="Röntgengerät und Bildschirm mit Röntgenaufnahme in der Zahnarztpraxis Michael Schulz" width="1600" height="1200" loading="lazy" decoding="async">
         <div class="gal-label-v4"><span>Moderne Geräte</span></div>
       </div>
       <div class="a-zoom gal-v4 g4b image-slot">
-        <img src="images/behandlung_template.png" alt="Zahnärztliche Behandlung in der Zahnarztpraxis Schulz" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
+        <img src="images/galerie-beratung.jpg" alt="Zwei Zahnärzte besprechen ein Röntgenbild in der Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async">
         <div class="gal-label-v4"><span>Im Alltag</span></div>
       </div>
-      <div class="a-zoom gal-v4 g4c image-slot">
-        <img src="images/team_template.png" alt="Das Team der Zahnarztpraxis Michael Schulz" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
+      <div class="a-zoom gal-v4 g4c gal-leer">
+        <span class="gal-leer-text">Bild folgt</span>
         <div class="gal-label-v4"><span>Unser Team</span></div>
       </div>
-      <div class="a-zoom gal-v4 g12 image-slot">
-        <img src="images/warte_template.png" alt="Wartezimmer der Zahnarztpraxis Michael Schulz in Pforzheim" loading="lazy" decoding="async">
-        <div class="image-slot-note"><span>Galeriebild hier einsetzen</span><small>src ändern</small></div>
+      <div class="a-zoom gal-v4 g12 gal-leer">
+        <span class="gal-leer-text">Bild folgt</span>
         <div class="gal-label-v4"><span>Atmosphäre</span><small>angenehm &middot; entspannt</small></div>
       </div>
     </div>
@@ -1959,7 +1945,7 @@
 
   <!-- KONTAKT & TERMIN -->
   <section id="kontakt" class="section-wrap bg3">
-    <img class="abschnitt-icon a-zoom" src="images/icons/sprechblase.svg" alt="" width="44" height="44" decoding="async">
+    <img class="abschnitt-icon a-zoom" src="images/icons/sprechblase.svg" alt="" width="44" height="44" loading="lazy" decoding="async">
     <h2 class="h2-serif a-auf">Wir freuen uns auf Sie</h2>
     <div class="kontakt-layout">
       <div>
@@ -1980,7 +1966,7 @@
           <span class="nbr">07231&nbsp;21641</span>
         </a>
         <a class="contact-row-v4" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-          <span class="contact-icon-v4"><img src="images/icons/standort-pin.svg" alt="" width="28" height="28" decoding="async" class="standort-pin"></span>
+          <span class="contact-icon-v4"><img src="images/icons/standort-pin.svg" alt="" width="28" height="28" loading="lazy" decoding="async" class="standort-pin"></span>
           Dillsteiner Str. 7, 75173 Pforzheim
         </a>
         <a class="contact-row-v4" href="mailto:info@zahnarzt-schulz-pforzheim.de">
@@ -2381,7 +2367,7 @@
         <h3 id="ld-titel"></h3>
       </div>
       <div class="leistung-detail-bild image-slot">
-        <img id="ld-bild" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" loading="lazy" decoding="async">
+        <img id="ld-bild" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" width="1600" height="1000" loading="lazy" decoding="async">
         <div class="image-slot-note"><span>Bild hier einsetzen</span><small>src ändern</small></div>
       </div>
       <div class="leistung-detail-text" id="ld-text"></div>
@@ -2420,7 +2406,7 @@
     <!-- Route: oeffnet Apple Karten auf iPhone/Mac, sonst Google Maps
          (der Adresstausch passiert weiter unten im Skript ueber .route-link) -->
     <a class="notfall-route route-link" href="https://www.google.com/maps/dir/?api=1&destination=Zahnarztpraxis+Michael+Schulz,+Dillsteiner+Str.+7,+75173+Pforzheim" target="_blank" rel="noopener">
-      <img src="images/icons/standort-pin.svg" alt="" width="26" height="26" decoding="async" class="standort-pin">
+      <img src="images/icons/standort-pin.svg" alt="" width="26" height="26" loading="lazy" decoding="async" class="standort-pin">
       <span class="notfall-route-text">
         <span class="notfall-route-label">Route zu uns</span>
         <span class="notfall-route-adresse">Dillsteiner Str.&nbsp;7, 75173&nbsp;Pforzheim</span>
