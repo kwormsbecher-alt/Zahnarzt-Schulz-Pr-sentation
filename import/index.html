@@ -463,7 +463,7 @@
        Bewusst NICHT an --bg2 gekoppelt: Auf fast weissem Grund wuerde das
        helle Salbei-Polo mit dem Hintergrund verschwimmen. */
     #hero {
-      --hero-flaeche: #E4EDE6;
+      --hero-flaeche: #EFF4F0;
       padding-top: 72px;
       min-height: 100vh;
       display: grid;
@@ -1467,6 +1467,30 @@
       display: flex; align-items: center; justify-content: center; color: var(--notfall);
     }
     .notfall-modal-icon svg { width: 47%; height: 47%; }
+    /* Rundes Foto im Kopf des Kontakt-Popups, ersetzt das fruehere
+       Telefon-Icon. Kleiner Telefon-Punkt unten rechts als Hinweis. */
+    .notfall-modal-foto {
+      width: 92px; height: 92px; margin: 0 auto 1.25rem;
+      border-radius: 50%; position: relative;
+      background: var(--petrol-bg);
+      box-shadow: 0 0 0 4px var(--white), 0 6px 20px rgba(46,51,48,0.12);
+    }
+    .notfall-modal-foto img {
+      width: 100%; height: 100%; border-radius: 50%;
+      object-fit: cover; object-position: center center; display: block;
+    }
+    .notfall-modal-foto.ohne-bild { box-shadow: none; }
+    .notfall-modal-foto.ohne-bild img { display: none; }
+    .notfall-modal-foto-badge {
+      position: absolute; right: -2px; bottom: -2px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--petrol); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      border: 2.5px solid var(--white);
+    }
+    .notfall-modal-foto.ohne-bild .notfall-modal-foto-badge {
+      position: static; width: 56px; height: 56px; margin: 14px auto; border: none;
+    }
     .notfall-modal-card h3 {
       font-family: 'Fraunces', serif;
       font-size: clamp(1.2rem, 2.7vh, 1.5rem); font-weight: 400;
@@ -2160,12 +2184,12 @@
         <img src="images/galerie-technik.jpg" alt="Intraoralscanner für digitale Abdrücke, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
         <figcaption class="gal-label-v4"><span>Präzise Technik</span><small>für schonende Behandlung</small></figcaption>
       </figure>
-      <figure class="a-zoom gal-v4 gal-mittel">
+      <figure class="a-zoom gal-v4 gal-breit">
         <img src="images/galerie-beratung.jpg" alt="Zwei Zahnärzte besprechen eine Röntgenaufnahme am Monitor, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
         <figcaption class="gal-label-v4"><span>Im Alltag</span></figcaption>
       </figure>
-      <figure class="a-zoom gal-v4 gal-breit">
-        <img src="images/galerie-moment.jpg" alt="Zahnarzt Michael Schulz lacht im Gespräch am Behandlungsplatz, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
+      <figure class="a-zoom gal-v4 gal-mittel">
+        <img src="images/galerie-moment.jpg" alt="Zahnarzt Michael Schulz lacht während der Behandlung einer Patientin, Zahnarztpraxis Michael Schulz in Pforzheim" width="1600" height="1200" loading="lazy" decoding="async" onerror="var k=this.closest('.gal-v4');k.classList.add('gal-leer');k.removeAttribute('tabindex')">
         <figcaption class="gal-label-v4"><span>Zeit für Sie</span><small>persönlich &middot; in Ruhe</small></figcaption>
       </figure>
     </div>
@@ -2175,14 +2199,9 @@
   <section id="kontakt" class="section-wrap bg3">
     <img class="abschnitt-icon a-zoom" src="images/icons/sprechblase.svg" alt="" width="44" height="44" loading="lazy" decoding="async">
     <h2 class="h2-serif a-auf">Wir freuen uns auf Sie</h2>
-    <div class="kontakt-layout">
-      <!-- Rundes Foto: Desktop rechts neben den beiden Spalten, Tablet und
-           Handy klein ueber dem Text. Fehlt die Datei, verschwindet es
-           ganz und die Spalten ruecken zusammen. -->
-      <figure class="kontakt-foto a-zoom a-takt-2">
-        <span class="kontakt-foto-rund"><img src="images/kontakt-portrait.jpg" alt="Mitarbeiterin der Zahnarztpraxis Michael Schulz in Pforzheim am Telefon" width="800" height="800" loading="lazy" decoding="async" onerror="this.closest('.kontakt-layout').classList.add('ohne-foto');this.closest('.kontakt-foto').remove()"></span>
-        <a class="kontakt-foto-ruf" href="tel:0723121641" aria-label="Praxis anrufen: 07231 21641"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-      </figure>
+    <!-- ohne-foto: das runde Mitarbeiterfoto sitzt jetzt im Kopf des
+         Kontakt-Popups, nicht mehr hier. Die Foto-Spalte entfaellt. -->
+    <div class="kontakt-layout ohne-foto">
       <div class="kontakt-zeiten">
         <div class="kontakt-col-title">Öffnungszeiten</div>
         <div class="hours-list-v4">
@@ -2637,8 +2656,9 @@
   <div class="notfall-modal-backdrop" onclick="closeNotfall()"></div>
   <div class="notfall-modal-card">
     <button class="notfall-modal-close" onclick="closeNotfall()" aria-label="Schließen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
-    <div class="notfall-modal-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <div class="notfall-modal-foto">
+      <img src="images/kontakt-portrait.jpg" alt="Mitarbeiterin der Zahnarztpraxis Michael Schulz in Pforzheim am Telefon" width="600" height="600" loading="lazy" decoding="async" onerror="this.closest('.notfall-modal-foto').classList.add('ohne-bild')">
+      <span class="notfall-modal-foto-badge" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
     </div>
     <h3>So erreichen Sie uns</h3>
     <p>Rufen Sie uns gerne an oder schreiben Sie uns eine <span class="nbr">E-Mail</span>. Wir melden uns schnellstmöglich bei Ihnen. Schmerzpatienten erhalten unverzüglich einen Termin.</p>
