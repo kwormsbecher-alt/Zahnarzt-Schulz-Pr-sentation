@@ -781,11 +781,27 @@
       color: var(--text-gruen); letter-spacing: 0.08em;
       text-transform: uppercase;
     }
+    /* Einladung an Bewerber, direkt unter den Teamgesichtern: wer die
+       Menschen gesehen hat, soll hier angesprochen werden. Ruhige Flaeche,
+       weil das grosse Karriere-Banner weiter oben schon laut ist. */
     .team-karriere-cta {
-      text-align: center; margin-top: 4rem; padding-top: 3rem;
-      border-top: 1px solid var(--border);
+      text-align: center; margin-top: 4rem;
+      padding: 2.75rem 2rem 2.5rem;
+      background: var(--petrol-bg);
+      border-radius: 16px;
     }
-    .team-karriere-cta p { font-size: 0.92rem; color: var(--mid); margin-bottom: 1rem; font-weight: 300; }
+    .team-karriere-cta h3 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.3rem, 2.4vw, 1.6rem); font-weight: 400;
+      color: var(--text); margin-bottom: 0.75rem; line-height: 1.25;
+      text-wrap: balance;
+    }
+    .team-karriere-cta p {
+      font-size: 0.95rem; color: var(--mid); font-weight: 300;
+      line-height: 1.75; margin: 0 auto 1.75rem; max-width: 52ch;
+      text-wrap: pretty;
+    }
+    .team-karriere-cta .btn-outline-petrol { background: var(--white); }
     .btn-outline-petrol {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.75rem 1.75rem;
@@ -2098,9 +2114,13 @@
         <div class="team-role-v4">Stuhlassistenz &amp; Prophylaxe</div>
       </div>
     </div>
-    <div class="team-karriere-cta">
-      <p>Werden Sie Teil unseres Teams.</p>
-      <button class="btn-outline-petrol" onclick="showKarriere()">Offene Stellen ansehen &rarr;</button>
+    <div class="team-karriere-cta a-auf">
+      <h3>Sie sehen sich hier arbeiten?</h3>
+      <p>Dann würden wir Sie gerne kennenlernen. Wir sind ein kleines Team, in dem jeder jeden kennt und man sich aufeinander verlassen kann. Gerade suchen wir Verstärkung am Stuhl, am Empfang und in der <span class="nbr">Ausbildung</span>.</p>
+      <button class="btn-outline-petrol" onclick="showKarriere()">
+        Offene Stellen ansehen
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
     </div>
   </section>
 
