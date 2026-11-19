@@ -3163,14 +3163,32 @@
     const file = document.getElementById('f-file').files[0];
     if (file) data.append('Lebenslauf', file);
 
+    /* Datei zu gross: lieber hier abfangen als den Upload ins Leere
+       laufen lassen. FormSubmit nimmt grosse Anhaenge an, bricht sie
+       aber spaeter ab -- der Bewerber sieht dann nur einen Fehler. */
+    if (file && file.size > 10 * 1024 * 1024) {
+      errorMsg.innerHTML = 'Die Datei ist zu gross (max. 10 MB). Bitte verkleinern Sie sie oder schicken Sie die Unterlagen per E-Mail an <strong>' + BEWERBUNG_MAIL + '</strong>.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
     const btn = document.getElementById('f-submit');
     btn.disabled = true;
-    btn.textContent = 'Wird gesendet …';
+    btn.textContent = file ? 'Datei wird hochgeladen …' : 'Wird gesendet …';
+
+    /* Ohne Zeitgrenze haengt fetch, bis der Browser von sich aus
+       aufgibt -- das kann Minuten dauern, und der Bewerber sieht die
+       ganze Zeit nur einen deaktivierten Knopf. Nach 45 Sekunden
+       brechen wir selbst ab und sagen, was zu tun ist. Mit Anhang
+       geben wir mehr Zeit, weil der Upload mitzaehlt. */
+    const stopp = new AbortController();
+    const frist = setTimeout(() => stopp.abort(), file ? 90000 : 45000);
     try {
       const res = await fetch('https://formsubmit.co/ajax/' + BEWERBUNG_MAIL, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
-        body: data
+        body: data,
+        signal: stopp.signal
       });
       if (!res.ok) throw new Error('Senden fehlgeschlagen (' + res.status + ')');
       successMsg.style.display = 'block';
@@ -3178,8 +3196,12 @@
       document.querySelector('.file-upload-v4 p').innerHTML = 'Lebenslauf &amp; Zeugnisse hochladen &middot; PDF, DOC bis 10 MB';
       document.getElementById('f-dsgvo').checked = false;
     } catch (e) {
+      errorMsg.innerHTML = (e.name === 'AbortError')
+        ? 'Das Absenden dauert ungewöhnlich lange. Bitte schicken Sie uns Ihre Bewerbung per E-Mail an <strong>' + BEWERBUNG_MAIL + '</strong> oder rufen Sie uns an: <strong>07231 21641</strong>.'
+        : 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schicken Sie Ihre Bewerbung per E-Mail an <strong>' + BEWERBUNG_MAIL + '</strong>.';
       errorMsg.style.display = 'block';
     } finally {
+      clearTimeout(frist);
       btn.disabled = false;
       btn.innerHTML = 'Bewerbung absenden &rarr;';
     }
