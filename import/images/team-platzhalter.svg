@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Platzhalter für ein Teamfoto">
+  <rect width="800" height="1000" fill="#E8F0EC"/>
+  <g fill="none" stroke="#8DA290" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="400" cy="420" r="112"/>
+    <path d="M232 700c0-93 75-168 168-168s168 75 168 168"/>
+  </g>
+</svg>
