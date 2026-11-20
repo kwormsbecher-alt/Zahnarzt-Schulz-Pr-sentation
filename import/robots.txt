@@ -4,4 +4,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zahnarzt-schulz-pforzheim.de/sitemap.xml
+Sitemap: https://zahnarztpraxis-schulz.de/sitemap.xml
